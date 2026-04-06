@@ -41,7 +41,6 @@
     ]
     # Linux-only packages
     ++ lib.optionals pkgs.stdenv.isLinux [
-      blueman
       firefox
       libnotify
       mpd
