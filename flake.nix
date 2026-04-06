@@ -41,32 +41,23 @@
     nixpkgs,
     home-manager,
     ...
-  }: {
-    nixosConfigurations = let
-      system = "x86_64-linux";
-      username = "ecosse";
-    in {
-      hp = nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        specialArgs = {
-          inherit inputs username;
-        };
-
-        modules = [
-          ./configuration.nix
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {
-              inherit inputs;
-            };
-            home-manager.users.ecosse = import ./home.nix;
-          }
+  }: let
+    mkHost = import ./lib/mkHost.nix { inherit inputs; };
+  in {
+    nixosConfigurations = {
+      hp = mkHost {
+        hostname = "hp";
+        username = "ecosse";
+        system = "x86_64-linux";
+        homeModules = [
+          ./home/zen-browser.nix
+          ./home/dank-material-shell.nix
+          ./home/danksearch.nix
         ];
       };
+
+      # Future hosts:
+      # macbook = mkDarwinHost { ... };
     };
   };
 }
