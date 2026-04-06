@@ -12,6 +12,7 @@
     ./wezterm.nix
     ./lazygit.nix
     ./yazi.nix
+    ./neovide.nix
   ];
 
   fonts.fontconfig.enable = true;
