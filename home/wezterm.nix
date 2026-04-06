@@ -25,6 +25,8 @@
         darwinConfig = lib.optionalString pkgs.stdenv.isDarwin ''
           config.macos_window_background_blur = 20
         '';
+
+        fontSize = if pkgs.stdenv.isLinux then "14.0" else "17.0";
       in
       # language=lua
       ''
@@ -127,7 +129,7 @@
         config.color_scheme = "Tokyo Night (Gogh)"
         config.font = wezterm.font("FiraCode Nerd Font")
         config.harfbuzz_features = { "zero", "cv05", "cv02", "ss05", "ss04" }
-        config.font_size = 17.0
+        config.font_size = ${fontSize}
         config.enable_scroll_bar = true
         config.scrollback_lines = 3500
 
