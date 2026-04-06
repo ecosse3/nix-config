@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # X11
@@ -33,11 +33,13 @@
   # Greetd
   services.greetd = {
     enable = true;
-    settings = {
-      default_session = {
-        command = "${config.programs.niri.package}/bin/niri-session";
-        user = "ecosse";
-      };
-    };
+    settings.default_session.user = "ecosse";
+  };
+
+  # DMS Greeter (DankMaterialShell login/lock screen via greetd)
+  programs.dank-material-shell.greeter = {
+    enable = true;
+    compositor.name = "niri";
+    configHome = "/home/ecosse";
   };
 }

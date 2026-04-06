@@ -39,6 +39,8 @@ inputs.nixpkgs.lib.nixosSystem {
     ../core
     ../packages
 
+    inputs.dank-material-shell.nixosModules.greeter
+
     inputs.home-manager.nixosModules.home-manager
     {
       home-manager.useGlobalPkgs = true;
