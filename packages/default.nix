@@ -25,6 +25,7 @@
   environment.systemPackages = with pkgs; [
     cmake
     curl
+    delta
     gnumake
     libgcc
     libgccjit
