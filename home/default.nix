@@ -79,7 +79,7 @@
   programs.password-store = {
     enable = true;
     settings = {
-      PASSWORD_STORE_DIR = "~/.password-store";
+      PASSWORD_STORE_DIR = "/home/ecosse/.password-store";
     };
   };
 
