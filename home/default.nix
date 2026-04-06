@@ -10,6 +10,7 @@
     ./neovim.nix
     ./shell/zsh.nix
     ./wezterm.nix
+    ./lazygit.nix
   ];
 
   fonts.fontconfig.enable = true;
@@ -21,10 +22,8 @@
     htop
     bun
     kitty
-    lazygit
     ripgrep
     fd
-    stow
     opencode
     pinentry-gnome3
     fastfetch

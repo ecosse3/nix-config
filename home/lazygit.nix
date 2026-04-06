@@ -1,0 +1,148 @@
+{
+  lib,
+  pkgs,
+  ...
+}:
+
+let
+  # `open` is macOS-only; Linux uses xdg-open
+  openCmd = if pkgs.stdenv.isDarwin then "open" else "xdg-open";
+in
+{
+  programs.lazygit = {
+    enable = true;
+    enableZshIntegration = true;
+
+    settings = {
+      gui = {
+        mouseEvents = false;
+        theme = {
+          activeBorderColor = [
+            "red"
+            "bold"
+          ];
+          inactiveBorderColor = [ "white" ];
+          optionsTextColor = [ "blue" ];
+          selectedLineBgColor = [ "#203354" ];
+          cherryPickedCommitBgColor = [ "cyan" ];
+          cherryPickedCommitFgColor = [ "blue" ];
+          unstagedChangesColor = [ "red" ];
+        };
+      };
+
+      git = {
+        pagers = [
+          {
+            colorArg = "always";
+            pager = ''delta --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"'';
+          }
+        ];
+        log = {
+          order = "topo-order";
+          showGraph = "always";
+          showWholeGraph = false;
+        };
+        commitPrefixes = {
+          lb-mobile-app = [
+            {
+              pattern = ''^\w+\/(\w+[^-]*-[^-]*)'';
+              replace = "[$1] ";
+            }
+          ];
+          lb-web-app = [
+            {
+              pattern = ''\w+\/(\w+[^-]*-[^-]*)'';
+              replace = "[$1] ";
+            }
+          ];
+          codeandpepper-careers = [
+            {
+              pattern = ''\w+\/(\w+[^-]*-[^-]*)'';
+              replace = "[$1] ";
+            }
+          ];
+          gaia-lens-web = [
+            {
+              pattern = ''(\w+)\/(\w+-\d+).*'';
+              replace = "$1($2): ";
+            }
+          ];
+          cas-marketplace = [
+            {
+              pattern = ''(\w+)\/(\w+-\d+).*'';
+              replace = "$1($2): ";
+            }
+          ];
+          Pivot-Budget = [
+            {
+              pattern = ''(\w+-\d+).*'';
+              replace = "[$1] ";
+            }
+          ];
+        };
+      };
+
+      customCommands = [
+        {
+          key = "b";
+          prompts = [
+            {
+              type = "menu";
+              title = "What kind of branch is it? (from {{ index .SelectedLocalBranch.Name }})";
+              options = [
+                {
+                  name = "bug fix";
+                  value = "fix";
+                }
+                {
+                  name = "feature";
+                  value = "feat";
+                }
+                {
+                  name = "chore";
+                  value = "chore";
+                }
+                {
+                  name = "hot fix";
+                  value = "hotfix";
+                  description = "If there is a need to fix a blocker, do a temporary patch, apply a critical framework or configuration change that should be handled immediately.";
+                }
+                {
+                  name = "experimental";
+                  value = "experimental";
+                  description = "Any new feature or idea that is not part of a release or a sprint. A branch for playing around.";
+                }
+              ];
+            }
+            {
+              type = "input";
+              title = "What is the {{ index .PromptResponses 0 }} ID?";
+              initialValue = "";
+            }
+          ];
+          command = "git checkout -b {{ index .PromptResponses 0 }}/{{ index .PromptResponses 1 }}";
+          context = "localBranches";
+          loadingText = "creating branch";
+        }
+        {
+          key = "<c-j>";
+          command = ''/bin/bash -c 'branch_name={{.SelectedLocalBranch.RefName}}; parsed_name=$(echo "$branch_name" | sed -E "s/.*\/([A-Z]+-[0-9]+).*/\1/"); ${openCmd} https://gaialens.atlassian.net/browse/$parsed_name' '';
+          context = "localBranches";
+          description = "Load specific issue in Jira";
+          loadingText = "Opening Jira...";
+        }
+        {
+          key = "<c-a>";
+          description = "Pick AI commit";
+          command = "aicommit2";
+          context = "files";
+          output = "terminal";
+        }
+      ];
+
+      os = {
+        editPreset = "nvim-remote";
+      };
+    };
+  };
+}
