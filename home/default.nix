@@ -9,6 +9,7 @@
   imports = [
     ./neovim.nix
     ./shell/zsh.nix
+    ./wezterm.nix
   ];
 
   fonts.fontconfig.enable = true;
@@ -24,7 +25,6 @@
     ripgrep
     fd
     stow
-    wezterm
     opencode
     pinentry-gnome3
     fastfetch
