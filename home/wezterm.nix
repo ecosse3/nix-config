@@ -61,7 +61,8 @@
 
           -- Panes
           { mods = "CTRL|SHIFT", key = "h", action = act.SplitHorizontal({ args = {} }) },
-          { mods = "CTRL|SHIFT", key = "v", action = act.SplitVertical({ args = {} }) },
+          { mods = "CTRL|SHIFT", key = "s", action = act.SplitVertical({ args = {} }) },
+          { mods = "CTRL|SHIFT", key = "v", action = act.PasteFrom("Clipboard") },
           { mods = "CTRL",       key = "a", action = act.ActivatePaneDirection("Left") },
           { mods = "CTRL",       key = "d", action = act.ActivatePaneDirection("Right") },
           { mods = "CTRL|SHIFT", key = "k", action = act.ActivatePaneDirection("Up") },
