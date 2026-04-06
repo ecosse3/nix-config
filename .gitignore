@@ -1,3 +1,6 @@
 # OpenCode agents/skills
 .agents/
 skills-lock.json
+
+# Nix build output
+result

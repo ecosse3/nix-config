@@ -56,6 +56,10 @@ update-input input:
 check:
     nix flake check --no-build
 
+# Format all nix files with nixfmt
+fmt:
+    nixfmt .
+
 # Show flake metadata
 info:
     nix flake metadata

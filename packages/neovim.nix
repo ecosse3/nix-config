@@ -14,20 +14,20 @@
     # ── LSPs ──────────────────────────────────────────────────────────
     bash-language-server
     biome
-    clang-tools                  # provides clangd
+    clang-tools # provides clangd
     deno
     dockerfile-language-server
     emmet-ls
     graphql-language-service-cli
     lua-language-server
-    marksman                     # markdown
-    nil                          # nix (alternative to nixd)
-    nixd                         # nix
-    nodePackages.typescript-language-server  # ts_ls fallback
+    marksman # markdown
+    nil # nix (alternative to nixd)
+    nixd # nix
+    nodePackages.typescript-language-server # ts_ls fallback
     oxlint
     prisma-language-server
-    pyright                      # python
-    sqls                         # SQL
+    pyright # python
+    sqls # SQL
     tailwindcss-language-server
     terraform-ls
     tflint

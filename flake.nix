@@ -36,28 +36,31 @@
     };
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    home-manager,
-    ...
-  }: let
-    mkHost = import ./lib/mkHost.nix { inherit inputs; };
-  in {
-    nixosConfigurations = {
-      hp = mkHost {
-        hostname = "hp";
-        username = "ecosse";
-        system = "x86_64-linux";
-        homeModules = [
-          ./home/zen-browser.nix
-          ./home/dank-material-shell.nix
-          ./home/danksearch.nix
-        ];
-      };
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }:
+    let
+      mkHost = import ./lib/mkHost.nix { inherit inputs; };
+    in
+    {
+      nixosConfigurations = {
+        hp = mkHost {
+          hostname = "hp";
+          username = "ecosse";
+          system = "x86_64-linux";
+          homeModules = [
+            ./home/zen-browser.nix
+            ./home/dank-material-shell.nix
+            ./home/danksearch.nix
+          ];
+        };
 
-      # Future hosts:
-      # macbook = mkDarwinHost { ... };
+        # Future hosts:
+        # macbook = mkDarwinHost { ... };
+      };
     };
-  };
 }

@@ -22,7 +22,7 @@
   hostname,
   username,
   system,
-  homeModules ? [],
+  homeModules ? [ ],
 }:
 
 let
@@ -46,9 +46,11 @@ inputs.nixpkgs.lib.nixosSystem {
       home-manager.extraSpecialArgs = {
         inherit inputs username;
       };
-      home-manager.users.${username} = { ... }: {
-        imports = [ ../home ] ++ homeModules;
-      };
+      home-manager.users.${username} =
+        { ... }:
+        {
+          imports = [ ../home ] ++ homeModules;
+        };
     }
   ];
 }

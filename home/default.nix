@@ -1,4 +1,9 @@
-{ inputs, pkgs, username, ... }:
+{
+  inputs,
+  pkgs,
+  username,
+  ...
+}:
 
 {
   imports = [
@@ -17,19 +22,55 @@
     kitty
     lazygit
     ripgrep
+    fd
     stow
     wezterm
     opencode
     pinentry-gnome3
     fastfetch
-    just         # task runner (see Justfile)
-    uv           # Python project manager (replaces pip/venv/pyenv)
+    just # task runner (see Justfile)
+    uv # Python project manager (replaces pip/venv/pyenv)
   ];
 
   programs.git = {
     enable = true;
-    settings.user.name = "ecosse3";
-    settings.user.email = "luk.kurpiewski@gmail.com";
+    lfs.enable = true;
+    settings = {
+      user.name = "ecosse3";
+      user.email = "luk.kurpiewski@gmail.com";
+      init.defaultBranch = "main";
+      push.autoSetupRemote = true;
+      pull.rebase = true;
+      rebase.autoStash = true;
+      merge.conflictStyle = "zdiff3";
+      diff.algorithm = "histogram";
+      diff.colorMoved = "default";
+      commit.verbose = true;
+      rerere.enabled = true;
+      branch.sort = "-committerdate";
+      log.date = "iso";
+      alias = {
+        graph = "log --decorate --oneline --graph";
+        p = "pull --ff-only";
+        co = "checkout";
+        s = "status --short --branch";
+      };
+    };
+    ignores = [
+      ".direnv"
+      "result"
+      ".DS_Store"
+    ];
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      line-numbers = true;
+      side-by-side = true;
+      navigate = true;
+    };
   };
 
   programs.gpg.enable = true;
@@ -44,6 +85,33 @@
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true; # caches devShells, much faster than plain direnv
+  };
+
+  programs.bat = {
+    enable = true;
+  };
+
+  programs.eza = {
+    enable = true;
+    enableZshIntegration = true; # replaces ls with eza
+    icons = "auto";
+    git = true;
+  };
+
+  programs.gh = {
+    enable = true;
+    settings.git_protocol = "ssh";
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true; # provides z command (replaces oh-my-zsh z plugin)
   };
 
   services.gpg-agent.enable = true;

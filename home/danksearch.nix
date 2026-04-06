@@ -11,7 +11,15 @@
           path = "~/Projects";
           max_depth = 8;
           exclude_hidden = true;
-          exclude_dirs = [ "node_modules" ".git" ".next" "dist" "build" ".turbo" ".cache" ];
+          exclude_dirs = [
+            "node_modules"
+            ".git"
+            ".next"
+            "dist"
+            "build"
+            ".turbo"
+            ".cache"
+          ];
         }
         {
           path = "~/Documents";

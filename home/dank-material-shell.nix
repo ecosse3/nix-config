@@ -20,5 +20,9 @@
     managePluginSettings = true;
   };
 
-  home.packages = with pkgs; [ polkit prettier sshfs ];
+  home.packages = with pkgs; [
+    polkit
+    prettier
+    sshfs
+  ];
 }

@@ -1,4 +1,12 @@
-{ config, pkgs, lib, inputs, hostname, username, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  hostname,
+  username,
+  ...
+}:
 
 {
   imports = [
@@ -7,8 +15,33 @@
     ../hosts/${hostname}/hardware-configuration.nix
   ];
 
-  # Enable Flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # Nix daemon settings
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    auto-optimise-store = true; # deduplicate on every build
+    trusted-users = [
+      "root"
+      "@wheel"
+    ];
+    warn-dirty = false; # suppress "Git tree is dirty" warnings
+
+    # nix-community binary cache (neovim-nightly, etc.)
+    substituters = [ "https://nix-community.cachix.org" ];
+    trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
+  };
+
+  # Auto garbage-collect old generations weekly
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
+
+  # Disable legacy channels (flakes replace them)
+  nix.channel.enable = false;
 
   # Networking
   networking.hostName = hostname;
@@ -59,9 +92,13 @@
   users.users.${username} = {
     isNormalUser = true;
     description = "Lucas Kurpiewski";
-    extraGroups = [ "networkmanager" "wheel" "i2c" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "i2c"
+    ];
     shell = pkgs.zsh;
-    packages = with pkgs; [];
+    packages = with pkgs; [ ];
   };
 
   # Hardware

@@ -28,7 +28,10 @@
     ];
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "z" "sudo" ];
+      plugins = [
+        "git"
+        "sudo"
+      ];
     };
   };
 }
