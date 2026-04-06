@@ -11,6 +11,7 @@
     ./shell/zsh.nix
     ./wezterm.nix
     ./lazygit.nix
+    ./yazi.nix
   ];
 
   fonts.fontconfig.enable = true;
