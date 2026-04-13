@@ -9,7 +9,7 @@ default:
 # Auto-detect host based on OS
 host := if os() == "macos" { "macbook" } else { "hp" }
 rebuild_cmd := if os() == "macos" { "darwin-rebuild" } else { "nixos-rebuild" }
-sudo_cmd := if os() == "macos" { "" } else { "sudo " }
+sudo_cmd := "sudo "
 
 # ─── System Rebuild (works on both NixOS and macOS) ───────────────────
 
@@ -45,7 +45,7 @@ switch-hp:
 
 # Switch Darwin macbook configuration explicitly
 switch-macbook:
-    darwin-rebuild switch --flake .#macbook
+    sudo darwin-rebuild switch --flake .#macbook
 
 # ─── Flake Management ─────────────────────────────────────────────────
 
