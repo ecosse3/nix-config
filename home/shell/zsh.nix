@@ -8,10 +8,14 @@
       enable = true;
     };
     shellAliases = {
+      l = "eza -lA --icons=auto --git";
+      ls = "eza --tree --level=2 --long --icons --git";
+      lg = "lazygit";
+      pn = "pnpm";
+      serena = "uvx --from git+https://github.com/oraios/serena serena";
+      sozsh = "source ~/.zshrc";
       v = "nvim";
       ":q" = "exit";
-      lg = "lazygit";
-      sozsh = "source ~/.zshrc";
     };
     plugins = [
       {

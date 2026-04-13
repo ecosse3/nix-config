@@ -28,6 +28,7 @@
     [
       htop
       bun
+      eza
       kitty
       ripgrep
       fd
