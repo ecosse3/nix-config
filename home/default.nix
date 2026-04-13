@@ -23,10 +23,7 @@
   fonts.fontconfig.enable = pkgs.stdenv.isLinux;
 
   home.username = username;
-  home.homeDirectory = 
-    if pkgs.stdenv.isLinux 
-    then "/home/${username}"
-    else "/Users/${username}";
+  home.homeDirectory = if pkgs.stdenv.isLinux then "/home/${username}" else "/Users/${username}";
 
   home.packages =
     with pkgs;

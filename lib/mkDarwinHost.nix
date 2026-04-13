@@ -35,5 +35,6 @@ inputs.nix-darwin.lib.darwinSystem {
           imports = [ ../home ] ++ homeModules;
         };
     }
-  ] ++ extraModules;
+  ]
+  ++ extraModules;
 }
