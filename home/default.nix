@@ -36,6 +36,8 @@
       fastfetch
       just # task runner (see Justfile)
       uv # Python project manager (replaces pip/venv/pyenv)
+      fnm # Node version manager
+      rbenv # Ruby version manager
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       pinentry-gnome3
