@@ -3,7 +3,7 @@
 ## Project
 
 NixOS flake configuration for **ecosse** (Lucas Kurpiewski, GitHub: ecosse3).
-Multi-host: HP laptop (x86_64-linux) running NixOS 25.11 with GNOME + Niri,
+Multi-host: HP laptop (x86_64-linux) running NixOS unstable with GNOME + Niri,
 and macOS via nix-darwin.
 
 **Repo**: `git@github.com:ecosse3/nix-config.git`
@@ -62,8 +62,8 @@ nix-config/
 
 ## Architecture
 
-- **Single nixpkgs channel**: `nixos-25.11` (stable). `nixpkgs-unstable` is only
-  used by DankMaterialShell's `dgop` package.
+- **Single nixpkgs channel**: `nixos-unstable` for both NixOS and nix-darwin.
+  `nixpkgs-darwin` follows `nixpkgs-unstable`.
 - **`lib/mkHost.nix`**: Reduces each host to a single function call.
 - **`specialArgs`/`extraSpecialArgs`**: `inputs`, `username`, and `hostname` are
   threaded through to all modules.
