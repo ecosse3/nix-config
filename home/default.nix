@@ -28,7 +28,15 @@
   home.packages =
     with pkgs;
     [
+      # System utils
       htop
+      wget
+      unzip
+      jq
+      fzf
+      age
+
+      # Dev tools
       bun
       eza
       ripgrep
@@ -38,6 +46,14 @@
       uv # Python project manager (replaces pip/venv/pyenv)
       fnm # Node version manager
       rbenv # Ruby version manager
+
+      # Dev containers
+      devenv
+      devpod
+
+      # Terminal tools
+      zellij
+      lazydocker
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       pinentry-gnome3
