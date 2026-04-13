@@ -6,43 +6,48 @@
 default:
     @just --list
 
-# ─── NixOS (HP laptop) ───────────────────────────────────────────────
+# Auto-detect host based on OS
+host := if os() == "macos" { "macbook" } else { "hp" }
+rebuild_cmd := if os() == "macos" { "darwin-rebuild" } else { "nixos-rebuild" }
+sudo_cmd := if os() == "macos" { "" } else { "sudo " }
 
-# Build and switch NixOS configuration
+# ─── System Rebuild (works on both NixOS and macOS) ───────────────────
+
+# Build and switch configuration for current host
 switch:
-    sudo nixos-rebuild switch --flake .#hp
+    {{sudo_cmd}}{{rebuild_cmd}} switch --flake .#{{host}}
 
-# Test NixOS configuration (reverts on reboot)
+# Test configuration (reverts on reboot for NixOS, check on Darwin)
 test:
-    sudo nixos-rebuild test --flake .#hp
+    {{sudo_cmd}}{{rebuild_cmd}} test --flake .#{{host}}
 
 # Build without activating (check it compiles)
 build:
-    nixos-rebuild build --flake .#hp
+    {{rebuild_cmd}} build --flake .#{{host}}
 
 # Build with trace (for debugging errors)
 trace:
-    sudo nixos-rebuild switch --flake .#hp --show-trace
+    {{sudo_cmd}}{{rebuild_cmd}} switch --flake .#{{host}} --show-trace
 
 # Dry-run build (show what would be built)
 dry:
-    nixos-rebuild build --flake .#hp --dry-run
+    {{rebuild_cmd}} build --flake .#{{host}} --dry-run
 
 # Rollback to previous generation
 rollback:
-    sudo nixos-rebuild switch --rollback
+    {{sudo_cmd}}{{rebuild_cmd}} switch --rollback
 
-# ─── nix-darwin (future macOS) ────────────────────────────────────────
+# ─── Explicit Host Commands ───────────────────────────────────────────
 
-# Build and switch Darwin configuration
-# darwin-switch:
-#     darwin-rebuild switch --flake .#macbook
+# Switch NixOS HP configuration explicitly
+switch-hp:
+    sudo nixos-rebuild switch --flake .#hp
 
-# Test Darwin configuration
-# darwin-test:
-#     darwin-rebuild check --flake .#macbook
+# Switch Darwin macbook configuration explicitly
+switch-macbook:
+    darwin-rebuild switch --flake .#macbook
 
-# ─── Flake Management ────────────────────────────────────────────────
+# ─── Flake Management ─────────────────────────────────────────────────
 
 # Update all flake inputs
 update:
@@ -72,9 +77,9 @@ outputs:
 
 # Garbage collect old generations
 gc:
-    sudo nix-collect-garbage -d
+    nix-collect-garbage -d
 
-# List system generations
+# List system generations (NixOS only)
 generations:
     sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
 
