@@ -30,9 +30,11 @@
     [
       cmake
       curl
+      discord
       gnumake
       libgcc
       libgccjit
+      slack
       unzip
       vim
       wget
@@ -47,6 +49,7 @@
       wayland
       wdisplays
       wl-clipboard
+      wasistlos
 
       # DankMaterialShell optional features
       matugen

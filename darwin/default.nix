@@ -55,6 +55,11 @@
       # Browsers
       "arc"
 
+      # Communication
+      "discord"
+      "slack"
+      "whatsapp"
+
       # Productivity / Launcher
       "raycast"
 
