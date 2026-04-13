@@ -7,6 +7,16 @@
     autosuggestion = {
       enable = true;
     };
+    sessionVariables = {
+      # Source cargo env for Rust toolchain
+      NIX_CARGO_LD_LIBRARY_PATH = "$HOME/.rustup/toolchains/*/lib";
+    };
+    initExtra = ''
+      # Source cargo env if it exists (Rust toolchain on macOS without nix)
+      if [ -f "$HOME/.cargo/env" ]; then
+        source "$HOME/.cargo/env"
+      fi
+    '';
     shellAliases = {
       l = "eza -lA --icons=auto --git";
       ls = "eza --tree --level=2 --long --icons --git";
