@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   pkgs,
   username,
@@ -13,6 +14,7 @@
     ./lazygit.nix
     ./yazi.nix
     ./neovide.nix
+    ./opencode.nix
   ];
 
   fonts.fontconfig.enable = true;
@@ -26,7 +28,6 @@
     kitty
     ripgrep
     fd
-    opencode
     pinentry-gnome3
     fastfetch
     just # task runner (see Justfile)
@@ -79,7 +80,7 @@
   programs.password-store = {
     enable = true;
     settings = {
-      PASSWORD_STORE_DIR = "/home/ecosse/.password-store";
+      PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
     };
   };
 
