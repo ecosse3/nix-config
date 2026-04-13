@@ -18,6 +18,8 @@ inputs.nix-darwin.lib.darwinSystem {
     ../packages
     ../darwin
 
+    inputs.nix-homebrew.darwinModules.nix-homebrew
+
     inputs.home-manager.darwinModules.home-manager
     {
       home-manager.useGlobalPkgs = true;

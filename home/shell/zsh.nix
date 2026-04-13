@@ -8,7 +8,6 @@
       enable = true;
     };
     shellAliases = {
-      update = "sudo nixos-rebuild switch --flake .#hp";
       v = "nvim";
       ":q" = "exit";
       lg = "lazygit";
