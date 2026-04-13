@@ -42,6 +42,14 @@
     };
     global.autoUpdate = false;
 
+    taps = [
+      "BarutSRB/tap"
+    ];
+
+    brews = [
+      "omniwm"
+    ];
+
     casks = [
       "arc"
       "karabiner-elements"
