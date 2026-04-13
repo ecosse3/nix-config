@@ -77,7 +77,9 @@
           hostname = "macbook";
           username = "lukasz.kurpiewski";
           system = "aarch64-darwin";
-          homeModules = [ ];
+          homeModules = [
+            ./home/darwin
+          ];
         };
       };
     };

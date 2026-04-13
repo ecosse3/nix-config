@@ -41,6 +41,13 @@
       cleanup = "none"; # SAFE: preserves all existing Homebrew packages during migration
     };
     global.autoUpdate = false;
+
+    casks = [
+      "arc"
+      "karabiner-elements"
+      "raycast"
+      "sketchybar"
+    ];
   };
 
   # macOS system defaults

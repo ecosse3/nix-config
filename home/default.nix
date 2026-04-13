@@ -29,7 +29,6 @@
       htop
       bun
       eza
-      kitty
       ripgrep
       fd
       fastfetch
@@ -38,6 +37,8 @@
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       pinentry-gnome3
+    ]
+    ++ lib.optionals pkgs.stdenv.isDarwin [
     ];
 
   programs.git = {
