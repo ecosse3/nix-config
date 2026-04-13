@@ -79,6 +79,7 @@
           system = "aarch64-darwin";
           homeModules = [
             ./home/darwin
+            ./home/zen-browser.nix
           ];
         };
       };
