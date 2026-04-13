@@ -158,9 +158,13 @@ Optional scope: `nix`, `home`, `core`, `packages`, `shell`, `ci`.
 
 ## Adding Things
 
-### New system package
-Add to `packages/default.nix` (or `packages/neovim.nix` for editor tooling).
-Use `lib.optionals pkgs.stdenv.isLinux` if Linux-only.
+### New app or tool
+**Always prefer Home Manager (`programs.<name>`) if a module exists.**
+- Check `home-manager/options.html` or search nixpkgs for `programs.<name>`.
+- If HM supports it, add it to `home/` (or `home/darwin/` for macOS-only).
+- Only fall back to `packages/default.nix` or `home.packages` if no HM module exists.
+
+For macOS-only apps not in nixpkgs, use `darwin/default.nix` `homebrew.casks`/`brews`.
 
 ### New language toolchain
 Create `packages/languages/<lang>.nix`, import it in `packages/languages/default.nix`.
