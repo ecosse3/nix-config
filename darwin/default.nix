@@ -16,8 +16,8 @@
   # Manage zsh at system level (nix-darwin writes /etc/zshrc)
   programs.zsh.enable = true;
 
-  # Touch ID for sudo
-  security.pam.enableSudoTouchIdAuth = true;
+  # Touch ID for sudo (renamed option)
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   # Fonts
   fonts.packages = with pkgs; [
@@ -86,6 +86,14 @@
 
   # Required for Apple Silicon
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-darwin";
+
+  # Define user (required for home-manager to set homeDirectory correctly)
+  users.users.${username} = {
+    home = "/Users/${username}";
+  };
+
+  # Set primary user (required for nix-darwin system defaults to work)
+  system.primaryUser = username;
 
   # Backwards compatibility
   system.stateVersion = 6;
