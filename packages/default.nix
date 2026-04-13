@@ -34,7 +34,9 @@
       gnumake
       libgcc
       libgccjit
+      obsidian
       slack
+      spotify
       unzip
       vim
       wget

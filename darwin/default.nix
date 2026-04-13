@@ -60,6 +60,10 @@
       "slack"
       "whatsapp"
 
+      # Media / Productivity
+      "obsidian"
+      "spotify"
+
       # Productivity / Launcher
       "raycast"
 
