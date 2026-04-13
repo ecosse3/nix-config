@@ -27,7 +27,7 @@
 {
   environment.systemPackages = with pkgs; [
     nodejs_24 # current (24.x) -- default `node` on PATH
-    nodePackages.pnpm # popular in Next.js ecosystem
+    pnpm # popular in Next.js ecosystem
     corepack_24 # enables yarn/pnpm auto-install from package.json
   ];
 }

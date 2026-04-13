@@ -23,7 +23,7 @@
     marksman # markdown
     nil # nix (alternative to nixd)
     nixd # nix
-    nodePackages.typescript-language-server # ts_ls fallback
+    typescript-language-server # ts_ls fallback
     oxlint
     prisma-language-server
     pyright # python
@@ -36,7 +36,7 @@
     yaml-language-server
 
     # ── Formatters ────────────────────────────────────────────────────
-    nixfmt-rfc-style
+    nixfmt
     prettierd
     stylua
 
