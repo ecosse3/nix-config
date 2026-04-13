@@ -107,9 +107,9 @@ just optimise    # Deduplicate nix store
 ### macOS (nix-darwin)
 
 ```bash
-darwin-rebuild switch --flake .#macbook
-darwin-rebuild check --flake .#macbook
-darwin-rebuild build --flake .#macbook
+sudo darwin-rebuild switch --flake .#macbook
+sudo darwin-rebuild check --flake .#macbook
+sudo darwin-rebuild build --flake .#macbook
 ```
 
 ---
