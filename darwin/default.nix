@@ -53,6 +53,9 @@
     brews = [
       # System customization
       "sketchybar"
+
+      # CLI tools
+      "sheets"
     ];
 
     casks = [
@@ -77,7 +80,6 @@
       "karabiner-elements"
       "omniwm"
       "shottr"
-      "sheets"
     ];
   };
 
