@@ -51,9 +51,6 @@
     ];
 
     brews = [
-      # Window manager
-      "omniwm"
-
       # System customization
       "sketchybar"
     ];
@@ -74,6 +71,7 @@
 
       # System customization
       "karabiner-elements"
+      "omniwm"
     ];
   };
 
