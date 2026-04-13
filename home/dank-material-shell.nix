@@ -1,5 +1,14 @@
-{ inputs, pkgs, ... }:
+{
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
 
+let
+  # Get dgop from nixpkgs (which is already nixos-unstable)
+  unstable = import inputs.nixpkgs { system = pkgs.stdenv.hostPlatform.system; };
+in
 {
   imports = [
     inputs.dank-material-shell.homeModules.dank-material-shell
@@ -9,7 +18,7 @@
   programs.dank-material-shell = {
     enable = true;
     systemd.enable = true;
-    dgop.package = inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.dgop;
+    dgop.package = unstable.dgop;
     plugins = {
       dankKDEConnect.enable = true;
     };
