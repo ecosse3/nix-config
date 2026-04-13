@@ -20,6 +20,73 @@
           { mods = "CMD",       key = "k", action = act.ActivateTabRelative(1) },
           { mods = "CMD",       key = 't', action = act.SpawnCommandInNewTab { cwd = wezterm.home_dir } },
           { mods = "CMD",       key = 'y', action = act.SpawnTab 'CurrentPaneDomain' },
+
+          -- Window management
+          { mods = "CMD",       key = ".", action = act.MoveTabRelative(1) },
+          { mods = "CMD",       key = ",", action = act.MoveTabRelative(-1) },
+          { mods = "CMD|SHIFT", key = "1", action = act.ActivateTab(0) },
+          { mods = "CMD|SHIFT", key = "2", action = act.ActivateTab(1) },
+          { mods = "CMD|SHIFT", key = "3", action = act.ActivateTab(2) },
+          { mods = "CMD|SHIFT", key = "4", action = act.ActivateTab(3) },
+          { mods = "CMD|SHIFT", key = "5", action = act.ActivateTab(4) },
+          { mods = "CMD|SHIFT", key = "6", action = act.ActivateTab(5) },
+          { mods = "CMD|SHIFT", key = "7", action = act.ActivateTab(6) },
+          { mods = "CMD|SHIFT", key = "8", action = act.ActivateTab(7) },
+          { mods = "CMD|SHIFT", key = "9", action = act.ActivateTab(8) },
+          { mods = "CMD|SHIFT", key = "9", action = act.ActivateTab(9) },
+
+          -- Panes
+          { mods = "CMD|SHIFT", key = "h", action = act.SplitHorizontal({ args = {} }) },
+          { mods = "CMD|SHIFT", key = "v", action = act.SplitVertical({ args = {} }) },
+          { mods = "CMD",       key = "a", action = act.ActivatePaneDirection("Left") },
+          { mods = "CMD",       key = "d", action = act.ActivatePaneDirection("Right") },
+          { mods = "CMD|SHIFT", key = "k", action = act.ActivatePaneDirection("Up") },
+          { mods = "CMD|SHIFT", key = "j", action = act.ActivatePaneDirection("Down") },
+          { mods = "CMD",       key = "e", action = act.CloseCurrentPane({ confirm = true }) },
+          { mods = "CMD",       key = "r", action = act.RotatePanes("Clockwise") },
+
+          -- Copy Mode
+          { mods = "CMD",       key = "x", action = act.ActivateCopyMode },
+
+          -- Toggle Zoom Mode (Full Screen)
+          { mods = "CMD",       key = "f", action = act.TogglePaneZoomState },
+
+          -- Launcher
+          {
+            mods = "CMD",
+            key = "Backspace",
+            action = act.ShowLauncherArgs({
+              flags = "FUZZY|WORKSPACES|LAUNCH_MENU_ITEMS",
+            }),
+          },
+
+          -- Rename tab
+          {
+            mods = "CMD|SHIFT",
+            key = "T",
+            action = act.PromptInputLine({
+              description = "Enter new name for tab",
+              action = wezterm.action_callback(function(window, _pane, line)
+                if line then
+                  window:active_tab():set_title(line)
+                end
+              end),
+            }),
+          },
+
+          -- Rename workspace
+          {
+            mods = "CMD|SHIFT",
+            key = "W",
+            action = act.PromptInputLine({
+              description = "Enter new name for workspace",
+              action = wezterm.action_callback(function(window, pane, line)
+                if line then
+                  wezterm.mux.rename_workspace(wezterm.mux.get_active_workspace(), line)
+                end
+              end),
+            }),
+          },
         '';
 
         darwinConfig = lib.optionalString pkgs.stdenv.isDarwin ''
@@ -134,7 +201,7 @@
         config.enable_scroll_bar = true
         config.scrollback_lines = 3500
 
-        config.window_background_opacity = 0.9
+        config.window_background_opacity = 0.95
         ${darwinConfig}
 
         config.launch_menu = {}

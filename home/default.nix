@@ -74,6 +74,7 @@
       ".direnv"
       "result"
       ".DS_Store"
+      ".claude"
     ];
   };
 
@@ -120,7 +121,8 @@
 
   programs.gh = {
     enable = true;
-    settings.git_protocol = "ssh";
+    settings.git_protocol = "https";
+    settings.aliases.co = "pr checkout";
   };
 
   programs.zoxide = {

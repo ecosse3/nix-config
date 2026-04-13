@@ -19,7 +19,7 @@
 
       font = {
         normal = [ "FiraCode Nerd Font" ];
-        size = 16.0;
+        size = 14.0;
         hinting = "full";
         edging = "antialias";
         features."FiraCode Nerd Font" = [
