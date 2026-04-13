@@ -22,6 +22,10 @@
       LANGUAGE = "en_US.UTF-8";
     };
     initExtra = ''
+      # Skip broken completions and use cached compinit
+      autoload -Uz compinit
+      compinit -u -C
+
       # Source cargo env if it exists (Rust toolchain on macOS without nix)
       if [ -f "$HOME/.cargo/env" ]; then
         source "$HOME/.cargo/env"
