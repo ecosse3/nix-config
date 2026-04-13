@@ -59,6 +59,7 @@
       # Terminal tools
       zellij
       lazydocker
+      ngrok
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       pinentry-gnome3
