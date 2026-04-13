@@ -23,7 +23,7 @@
   fonts.fontconfig.enable = pkgs.stdenv.isLinux;
 
   home.username = username;
-  home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
+  home.homeDirectory = lib.mkDefault "/home/${username}";
 
   home.packages =
     with pkgs;
