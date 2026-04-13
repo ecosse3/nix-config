@@ -56,12 +56,10 @@
       "arc"
 
       # Communication
-      "discord"
       "slack"
       "whatsapp"
 
       # Media / Productivity
-      "obsidian"
       "spotify"
 
       # Productivity / Launcher

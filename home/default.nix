@@ -16,6 +16,8 @@
     ./yazi.nix
     ./neovide.nix
     ./opencode.nix
+    ./obsidian.nix
+    ./discord.nix
   ];
 
   fonts.fontconfig.enable = pkgs.stdenv.isLinux;

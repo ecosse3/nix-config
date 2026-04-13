@@ -30,11 +30,9 @@
     [
       cmake
       curl
-      discord
       gnumake
       libgcc
       libgccjit
-      obsidian
       slack
       spotify
       unzip
