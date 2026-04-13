@@ -23,7 +23,7 @@
   fonts.fontconfig.enable = pkgs.stdenv.isLinux;
 
   home.username = username;
-  home.homeDirectory = lib.mkDefault "/home/${username}";
+  home.homeDirectory = lib.mkIf pkgs.stdenv.isLinux "/home/${username}";
 
   home.packages =
     with pkgs;
