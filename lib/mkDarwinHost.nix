@@ -5,6 +5,7 @@
   username,
   system,
   homeModules ? [ ],
+  extraModules ? [ ],
 }:
 
 inputs.nix-darwin.lib.darwinSystem {
@@ -34,5 +35,5 @@ inputs.nix-darwin.lib.darwinSystem {
           imports = [ ../home ] ++ homeModules;
         };
     }
-  ];
+  ] ++ extraModules;
 }

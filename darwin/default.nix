@@ -10,10 +10,10 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Let Determinate Nix handle Nix configuration
-  nix.enable = false;
+  # Enable Determinate Nix module
+  determinateNix.enable = true;
 
-  # Enable nix-command and flakes (managed by Determinate)
+  # Enable nix-command and flakes
   nix.settings.experimental-features = "nix-command flakes";
 
   # Manage zsh at system level (nix-darwin writes /etc/zshrc)

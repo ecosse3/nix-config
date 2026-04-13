@@ -15,6 +15,8 @@
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
+    determinate.url = "github:DeterminateSystems/determinate";
+
     nix-homebrew = {
       url = "github:zhaofengli/nix-homebrew";
     };
@@ -79,6 +81,9 @@
           homeModules = [
             ./home/darwin
             ./home/zen-browser.nix
+          ];
+          extraModules = [
+            inputs.determinate.darwinModules.default
           ];
         };
       };
