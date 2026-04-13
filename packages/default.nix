@@ -31,18 +31,18 @@
       cmake
       curl
       gnumake
-      libgcc
-      libgccjit
       slack
       spotify
       unzip
       vim
       wget
-      xdg-utils
       yazi
     ]
     # Linux-only packages
     ++ lib.optionals pkgs.stdenv.isLinux [
+      libgcc
+      libgccjit
+      xdg-utils
       firefox
       libnotify
       mpd
