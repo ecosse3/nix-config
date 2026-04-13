@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   pkgs,
   username,
   ...
@@ -17,22 +18,26 @@
     ./opencode.nix
   ];
 
-  fonts.fontconfig.enable = true;
+  fonts.fontconfig.enable = pkgs.stdenv.isLinux;
 
   home.username = username;
-  home.homeDirectory = "/home/${username}";
+  home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
 
-  home.packages = with pkgs; [
-    htop
-    bun
-    kitty
-    ripgrep
-    fd
-    pinentry-gnome3
-    fastfetch
-    just # task runner (see Justfile)
-    uv # Python project manager (replaces pip/venv/pyenv)
-  ];
+  home.packages =
+    with pkgs;
+    [
+      htop
+      bun
+      kitty
+      ripgrep
+      fd
+      fastfetch
+      just # task runner (see Justfile)
+      uv # Python project manager (replaces pip/venv/pyenv)
+    ]
+    ++ lib.optionals pkgs.stdenv.isLinux [
+      pinentry-gnome3
+    ];
 
   programs.git = {
     enable = true;
@@ -116,8 +121,8 @@
     enableZshIntegration = true; # provides z command (replaces oh-my-zsh z plugin)
   };
 
-  services.gpg-agent.enable = true;
-  services.gpg-agent.pinentry.package = pkgs.pinentry-gnome3;
+  services.gpg-agent.enable = pkgs.stdenv.isLinux;
+  services.gpg-agent.pinentry.package = lib.mkIf pkgs.stdenv.isLinux pkgs.pinentry-gnome3;
 
   home.stateVersion = "25.11";
 }

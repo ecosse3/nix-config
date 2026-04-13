@@ -1,0 +1,35 @@
+{ inputs }:
+
+{
+  hostname,
+  username,
+  system,
+  homeModules ? [ ],
+}:
+
+inputs.nix-darwin.lib.darwinSystem {
+  inherit system;
+
+  specialArgs = {
+    inherit inputs username hostname;
+  };
+
+  modules = [
+    ../packages
+    ../darwin
+
+    inputs.home-manager.darwinModules.home-manager
+    {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.extraSpecialArgs = {
+        inherit inputs username;
+      };
+      home-manager.users.${username} =
+        { ... }:
+        {
+          imports = [ ../home ] ++ homeModules;
+        };
+    }
+  ];
+}
