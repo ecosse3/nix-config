@@ -47,13 +47,19 @@
     ];
 
     brews = [
+      # Window manager
       "omniwm"
     ];
 
     casks = [
+      # Browsers
       "arc"
-      "karabiner-elements"
+
+      # Productivity / Launcher
       "raycast"
+
+      # System customization
+      "karabiner-elements"
       "sketchybar"
     ];
   };
