@@ -35,6 +35,11 @@
       jq
       fzf
       age
+      glow # markdown viewer
+      imagemagick # image manipulation
+      ncdu # disk usage analyzer
+      mmv # mass move/rename
+      yt-dlp # video downloader
 
       # Dev tools
       bun
@@ -59,6 +64,7 @@
       pinentry-gnome3
     ]
     ++ lib.optionals pkgs.stdenv.isDarwin [
+      pkgs.google-cloud-sdk # Google Cloud CLI
     ];
 
   programs.git = {

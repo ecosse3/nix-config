@@ -33,13 +33,8 @@
       # rbenv - Ruby version manager
       eval "$(rbenv init - zsh)"
 
-      # Google Cloud SDK
-      if [ -f "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc" ]; then
-        source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
-      fi
-      if [ -f "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc" ]; then
-        source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
-      fi
+      # Google Cloud SDK (installed via nixpkgs)
+      # Completions are handled automatically by home-manager
 
       # Kiro CLI
       if [ -f "$HOME/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]; then
@@ -115,6 +110,11 @@
         name = "powerlevel10k-config";
         src = lib.cleanSource ../../p10k-config;
         file = "p10k.zsh";
+      }
+      {
+        name = "zsh-syntax-highlighting";
+        src = pkgs.zsh-syntax-highlighting;
+        file = "share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh";
       }
     ];
     oh-my-zsh = {

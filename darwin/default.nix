@@ -69,9 +69,15 @@
       # Productivity / Launcher
       "raycast"
 
+      # Developer tools
+      "ngrok"
+      "leader-key"
+
       # System customization
       "karabiner-elements"
       "omniwm"
+      "shottr"
+      "sheets"
     ];
   };
 
