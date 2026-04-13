@@ -47,11 +47,15 @@
 
     taps = [
       "BarutSRB/tap"
+      "felixkratz/formulae"
     ];
 
     brews = [
       # Window manager
       "omniwm"
+
+      # System customization
+      "sketchybar"
     ];
 
     casks = [
@@ -70,7 +74,6 @@
 
       # System customization
       "karabiner-elements"
-      "sketchybar"
     ];
   };
 
