@@ -1,6 +1,13 @@
-{ ... }:
+{ lib, ... }:
 
+let
+  sketchybar-config = lib.cleanSource ./sketchybar;
+in
 {
-  # SketchyBar status bar (installed via Homebrew cask)
-  # Config preserved from existing dotfiles for now
+  home.file = {
+    ".config/sketchybar" = {
+      source = sketchybar-config;
+      recursive = true;
+    };
+  };
 }
