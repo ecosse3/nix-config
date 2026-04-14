@@ -6,11 +6,34 @@
 }:
 
 {
-  programs.zsh.enable = true;
+  home.packages = with pkgs; [
+    zsh-completions
+  ];
+
   programs.zsh = {
+    enable = true;
     enableCompletion = true;
     autosuggestion = {
       enable = true;
+      strategy = [
+        "history"
+        "completion"
+      ];
+    };
+    syntaxHighlighting = {
+      enable = true;
+    };
+    historySubstringSearch = {
+      enable = true;
+    };
+    history = {
+      size = 100000;
+      save = 100000;
+      share = true;
+      ignoreDups = true;
+      ignoreAllDups = true;
+      ignoreSpace = true;
+      expireDuplicatesFirst = true;
     };
     sessionVariables = {
       # Source cargo env for Rust toolchain
@@ -143,11 +166,6 @@
         file = "p10k.zsh";
       }
       {
-        name = "zsh-syntax-highlighting";
-        src = pkgs.zsh-syntax-highlighting;
-        file = "share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh";
-      }
-      {
         name = "you-should-use";
         src = pkgs.zsh-you-should-use;
         file = "share/zsh/plugins/you-should-use/you-should-use.plugin.zsh";
@@ -156,6 +174,11 @@
         name = "zsh-fzf-history-search";
         src = pkgs.zsh-fzf-history-search;
         file = "share/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh";
+      }
+      {
+        name = "fzf-tab";
+        src = pkgs.zsh-fzf-tab;
+        file = "share/fzf-tab/fzf-tab.plugin.zsh";
       }
       {
         name = "kimi-cli";
@@ -173,6 +196,15 @@
       plugins = [
         "git"
         "sudo"
+        "docker"
+        "terraform"
+        "aws"
+        "gcloud"
+        "npm"
+        "yarn"
+        "bun"
+        "command-not-found"
+        "extract"
       ];
     };
   };
