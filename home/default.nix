@@ -40,9 +40,11 @@
       ncdu # disk usage analyzer
       mmv # mass move/rename
       yt-dlp # video downloader
+      awscli2
 
       # Dev tools
       bun
+      deno
       eza
       ripgrep
       fd
@@ -51,6 +53,8 @@
       uv # Python project manager (replaces pip/venv/pyenv)
       fnm # Node version manager
       rbenv # Ruby version manager
+      sqlite
+      television
 
       # Dev containers
       devenv
