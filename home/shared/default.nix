@@ -15,6 +15,7 @@
     ./shell/zsh.nix
     ./wezterm.nix
     ./yazi.nix
+    ./zen-browser.nix
   ];
 
   fonts.fontconfig.enable = pkgs.stdenv.isLinux;
