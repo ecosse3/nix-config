@@ -39,8 +39,8 @@
   homebrew = {
     enable = true;
     onActivation = {
-      autoUpdate = false;
-      upgrade = false;
+      autoUpdate = true;
+      upgrade = true;
       cleanup = "none"; # SAFE: preserves all existing Homebrew packages during migration
     };
     global.autoUpdate = false;
@@ -63,11 +63,7 @@
       "arc"
 
       # Communication
-      "slack"
       "whatsapp"
-
-      # Media / Productivity
-      "spotify"
 
       # Productivity / Launcher
       "raycast"
