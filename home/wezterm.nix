@@ -87,6 +87,58 @@
               end),
             }),
           },
+
+          -- Spawn cas-marketplace workspace
+          {
+            mods = "CMD|SHIFT",
+            key = "C",
+            action = wezterm.action_callback(function(window, pane)
+              local project_path = wezterm.home_dir .. "/Projects/cas-marketplace"
+              local workspace_name = "cas-marketplace"
+
+              -- Create workspace and first window
+              local tab1, pane1, window = mux.spawn_window({
+                workspace = workspace_name,
+                cwd = project_path .. "/apps/backend",
+              })
+
+              -- Pane 1: yarn dev in /apps/backend (already there)
+              pane1:send_text("yarn dev\n")
+
+              -- Pane 2: yarn dev in /apps/admin-panel
+              local pane2 = pane1:split({
+                direction = "Right",
+                cwd = project_path .. "/apps/admin-panel",
+              })
+              pane2:send_text("yarn dev\n")
+
+              -- Pane 3: yarn dev in /apps/storefront
+              local pane3 = pane2:split({
+                direction = "Right",
+                cwd = project_path .. "/apps/storefront",
+              })
+              pane3:send_text("yarn dev\n")
+
+              -- Second tab
+              local tab2 = window:spawn_tab({
+                cwd = project_path,
+              })
+
+              -- Pane 1: ngrok http 9000
+              local tab2_pane1 = tab2:active_pane()
+              tab2_pane1:send_text("ngrok http 9000\n")
+
+              -- Pane 2: v (neovide)
+              local tab2_pane2 = tab2_pane1:split({
+                direction = "Right",
+                cwd = project_path,
+              })
+              tab2_pane2:send_text("v\n")
+
+              -- Focus the first tab
+              window:activate()
+            end),
+          },
         '';
 
         darwinConfig = lib.optionalString pkgs.stdenv.isDarwin ''
