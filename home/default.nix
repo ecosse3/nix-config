@@ -9,12 +9,12 @@
 
 {
   imports = [
+    ./lazygit.nix
+    ./neovide.nix
     ./neovim.nix
     ./shell/zsh.nix
     ./wezterm.nix
-    ./lazygit.nix
     ./yazi.nix
-    ./neovide.nix
   ];
 
   fonts.fontconfig.enable = pkgs.stdenv.isLinux;
@@ -26,27 +26,27 @@
     with pkgs;
     [
       # System utils
-      htop
-      jq
       age
-      glow # markdown viewer
-      imagemagick # image manipulation
-      ncdu # disk usage analyzer
-      mmv # mass move/rename
-      yt-dlp # video downloader
       awscli2
+      glow # markdown viewer
+      htop
+      imagemagick # image manipulation
+      jq
+      mmv # mass move/rename
+      ncdu # disk usage analyzer
+      yt-dlp # video downloader
 
       # Dev tools
       bun
       deno
-      ripgrep
-      fd
       fastfetch
-      just # task runner (see Justfile)
-      uv # Python project manager (replaces pip/venv/pyenv)
+      fd
       fnm # Node version manager
+      just # task runner (see Justfile)
       rbenv # Ruby version manager
+      ripgrep
       sqlite
+      uv # Python project manager (replaces pip/venv/pyenv)
 
       # Dev containers
       devenv
@@ -56,10 +56,10 @@
       tableplus
 
       # Terminal tools
-      zellij
+      gopass
       lazydocker
       ngrok
-      gopass
+      zellij
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       pinentry-gnome3
@@ -67,6 +67,50 @@
     ++ lib.optionals pkgs.stdenv.isDarwin [
       pkgs.google-cloud-sdk # Google Cloud CLI
     ];
+
+  programs.bat = {
+    enable = true;
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      line-numbers = true;
+      side-by-side = false;
+      navigate = true;
+    };
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true; # caches devShells, much faster than plain direnv
+  };
+
+  programs.discord = {
+    enable = true;
+  };
+
+  programs.eza = {
+    enable = true;
+    enableZshIntegration = true; # replaces ls with eza
+    icons = "auto";
+    git = true;
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.gh = {
+    enable = true;
+    settings.git_protocol = "ssh";
+    settings.aliases.co = "pr checkout";
+  };
+
+  programs.gpg.enable = true;
 
   programs.git = {
     enable = true;
@@ -100,34 +144,11 @@
     ];
   };
 
-  programs.delta = {
-    enable = true;
-    enableGitIntegration = true;
-    options = {
-      line-numbers = true;
-      side-by-side = false;
-      navigate = true;
-    };
-  };
-
-  programs.gpg.enable = true;
-
   programs.password-store = {
     enable = true;
     settings = {
       PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
     };
-  };
-
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = true;
-    nix-direnv.enable = true; # caches devShells, much faster than plain direnv
   };
 
   programs.obsidian = {
@@ -138,26 +159,6 @@
     enable = true;
   };
 
-  programs.discord = {
-    enable = true;
-  };
-
-  programs.bat = {
-    enable = true;
-  };
-
-  programs.eza = {
-    enable = true;
-    enableZshIntegration = true; # replaces ls with eza
-    icons = "auto";
-    git = true;
-  };
-
-  programs.gh = {
-    enable = true;
-    settings.git_protocol = "ssh";
-    settings.aliases.co = "pr checkout";
-  };
 
   programs.zoxide = {
     enable = true;
