@@ -73,6 +73,7 @@
       "raycast"
 
       # Developer tools
+      "docker" # Docker Desktop app (cask)
       "leader-key"
 
       # System customization

@@ -88,6 +88,9 @@
   # XDG portal
   xdg.portal.enable = true;
 
+  # Docker
+  virtualisation.docker.enable = true;
+
   # User
   users.users.${username} = {
     isNormalUser = true;
@@ -95,6 +98,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "docker"
       "i2c"
     ];
     shell = pkgs.zsh;
