@@ -15,9 +15,6 @@
     ./lazygit.nix
     ./yazi.nix
     ./neovide.nix
-    ./opencode.nix
-    ./obsidian.nix
-    ./discord.nix
   ];
 
   fonts.fontconfig.enable = pkgs.stdenv.isLinux;
@@ -50,7 +47,6 @@
       fnm # Node version manager
       rbenv # Ruby version manager
       sqlite
-      television
 
       # Dev containers
       devenv
@@ -132,6 +128,18 @@
     enable = true;
     enableZshIntegration = true;
     nix-direnv.enable = true; # caches devShells, much faster than plain direnv
+  };
+
+  programs.obsidian = {
+    enable = true;
+  };
+
+  programs.opencode = {
+    enable = true;
+  };
+
+  programs.discord = {
+    enable = true;
   };
 
   programs.bat = {
