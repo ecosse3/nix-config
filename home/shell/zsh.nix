@@ -49,7 +49,7 @@
       LANG = "en_US.UTF-8";
       LANGUAGE = "en_US.UTF-8";
     };
-    initExtra =
+    initContent =
       let
         # CMD keybindings only work on macOS
         darwin = lib.optionalString pkgs.stdenv.isDarwin ''
