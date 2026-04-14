@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   programs.zsh.enable = true;
@@ -21,55 +26,81 @@
       LANG = "en_US.UTF-8";
       LANGUAGE = "en_US.UTF-8";
     };
-    initExtra = ''
-      # Skip broken completions and use cached compinit
-      autoload -Uz compinit
-      compinit -u -C
+    initExtra =
+      let
+        # CMD keybindings only work on macOS
+        darwin = lib.optionalString pkgs.stdenv.isDarwin ''
+          # Kiro CLI post init
+          if [ -f "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]; then
+            source "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
+          fi
 
-      # Source cargo env if it exists (Rust toolchain on macOS without nix)
-      if [ -f "$HOME/.cargo/env" ]; then
-        source "$HOME/.cargo/env"
-      fi
+          # SSH agent with keychain (macOS)
+          if [ -f "$HOME/.ssh/id_rsa" ]; then
+            ssh-add --apple-use-keychain "$HOME/.ssh/id_rsa" 2>/dev/null
+          fi
 
-      # fnm - Node version manager
-      eval "$(fnm env)"
+        '';
+      in
+      ''
+        # Source cargo env if it exists (Rust toolchain on macOS without nix)
+        if [ -f "$HOME/.cargo/env" ]; then
+          source "$HOME/.cargo/env"
+        fi
 
-      # rbenv - Ruby version manager
-      eval "$(rbenv init - zsh)"
+        # fnm - Node version manager
+        eval "$(fnm env)"
 
-      # Google Cloud SDK (installed via nixpkgs)
-      # Completions are handled automatically by home-manager
+        # rbenv - Ruby version manager
+        eval "$(rbenv init - zsh)"
 
-      # Kiro CLI
-      if [ -f "$HOME/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]; then
-        source "$HOME/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
-      fi
+        # Google Cloud SDK (installed via nixpkgs)
+        # Completions are handled automatically by home-manager
 
-      # SSH agent with keychain (macOS)
-      if [ -f "$HOME/.ssh/id_rsa" ]; then
-        ssh-add --apple-use-keychain "$HOME/.ssh/id_rsa" 2>/dev/null
-      fi
+        # Cargo completions
+        fpath+=("$HOME/.cargo/completions/zsh")
 
-      # Cargo completions
-      fpath+=("$HOME/.cargo/completions/zsh")
+        # pnpm
+        export PNPM_HOME="$HOME/Library/pnpm"
+        export PATH="$PNPM_HOME:$PATH"
 
-      # pnpm
-      export PNPM_HOME="$HOME/Library/pnpm"
-      export PATH="$PNPM_HOME:$PATH"
+        # bun completions
+        if [ -s "$HOME/.bun/_bun" ]; then
+          source "$HOME/.bun/_bun"
+        fi
 
-      # bun completions
-      if [ -s "$HOME/.bun/_bun" ]; then
-        source "$HOME/.bun/_bun"
-      fi
+        # GPG TTY
+        export GPG_TTY=$(tty)
 
-      # GPG TTY
-      export GPG_TTY=$(tty)
+        ${darwin}
 
-      # Kiro CLI post init
-      if [ -f "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]; then
-        source "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
-      fi
-    '';
+        # Open file(s) in running Neovide instance, or launch a new one
+        function v() {
+          local socket="/tmp/neovide.pipe"
+          if nvr --servername "$socket" --nostart --remote-expr 'v:true' &>/dev/null; then
+            # Existing Neovide is running — send files to it
+            if [ $# -eq 0 ]; then
+              nvr --servername "$socket" --nostart
+            else
+              nvr --servername "$socket" --nostart "$@"
+            fi
+          else
+            # No running Neovide — clean stale socket and launch new one
+            rm -f "$socket"
+            neovide --frame buttonless "$@" &
+            disown
+          fi
+        }
+
+        function enativ-watermark () {
+          local image_path="''${1:-bfp-propozycja-enativ-lukasz-kurpiewski_org_sekcja_jak_uzyskac_odszkodowanie.jpeg}"
+          local watermark_text="''${2:-ENATIV Łukasz Kurpiewski}"
+          local text_scale="''${3:-0.01}"
+          local color="''${4:-128, 128, 128, 30}"
+
+          watermark-cli "$image_path" "$watermark_text" -t "$text_scale" -c "$color" 100
+        }
+      '';
     shellAliases = {
       # Navigation
       l = "eza -lA --icons=auto --git";
@@ -77,7 +108,6 @@
       lt = "eza --tree --level=2 --long --icons --git";
       lg = "lazygit";
       y = "yazi";
-      v = "nvim";
       vi = "nvim";
       vim = "nvim";
 
@@ -96,9 +126,6 @@
       ghcs = "gh copilot suggest";
       serena = "uvx --from git+https://github.com/oraios/serena serena";
       loaddb = "gupdatedb --localpaths=$HOME --prunepaths=/Volumes --output=$HOME/locatedb";
-
-      # SSH
-      gl-bastion = "ssh l.kurpiewski@35.210.101.108 -NL 51821:localhost:51821";
 
       # Exit
       ":q" = "exit";
@@ -119,6 +146,26 @@
         name = "zsh-syntax-highlighting";
         src = pkgs.zsh-syntax-highlighting;
         file = "share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh";
+      }
+      {
+        name = "you-should-use";
+        src = pkgs.zsh-you-should-use;
+        file = "share/zsh/plugins/you-should-use/you-should-use.plugin.zsh";
+      }
+      {
+        name = "zsh-fzf-history-search";
+        src = pkgs.zsh-fzf-history-search;
+        file = "share/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh";
+      }
+      {
+        name = "kimi-cli";
+        src = pkgs.fetchFromGitHub {
+          owner = "MoonshotAI";
+          repo = "zsh-kimi-cli";
+          rev = "50d72a9182f3b8db6667a8c68ee1904482b59020";
+          sha256 = "02fsbm410s1zyxsizpi9zx7caj3xfd3p3zh17hy1k4d5300ns4hl";
+        };
+        file = "kimi-cli.plugin.zsh";
       }
     ];
     oh-my-zsh = {
