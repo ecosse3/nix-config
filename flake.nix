@@ -69,6 +69,7 @@
             ./home/zen-browser.nix
             ./home/dank-material-shell.nix
             ./home/danksearch.nix
+            ./home/niri.nix
           ];
         };
       };
