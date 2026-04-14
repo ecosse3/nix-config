@@ -47,6 +47,6 @@
       usbutils
       lm_sensors
       ethtool
-      nvidia-settings
+      linuxPackages.nvidia_x11.settings
     ];
 }
