@@ -9,13 +9,6 @@
 }:
 
 {
-  imports = [
-    ./boot.nix
-    ./display.nix
-    ./keyd.nix
-    ../hosts/${hostname}/hardware-configuration.nix
-  ];
-
   # Nix daemon settings
   nix.settings = {
     experimental-features = [

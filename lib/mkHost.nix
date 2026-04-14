@@ -22,6 +22,7 @@
   hostname,
   username,
   system,
+  systemModules ? [ ],
   homeModules ? [ ],
 }:
 
@@ -36,10 +37,12 @@ inputs.nixpkgs.lib.nixosSystem {
   };
 
   modules = [
-    ../core
     ../packages
 
     inputs.dank-material-shell.nixosModules.greeter
+  ]
+  ++ systemModules
+  ++ [
 
     inputs.home-manager.nixosModules.home-manager
     {
@@ -51,7 +54,7 @@ inputs.nixpkgs.lib.nixosSystem {
       home-manager.users.${username} =
         { ... }:
         {
-          imports = [ ../home ] ++ homeModules;
+          imports = [ ../home/shared ] ++ homeModules;
         };
     }
   ];

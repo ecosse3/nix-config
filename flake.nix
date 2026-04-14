@@ -65,11 +65,12 @@
           hostname = "hp";
           username = "ecosse";
           system = "x86_64-linux";
+          systemModules = [ ./hosts/hp ];
           homeModules = [
-            ./home/zen-browser.nix
-            ./home/dank-material-shell.nix
-            ./home/danksearch.nix
-            ./home/niri.nix
+            ./home/shared/zen-browser.nix
+            ./home/linux/dank-material-shell.nix
+            ./home/linux/danksearch.nix
+            ./home/linux/niri.nix
           ];
         };
       };
@@ -79,9 +80,10 @@
           hostname = "macbook";
           username = "lukasz.kurpiewski";
           system = "aarch64-darwin";
+          systemModules = [ ./hosts/macbook ];
           homeModules = [
             ./home/darwin
-            ./home/zen-browser.nix
+            ./home/shared/zen-browser.nix
           ];
           extraModules = [
             inputs.determinate.darwinModules.default

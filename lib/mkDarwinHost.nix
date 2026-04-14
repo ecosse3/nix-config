@@ -4,6 +4,7 @@
   hostname,
   username,
   system,
+  systemModules ? [ ],
   homeModules ? [ ],
   extraModules ? [ ],
 }:
@@ -17,10 +18,11 @@ inputs.nix-darwin.lib.darwinSystem {
 
   modules = [
     ../packages
-    ../darwin
 
     inputs.nix-homebrew.darwinModules.nix-homebrew
-
+  ]
+  ++ systemModules
+  ++ [
     inputs.home-manager.darwinModules.home-manager
     {
       home-manager.useGlobalPkgs = true;
@@ -32,7 +34,7 @@ inputs.nix-darwin.lib.darwinSystem {
       home-manager.users.${username} =
         { ... }:
         {
-          imports = [ ../home ] ++ homeModules;
+          imports = [ ../home/shared ] ++ homeModules;
         };
     }
   ]
