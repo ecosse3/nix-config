@@ -60,6 +60,9 @@
       devenv
       devpod
 
+      # Database tools
+      tableplus
+
       # Terminal tools
       zellij
       lazydocker
