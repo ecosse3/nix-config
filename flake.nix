@@ -67,9 +67,7 @@
           system = "x86_64-linux";
           systemModules = [ ./hosts/hp ];
           homeModules = [
-            ./home/linux/dank-material-shell.nix
-            ./home/linux/danksearch.nix
-            ./home/linux/niri.nix
+            ./home/linux
           ];
         };
       };
