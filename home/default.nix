@@ -30,10 +30,7 @@
     [
       # System utils
       htop
-      wget
-      unzip
       jq
-      fzf
       age
       glow # markdown viewer
       imagemagick # image manipulation
@@ -45,7 +42,6 @@
       # Dev tools
       bun
       deno
-      eza
       ripgrep
       fd
       fastfetch

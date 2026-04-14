@@ -35,7 +35,6 @@
       unzip
       vim
       wget
-      yazi
     ]
     # Linux-only packages
     ++ lib.optionals pkgs.stdenv.isLinux [
