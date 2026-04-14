@@ -139,7 +139,7 @@
       }
       {
         name = "powerlevel10k-config";
-        src = lib.cleanSource ../../p10k-config;
+        src = pkgs.writeTextDir "p10k.zsh" (builtins.readFile ./p10k.zsh);
         file = "p10k.zsh";
       }
       {
