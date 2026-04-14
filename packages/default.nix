@@ -29,7 +29,6 @@
     with pkgs;
     [
       cmake
-      curl
       gnumake
       slack
       spotify
@@ -40,6 +39,9 @@
     ]
     # Linux-only packages
     ++ lib.optionals pkgs.stdenv.isLinux [
+      # curl is installed from Homebrew on Darwin because nixpkgs curl has
+      # TLS certificate issues on macOS (missing CA bundle fallback).
+      curl
       libgcc
       libgccjit
       xdg-utils

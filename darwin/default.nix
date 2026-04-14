@@ -55,6 +55,10 @@
       "sketchybar"
 
       # CLI tools
+      # curl from Homebrew ships its own CA bundle and works reliably on macOS.
+      # nixpkgs curl relies on NIX_SSL_CERT_FILE or falls back to /etc/ssl/cert.pem,
+      # which often causes TLS verification failures on Darwin.
+      "curl"
       "sheets"
     ];
 
