@@ -37,11 +37,8 @@
       yt-dlp # video downloader
 
       # Dev tools
-      bun
-      deno
       fastfetch
       fd
-      fnm # Node version manager
       just # task runner (see Justfile)
       rbenv # Ruby version manager
       ripgrep
@@ -158,7 +155,6 @@
   programs.opencode = {
     enable = true;
   };
-
 
   programs.zoxide = {
     enable = true;
