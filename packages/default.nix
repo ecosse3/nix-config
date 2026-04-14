@@ -24,19 +24,13 @@
     ]
   );
 
-  # Cross-platform system packages
+  # System-wide packages needed by all users or system services
   environment.systemPackages =
     with pkgs;
     [
-      cmake
-      gnumake
-      slack
-      spotify
-      unzip
-      vim
-      wget
+      nixfmt
+      smartmontools
     ]
-    # Linux-only packages
     ++ lib.optionals pkgs.stdenv.isLinux [
       # curl is installed from Homebrew on Darwin because nixpkgs curl has
       # TLS certificate issues on macOS (missing CA bundle fallback).
@@ -44,18 +38,15 @@
       libgcc
       libgccjit
       xdg-utils
-      firefox
       libnotify
       mpd
       wayland
-      wdisplays
-      wl-clipboard
-      wasistlos
-
-      # DankMaterialShell optional features
-      matugen
-      cava
       cups-pk-helper
       i2c-tools
+      pciutils
+      usbutils
+      lm_sensors
+      ethtool
+      nvidia-settings
     ];
 }

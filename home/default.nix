@@ -28,12 +28,19 @@
       # System utils
       age
       awscli2
+      cmake
+      gnumake
       glow # markdown viewer
       htop
       imagemagick # image manipulation
       jq
       mmv # mass move/rename
       ncdu # disk usage analyzer
+      slack
+      spotify
+      unzip
+      vim
+      wget
       yt-dlp # video downloader
 
       # Dev tools
@@ -60,6 +67,12 @@
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       pinentry-gnome3
+      cava
+      firefox
+      matugen
+      wasistlos
+      wdisplays
+      wl-clipboard
     ]
     ++ lib.optionals pkgs.stdenv.isDarwin [
       pkgs.google-cloud-sdk # Google Cloud CLI

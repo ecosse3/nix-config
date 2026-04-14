@@ -36,7 +36,6 @@
     yaml-language-server
 
     # ── Formatters ────────────────────────────────────────────────────
-    nixfmt
     prettierd
     stylua
 
