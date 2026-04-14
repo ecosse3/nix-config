@@ -63,6 +63,7 @@
       zellij
       lazydocker
       ngrok
+      gopass
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       pinentry-gnome3
