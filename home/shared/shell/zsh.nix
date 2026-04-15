@@ -62,8 +62,8 @@
           if [ -f "$HOME/.ssh/id_rsa" ]; then
             ssh-add --apple-use-keychain "$HOME/.ssh/id_rsa" 2>/dev/null
           fi
-
         '';
+
       in
       ''
         # Source cargo env if it exists (Rust toolchain on macOS without nix)
@@ -110,7 +110,7 @@
           else
             # No running Neovide — clean stale socket and launch new one
             rm -f "$socket"
-            neovide --frame buttonless "$@" &
+            neovide --frame ${if pkgs.stdenv.isDarwin then "buttonless" else "none"} "$@" &
             disown
           fi
         }
