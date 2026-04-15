@@ -33,7 +33,10 @@
           { mods = "CMD|SHIFT", key = "7", action = act.ActivateTab(6) },
           { mods = "CMD|SHIFT", key = "8", action = act.ActivateTab(7) },
           { mods = "CMD|SHIFT", key = "9", action = act.ActivateTab(8) },
-          { mods = "CMD|SHIFT", key = "9", action = act.ActivateTab(9) },
+          { mods = "CMD|SHIFT", key = "0", action = act.ActivateTab(9) },
+
+          -- Tabs
+          { mods = "CMD",       key = "w", action = act.CloseCurrentTab({ confirm = true }) },
 
           -- Panes
           { mods = "CMD|SHIFT", key = "h", action = act.SplitHorizontal({ args = {} }) },
@@ -145,23 +148,7 @@
           config.macos_window_background_blur = 20
         '';
 
-        fontSize = if pkgs.stdenv.isLinux then "14.0" else "17.0";
-      in
-      # language=lua
-      ''
-        local mux = wezterm.mux
-        local act = wezterm.action
-
-        local config = {}
-
-        if wezterm.config_builder then
-          config = wezterm.config_builder()
-        end
-
-        --  ╭──────────────────────────────────────────────────────────╮
-        --  │ Keymappings                                              │
-        --  ╰──────────────────────────────────────────────────────────╯
-        config.keys = {
+        linuxKeys = lib.optionalString pkgs.stdenv.isLinux ''
           -- Window management
           { mods = "CTRL",       key = ".", action = act.MoveTabRelative(1) },
           { mods = "CTRL",       key = ",", action = act.MoveTabRelative(-1) },
@@ -176,24 +163,25 @@
           { mods = "CTRL|SHIFT", key = "9", action = act.ActivateTab(8) },
           { mods = "CTRL|SHIFT", key = "0", action = act.ActivateTab(9) },
 
-          ${darwinKeys}
+          -- Tabs
+          { mods = "CTRL|SHIFT", key = "w", action = act.CloseCurrentTab({ confirm = true }) },
 
           -- Panes
           { mods = "CTRL|SHIFT", key = "h", action = act.SplitHorizontal({ args = {} }) },
-          { mods = "CTRL|SHIFT", key = "s", action = act.SplitVertical({ args = {} }) },
-          { mods = "CTRL|SHIFT", key = "v", action = act.PasteFrom("Clipboard") },
-          { mods = "CTRL",       key = "a", action = act.ActivatePaneDirection("Left") },
-          { mods = "CTRL",       key = "d", action = act.ActivatePaneDirection("Right") },
+          { mods = "CTRL|SHIFT", key = "v", action = act.SplitVertical({ args = {} }) },
+          { mods = "CTRL|ALT",   key = "v", action = act.PasteFrom("Clipboard") },
+          { mods = "ALT",        key = "a", action = act.ActivatePaneDirection("Left") },
+          { mods = "ALT",        key = "d", action = act.ActivatePaneDirection("Right") },
           { mods = "CTRL|SHIFT", key = "k", action = act.ActivatePaneDirection("Up") },
           { mods = "CTRL|SHIFT", key = "j", action = act.ActivatePaneDirection("Down") },
-          { mods = "CTRL|ALT",       key = "e", action = act.CloseCurrentPane({ confirm = true }) },
-          { mods = "CTRL|ALT",       key = "r", action = act.RotatePanes("Clockwise") },
+          { mods = "CTRL|ALT",   key = "e", action = act.CloseCurrentPane({ confirm = true }) },
+          { mods = "CTRL|ALT",   key = "r", action = act.RotatePanes("Clockwise") },
 
           -- Copy Mode
-          { mods = "CTRL|ALT",       key = "x", action = act.ActivateCopyMode },
+          { mods = "CTRL|ALT",   key = "x", action = act.ActivateCopyMode },
 
           -- Toggle Zoom Mode (Full Screen)
-          { mods = "CTRL|ALT",       key = "f", action = act.TogglePaneZoomState },
+          { mods = "CTRL|ALT",   key = "f", action = act.TogglePaneZoomState },
 
           -- Launcher
           {
@@ -220,7 +208,7 @@
 
           -- Rename workspace
           {
-            mods = "CTRL|SHIFT",
+            mods = "CTRL|ALT",
             key = "W",
             action = act.PromptInputLine({
               description = "Enter new name for workspace",
@@ -231,6 +219,28 @@
               end),
             }),
           },
+        '';
+
+        fontSize = if pkgs.stdenv.isLinux then "14.0" else "17.0";
+      in
+      # language=lua
+      ''
+        local mux = wezterm.mux
+        local act = wezterm.action
+
+        local config = {}
+
+        if wezterm.config_builder then
+          config = wezterm.config_builder()
+        end
+
+        --  ╭──────────────────────────────────────────────────────────╮
+        --  │ Keymappings                                              │
+        --  ╰──────────────────────────────────────────────────────────╯
+        config.keys = {
+          ${darwinKeys}
+
+          ${linuxKeys}
         }
 
         --  ╭──────────────────────────────────────────────────────────╮

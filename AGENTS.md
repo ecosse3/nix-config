@@ -51,7 +51,7 @@ nix-config/
 
   p10k-config/p10k.zsh             # Powerlevel10k configuration
 
-  .github/workflows/check.yml      # CI: nix flake check + nixfmt-rfc-style
+  .github/workflows/check.yml      # CI: nix flake check + nixfmt
 
   Justfile                          # Task runner
   .editorconfig                     # 2-space indent, LF, UTF-8
@@ -118,7 +118,7 @@ sudo darwin-rebuild build --flake .#macbook
 
 GitHub Actions (`.github/workflows/check.yml`) runs on push/PR to `main`:
 1. `nix flake check --no-build`
-2. `nix run nixpkgs#nixfmt-rfc-style -- --check .`
+2. `nix run nixpkgs#nixfmt -- --check .`
 
 ---
 
