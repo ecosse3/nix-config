@@ -23,6 +23,9 @@
   home.username = username;
   home.homeDirectory = if pkgs.stdenv.isLinux then "/home/${username}" else "/Users/${username}";
 
+  # ╭──────────────────────────────────────────────────────────╮
+  # │ Packages                                                 │
+  # ╰──────────────────────────────────────────────────────────╯
   home.packages =
     with pkgs;
     [
@@ -34,7 +37,6 @@
       glow # markdown viewer
       htop
       imagemagick # image manipulation
-      jq
       mmv # mass move/rename
       ncdu # disk usage analyzer
       slack
@@ -46,12 +48,9 @@
 
       # Dev tools
       fastfetch
-      fd
       just # task runner (see Justfile)
-      rbenv # Ruby version manager
       ripgrep
       sqlite
-      uv # Python project manager (replaces pip/venv/pyenv)
 
       # Dev containers
       devenv
@@ -60,7 +59,7 @@
       # Database tools
       tableplus
 
-      # Terminal tools
+      # TUI
       gopass
       lazydocker
       ngrok
@@ -79,6 +78,9 @@
       pkgs.google-cloud-sdk # Google Cloud CLI
     ];
 
+  # ╭──────────────────────────────────────────────────────────╮
+  # │ Programs                                                 │
+  # ╰──────────────────────────────────────────────────────────╯
   programs.bat = {
     enable = true;
   };
@@ -108,6 +110,10 @@
     enableZshIntegration = true; # replaces ls with eza
     icons = "auto";
     git = true;
+  };
+
+  programs.fd = {
+    enable = true;
   };
 
   programs.fzf = {
@@ -155,12 +161,7 @@
     ];
   };
 
-  programs.password-store = {
-    enable = true;
-    settings = {
-      PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
-    };
-  };
+  programs.jq.enable = true;
 
   programs.obsidian = {
     enable = true;
@@ -170,11 +171,33 @@
     enable = true;
   };
 
+  programs.password-store = {
+    enable = true;
+    settings = {
+      PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
+    };
+  };
+
+  # Ruby version manager
+  program.rbenv = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true; # provides rbenv init - zsh plugin is not needed
+  };
+
+  # Python project manager (replaces pip/venv/pyenv)
+  programs.uv = {
+    enable = true;
+  };
+
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true; # provides z command (replaces oh-my-zsh z plugin)
   };
 
+  # ╭──────────────────────────────────────────────────────────╮
+  # │ Services                                                 │
+  # ╰──────────────────────────────────────────────────────────╯
   services.gpg-agent.enable = pkgs.stdenv.isLinux;
   services.gpg-agent.pinentry.package = lib.mkIf pkgs.stdenv.isLinux pkgs.pinentry-gnome3;
 
