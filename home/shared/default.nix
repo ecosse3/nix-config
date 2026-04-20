@@ -179,7 +179,7 @@
   };
 
   # Ruby version manager
-  program.rbenv = {
+  programs.rbenv = {
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true; # provides rbenv init - zsh plugin is not needed
