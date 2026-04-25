@@ -21,6 +21,10 @@ switch:
 test:
     {{sudo_cmd}}{{rebuild_cmd}} test --flake .#{{host}}
 
+# Build and activate (next boot for NixOS, immediate for Darwin)
+boot:
+    {{sudo_cmd}}{{rebuild_cmd}} boot --flake .#{{host}}
+
 # Build without activating (check it compiles)
 build:
     {{rebuild_cmd}} build --flake .#{{host}}
