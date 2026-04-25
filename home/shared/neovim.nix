@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, lib, ... }:
 
 {
   programs.neovim = {
@@ -9,7 +9,8 @@
     vimAlias = true;
     withRuby = false;
     withPython3 = false;
-    # No extraLuaConfig -- config lives in ~/.config/nvim (managed via stow)
-    # No plugins -- managed in ~/.config/nvim directly
+    extraConfig = "";
   };
+
+  xdg.configFile."nvim/init.lua".enable = lib.mkForce false;
 }
