@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   # X11
@@ -28,7 +28,10 @@
   console.keyMap = "pl2";
 
   # Niri compositor
-  programs.niri.enable = true;
+  programs.niri = {
+    enable = true;
+    package = inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  };
 
   # Greetd
   services.greetd = {

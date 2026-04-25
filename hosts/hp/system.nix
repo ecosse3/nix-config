@@ -72,7 +72,8 @@
   # MPD
   services.mpd = {
     enable = true;
-    network.listenAddress = "any";
+    settings.bind_to_address = "any";
+    openFirewall = false;
   };
 
   # Shell
