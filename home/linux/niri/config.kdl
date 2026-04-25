@@ -294,6 +294,15 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 // You can also set this to null to disable saving screenshots to disk.
 // screenshot-path null
 
+// Background blur settings.
+blur {
+    on
+    passes 3
+    offset 3.0
+    noise 0.02
+    saturation 1.0
+}
+
 // Animation settings.
 // The wiki explains how to configure individual animations:
 // https://niri-wm.github.io/niri/Configuration:-Animations
@@ -340,11 +349,14 @@ window-rule {
     // block-out-from "screencast"
 }
 
-// Example: enable rounded corners for all windows.
-// (This example rule is commented out with a "/-" in front.)
+// Enable rounded corners and background blur for all windows.
 window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
+
+    background-effect {
+        blur true
+    }
 }
 
 binds {
