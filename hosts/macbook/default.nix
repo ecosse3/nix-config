@@ -60,6 +60,7 @@
       # which often causes TLS verification failures on Darwin.
       "curl"
       "sheets"
+      "elio-fm/elio/elio"
     ];
 
     casks = [
@@ -87,6 +88,7 @@
   system.defaults = {
     dock.autohide = true;
     dock.mru-spaces = false;
+    dock.launchanim = true;
     finder.AppleShowAllExtensions = true;
     finder.FXPreferredViewStyle = "Nlsv"; # list view
     NSGlobalDomain.AppleKeyboardUIMode = 3;
@@ -94,6 +96,8 @@
     NSGlobalDomain.KeyRepeat = 2;
     NSGlobalDomain.NSAutomaticSpellingCorrectionEnabled = false;
     NSGlobalDomain.NSAutomaticWindowAnimationsEnabled = false;
+    NSGlobalDomain."com.apple.sound.beep.volume" = 0.0;
+    NSGlobalDomain."com.apple.sound.beep.feedback" = 0;
   };
 
   # Required for Apple Silicon
