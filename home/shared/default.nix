@@ -49,8 +49,11 @@
       # Dev tools
       fastfetch
       just # task runner (see Justfile)
+      packer
       ripgrep
       sqlite
+      stow
+      terraform
 
       # Dev containers
       devenv
@@ -96,7 +99,7 @@
   };
 
   programs.direnv = {
-    enable = true;
+    enable = false;
     enableZshIntegration = true;
     nix-direnv.enable = true; # caches devShells, much faster than plain direnv
   };
