@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   pkgs,
   lib,
@@ -35,12 +36,30 @@
       ignoreSpace = true;
       expireDuplicatesFirst = true;
     };
+    oh-my-zsh = {
+      enable = true;
+      plugins = [
+        "git"
+        "sudo"
+        "docker"
+        "terraform"
+        "aws"
+        "gcloud"
+        "npm"
+        "yarn"
+        "bun"
+        "command-not-found"
+        "extract"
+      ];
+    };
     sessionVariables = {
+      # Oh My Zsh path
+      ZSH = "${pkgs.oh-my-zsh}/share/oh-my-zsh";
       # Source cargo env for Rust toolchain
-      NIX_CARGO_LD_LIBRARY_PATH = "$HOME/.rustup/toolchains/*/lib";
+      NIX_CARGO_LD_LIBRARY_PATH = "${config.home.homeDirectory}/.rustup/toolchains/*/lib";
       # Android SDK
-      ANDROID_HOME = "$HOME/Library/Android/sdk";
-      ANDROID_SDK_ROOT = "$HOME/Library/Android/sdk";
+      ANDROID_HOME = "${config.home.homeDirectory}/Library/Android/sdk";
+      ANDROID_SDK_ROOT = "${config.home.homeDirectory}/Library/Android/sdk";
       # Editors
       VISUAL = "nvim";
       EDITOR = "nvim";
@@ -54,42 +73,40 @@
         # CMD keybindings only work on macOS
         darwin = lib.optionalString pkgs.stdenv.isDarwin ''
           # Kiro CLI post init
-          if [ -f "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]; then
-            source "$HOME/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
+          if [ -f "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]; then
+            source "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
           fi
 
           # SSH agent with keychain (macOS)
-          if [ -f "$HOME/.ssh/id_rsa" ]; then
-            ssh-add --apple-use-keychain "$HOME/.ssh/id_rsa" 2>/dev/null
+          if [ -f "${config.home.homeDirectory}/.ssh/id_rsa" ]; then
+            ssh-add --apple-use-keychain "${config.home.homeDirectory}/.ssh/id_rsa" 2>/dev/null
           fi
         '';
 
       in
       ''
         # Source cargo env if it exists (Rust toolchain on macOS without nix)
-        if [ -f "$HOME/.cargo/env" ]; then
-          source "$HOME/.cargo/env"
+        if [ -f "${config.home.homeDirectory}/.cargo/env" ]; then
+          source "${config.home.homeDirectory}/.cargo/env"
         fi
 
-        # fnm - Node version manager
         eval "$(fnm env)"
-
-        # rbenv - Ruby version manager
         eval "$(rbenv init - zsh)"
+        eval "$(devenv hook zsh)"
 
         # Google Cloud SDK (installed via nixpkgs)
         # Completions are handled automatically by home-manager
 
         # Cargo completions
-        fpath+=("$HOME/.cargo/completions/zsh")
+        fpath+=("${config.home.homeDirectory}/.cargo/completions/zsh")
 
         # pnpm
-        export PNPM_HOME="$HOME/Library/pnpm"
+        export PNPM_HOME="${config.home.homeDirectory}/Library/pnpm"
         export PATH="$PNPM_HOME:$PATH"
 
         # bun completions
-        if [ -s "$HOME/.bun/_bun" ]; then
-          source "$HOME/.bun/_bun"
+        if [ -s "${config.home.homeDirectory}/.bun/_bun" ]; then
+          source "${config.home.homeDirectory}/.bun/_bun"
         fi
 
         # GPG TTY
@@ -148,7 +165,7 @@
       gpge = "gpg --encrypt --sign --armor -r";
       ghcs = "gh copilot suggest";
       serena = "uvx --from git+https://github.com/oraios/serena serena";
-      loaddb = "gupdatedb --localpaths=$HOME --prunepaths=/Volumes --output=$HOME/locatedb";
+      loaddb = "gupdatedb --localpaths=${config.home.homeDirectory} --prunepaths=/Volumes --output=${config.home.homeDirectory}/locatedb";
 
       # Exit
       ":q" = "exit";
@@ -191,21 +208,5 @@
         file = "kimi-cli.plugin.zsh";
       }
     ];
-    oh-my-zsh = {
-      enable = true;
-      plugins = [
-        "git"
-        "sudo"
-        "docker"
-        "terraform"
-        "aws"
-        "gcloud"
-        "npm"
-        "yarn"
-        "bun"
-        "command-not-found"
-        "extract"
-      ];
-    };
   };
 }
