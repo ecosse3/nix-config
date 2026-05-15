@@ -83,9 +83,7 @@
       "shottr"
     ];
 
-    masApps = {
-      "Redis Insight" = 6446987963;
-    };
+    masApps = {};
   };
 
   # macOS system defaults
