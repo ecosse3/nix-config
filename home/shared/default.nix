@@ -15,7 +15,7 @@
     ./shell/zsh.nix
     ./wezterm.nix
     ./yazi.nix
-    ./zen-browser.nix
+    # ./zen-browser.nix # FIXME: broken on darwin (structuredAttrs + stdenv-darwin wrapper issue)
   ];
 
   fonts.fontconfig.enable = pkgs.stdenv.isLinux;

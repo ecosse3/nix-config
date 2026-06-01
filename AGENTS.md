@@ -42,7 +42,7 @@ nix-config/
     yazi.nix                        # Yazi file manager (git plugin, Tokyo Night flavor)
     neovide.nix                     # Neovide GUI
     shell/zsh.nix                   # zsh, oh-my-zsh, p10k, aliases
-    zen-browser.nix                 # Linux-only, imported per-host in flake.nix
+    zen-browser.nix                 # Zen Browser (Linux & macOS)
     dank-material-shell.nix         # Linux-only, imported per-host in flake.nix
     danksearch.nix                  # Linux-only, imported per-host in flake.nix
 
