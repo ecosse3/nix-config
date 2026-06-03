@@ -64,6 +64,14 @@
 
       # Services (managed via brew for now)
       "mongodb-community"
+
+      # Not in nixpkgs (stay in brew)
+      "borders"
+      "ical-buddy"
+      "pinentry-mac"
+      "serverless"
+      "rift"
+      "tsm"
     ];
 
     casks = [
@@ -79,14 +87,34 @@
       # Developer tools
       "docker-desktop" # Docker Desktop app (cask)
       "leader-key"
+      "android-platform-tools"
+      "devhub"
+      "react-native-debugger"
+      "pgadmin4"
+      "meld"
+      "vlc"
 
       # System customization
+      "aerospace"
+      "betterdisplay"
+      "blackhole-64ch"
+      "droppy"
+      "hammerspoon"
+      "jordanbaird-ice"
       "karabiner-elements"
+      "keycastr"
+      "macfuse"
       "omniwm"
+      "provisionql"
+      "qmk-toolbox"
+      "qnapi"
+      "rar"
+      "sf-symbols"
       "shottr"
+      "vial"
     ];
 
-    masApps = {};
+    masApps = { };
   };
 
   # macOS system defaults
