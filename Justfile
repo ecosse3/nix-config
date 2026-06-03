@@ -15,6 +15,36 @@ sudo_cmd := "sudo "
 # Returns empty on Linux or if no token is configured.
 darwin_token_opt := `grep "^access-tokens" ~/.config/nix/nix.conf 2>/dev/null | sed 's/^access-tokens = /--option access-tokens /' || echo ""`
 
+# ─── Fresh MacBook Bootstrap ──────────────────────────────────────────
+
+# Copy-paste steps for a bare macOS machine (just is not available yet)
+#   xcode-select --install
+#   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+#   # restart terminal
+#   git clone https://github.com/ecosse3/nix-config.git
+#   darwin-rebuild switch --flake ~/nix-config#macbook
+#   just bootstrap-config
+
+# Print bootstrap instructions
+bootstrap:
+    @echo "Run these on the bare MacBook (copy-paste one by one):"
+    @echo ""
+    @echo "  xcode-select --install"
+    @echo '  curl --proto "=https" --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install'
+    @echo "  # restart terminal"
+    @echo "  git clone https://github.com/ecosse3/nix-config.git ~/nix-config"
+    @echo "  darwin-rebuild switch --flake ~/nix-config#macbook"
+    @echo "  just bootstrap-config"
+    @echo ""
+    @echo "After that, manually restore: ~/.ssh/, ~/.gnupg/, ~/.password-store"
+
+# Complete setup after nix + config are in place
+bootstrap-config:
+    @echo "Restore from old machine:"
+    @echo "  ~/.ssh/          — copy manually"
+    @echo "  ~/.gnupg/        — copy manually"
+    @echo "  cd ~/.password-store && git pull"
+
 # ─── System Rebuild (works on both NixOS and macOS) ───────────────────
 
 # Build and switch configuration for current host
