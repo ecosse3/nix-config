@@ -69,7 +69,6 @@
       "borders"
       "ical-buddy"
       "pinentry-mac"
-      "rift"
       "tsm"
     ];
 
