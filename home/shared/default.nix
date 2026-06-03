@@ -84,17 +84,23 @@
 
       # TUI
       gopass
+      gpg-tui # GPG TUI
+      jiratui # Jira TUI
       lazydocker
       ngrok
       zellij
 
       # Utilities
+      catimg # display images in terminal
       qmk # keyboard firmware
       scrcpy # Android screen mirroring
       qrencode # for pass QR codes
       rclone # cloud storage sync
       sops # secrets ops
       speedtest-cli
+      skhd # macOS hotkey daemon
+      timewarrior # time tracking
+      whisper-cpp # local speech-to-text
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       pinentry-gnome3
@@ -107,6 +113,8 @@
     ]
     ++ lib.optionals pkgs.stdenv.isDarwin [
       pkgs.google-cloud-sdk # Google Cloud CLI
+      nowplaying-cli # macOS Now Playing info
+      switchaudio-osx # macOS audio source switcher
     ];
 
   # ╭──────────────────────────────────────────────────────────╮
