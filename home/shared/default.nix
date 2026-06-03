@@ -56,7 +56,7 @@
       terraform
 
       # Dev containers
-      devenv
+      devenv # dev shell environments
       devpod
 
       # Database tools

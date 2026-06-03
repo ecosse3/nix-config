@@ -11,19 +11,23 @@ host := if os() == "macos" { "macbook" } else { "hp" }
 rebuild_cmd := if os() == "macos" { "darwin-rebuild" } else { "nixos-rebuild" }
 sudo_cmd := "sudo "
 
+# Read GitHub token from user nix.conf (for macOS to override Determinate's stale cached token)
+# Returns empty on Linux or if no token is configured.
+darwin_token_opt := `grep "^access-tokens" ~/.config/nix/nix.conf 2>/dev/null | sed 's/^access-tokens = /--option access-tokens /' || echo ""`
+
 # ─── System Rebuild (works on both NixOS and macOS) ───────────────────
 
 # Build and switch configuration for current host
 switch:
-    {{sudo_cmd}}{{rebuild_cmd}} switch --flake .#{{host}}
+    {{sudo_cmd}}{{rebuild_cmd}} switch --flake .#{{host}} {{darwin_token_opt}}
 
 # Test configuration (reverts on reboot for NixOS, check on Darwin)
 test:
-    {{sudo_cmd}}{{rebuild_cmd}} test --flake .#{{host}}
+    {{sudo_cmd}}{{rebuild_cmd}} test --flake .#{{host}} {{darwin_token_opt}}
 
 # Build and activate (next boot for NixOS, immediate for Darwin)
 boot:
-    {{sudo_cmd}}{{rebuild_cmd}} boot --flake .#{{host}}
+    {{sudo_cmd}}{{rebuild_cmd}} boot --flake .#{{host}} {{darwin_token_opt}}
 
 # Build without activating (check it compiles)
 build:
@@ -31,7 +35,7 @@ build:
 
 # Build with trace (for debugging errors)
 trace:
-    {{sudo_cmd}}{{rebuild_cmd}} switch --flake .#{{host}} --show-trace
+    {{sudo_cmd}}{{rebuild_cmd}} switch --flake .#{{host}} --show-trace {{darwin_token_opt}}
 
 # Dry-run build (show what would be built)
 dry:
@@ -49,7 +53,7 @@ switch-hp:
 
 # Switch Darwin macbook configuration explicitly
 switch-macbook:
-    sudo darwin-rebuild switch --flake .#macbook
+    sudo darwin-rebuild switch --flake .#macbook {{darwin_token_opt}}
 
 # ─── Flake Management ─────────────────────────────────────────────────
 
