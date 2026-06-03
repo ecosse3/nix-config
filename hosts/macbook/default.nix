@@ -69,7 +69,6 @@
       "borders"
       "ical-buddy"
       "pinentry-mac"
-      "serverless"
       "rift"
       "tsm"
     ];
@@ -89,7 +88,6 @@
       "leader-key"
       "android-platform-tools"
       "devhub"
-      "react-native-debugger"
       "pgadmin4"
       "meld"
       "vlc"
@@ -105,7 +103,6 @@
       "keycastr"
       "macfuse"
       "omniwm"
-      "provisionql"
       "qmk-toolbox"
       "qnapi"
       "rar"
