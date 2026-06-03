@@ -34,9 +34,17 @@
       awscli2
       cmake
       gnumake
+      # GNU replacements for macOS BSD tools
+      coreutils
+      findutils
+      gnused
+      gnugrep
       glow # markdown viewer
       htop
       imagemagick # image manipulation
+      ffmpeg # audio/video processing
+      ffmpegthumbnailer # video thumbnails (yazi)
+      exiftool # metadata
       mmv # mass move/rename
       ncdu # disk usage analyzer
       slack
@@ -45,9 +53,21 @@
       vim
       wget
       yt-dlp # video downloader
+      pandoc # document converter
+      qpdf # PDF manipulation
+
+      # macOS tools
+      mas # Mac App Store CLI
+
+      # DB tools
+      mongosh # MongoDB shell
 
       # Dev tools
+      act # GitHub Actions locally
+      ast-grep # code search
+      cloc # count lines of code
       fastfetch
+      hyperfine # benchmarking
       just # task runner (see Justfile)
       packer
       ripgrep
@@ -67,6 +87,14 @@
       lazydocker
       ngrok
       zellij
+
+      # Utilities
+      qmk # keyboard firmware
+      scrcpy # Android screen mirroring
+      qrencode # for pass QR codes
+      rclone # cloud storage sync
+      sops # secrets ops
+      speedtest-cli
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       pinentry-gnome3

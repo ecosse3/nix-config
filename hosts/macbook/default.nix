@@ -61,6 +61,9 @@
       "curl"
       "sheets"
       "elio-fm/elio/elio"
+
+      # Services (managed via brew for now)
+      "mongodb-community"
     ];
 
     casks = [
