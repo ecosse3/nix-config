@@ -9,11 +9,15 @@
   programs.neovim = {
     enable = true;
     package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    extraPackages = with pkgs; [
+      neovim-remote
+    ];
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
-    withRuby = false;
-    withPython3 = false;
+    withNodeJs = true;
+    withPython3 = true;
+    withRuby = true;
     extraConfig = "";
   };
 
