@@ -109,6 +109,9 @@
           source "${config.home.homeDirectory}/.bun/_bun"
         fi
 
+        # bun path
+        export PATH="${config.home.homeDirectory}/.bun/bin:$PATH"
+
         # GPG TTY
         export GPG_TTY=$(tty)
 
