@@ -83,7 +83,6 @@
       tableplus
 
       # TUI
-      gopass
       gpg-tui # GPG TUI
       jiratui # Jira TUI
       lazydocker
