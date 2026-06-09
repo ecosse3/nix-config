@@ -103,11 +103,9 @@
       "macfuse"
       "omniwm"
       "qmk-toolbox"
-      "qnapi"
       "rar"
       "sf-symbols"
       "shottr"
-      "vial"
     ];
 
     masApps = { };
