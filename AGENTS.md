@@ -188,58 +188,53 @@ Run `just bootstrap-config` for detailed steps.
 
 **Order matters** — SSH keys must come first (all git remotes use `git@github.com`).
 
-Two approaches:
-- **Network mode** (after SSH keys are set up): `git clone` repos, `curl` tool installers.
-- **Direct copy** (both machines on same LAN): `rsync` over SSH for bulk data.
+Best approach: **USB stick** for tiny files, then curl/git for the rest.
 
-#### Must copy manually (not in nix, no installer)
+#### USB stick (always do this)
 
-| What | Why | Size | Method |
-|------|-----|------|--------|
-| `~/.ssh/` | All git remotes use SSH | ~10 KB | `rsync -a` |
-| `~/.gnupg/` | GPG keys for pass, signing | ~100 KB | `rsync -a` |
+Copy these from old Mac to USB, then USB to new Mac:
 
-These are tiny — always direct copy from old machine.
-
-#### Git clone (repos with remote)
-
-| What | Where | Repo |
-|------|-------|------|
-| Password store | `~/.password-store` | `git@github.com:ecosse3/pass.git` |
-| EcoVim (neovim config) | `~/.config/nvim` | `github.com/ecosse3/ecovim.git` |
-
-Copying the `.git` directory is equivalent — either `git clone` or `rsync` the whole folder.
-
-#### Reinstall via curl (not in nixpkgs)
-
-| Tool | Install | Post-install | Disk |
-|------|---------|-------------|------|
-| **fnm** | `curl -fsSL https://fnm.vercel.app/install \| bash` | `fnm install --lts` | ~50 MB |
-| **bun** | `curl -fsSL https://bun.sh/install \| bash` | — | ~4 GB (cache) |
-| **Rust** | `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \| sh` | `rustup default stable` | ~9 GB |
-| **pnpm** | `corepack enable pnpm` | — | — |
-
-These are large (especially Rust + bun cache). **Reinstall is faster than rsync** on a good connection.
-
-#### Bulk data (rsync over LAN)
-
-| What | Size | Command |
-|------|------|---------|
-| `~/Projects/` | ~67 GB | `rsync -aP --progress user@old-mac:~/Projects/ ~/Projects/` |
-| `~/Library/Application Support/kiro-cli/` | ~60 MB | `rsync -aP user@old-mac:"~/Library/Application Support/kiro-cli/" "~/Library/Application Support/kiro-cli/"` |
-
-For Projects, you can also just `git clone` individual repos you need — no need to copy 67 GB upfront.
-
-#### 💡 One-shot migration command
-After SSH keys are in place, copy everything at once:
+| What | Size | Why |
+|------|------|-----|
+| `~/.ssh/` | ~10 KB | All git remotes use SSH, no installer exists |
+| `~/.gnupg/` | ~100 KB | GPG keys for pass, signing, no installer |
+| `~/.password-store/` | ~1 MB | Or `git clone` after SSH keys |
+| `~/.config/nvim/` (EcoVim) | ~1 MB | Or `git clone` after SSH keys |
+| `~/Library/Application Support/kiro-cli/` | ~60 MB | Local AI state, no installer |
 
 ```bash
-# From new machine, with SSH access to old machine:
-rsync -aP --progress \
-  user@old-mac:~/Projects/ ~/Projects/ \
-  user@old-mac:~/Library/Application\ Support/kiro-cli/ \
-  ~/Library/Application\ Support/kiro-cli/
+# Old Mac → USB
+cp -a ~/.ssh /Volumes/USB/
+cp -a ~/.gnupg /Volumes/USB/
+cp -a ~/.password-store /Volumes/USB/
+cp -a ~/.config/nvim /Volumes/USB/
+cp -a ~/Library/Application\ Support/kiro-cli/ /Volumes/USB/
+
+# USB → New Mac
+cp -a /Volumes/USB/.ssh ~/ && chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_*
+cp -a /Volumes/USB/.gnupg ~/ && chmod 700 ~/.gnupg && chmod 600 ~/.gnupg/*
+cp -a /Volumes/USB/.password-store ~/
+cp -a /Volumes/USB/nvim ~/.config/
+cp -a /Volumes/USB/kiro-cli/ ~/Library/Application\ Support/kiro-cli/
 ```
+
+#### Curl-installed tools (reinstall, not copy)
+
+| Tool | Size | Reason |
+|------|------|--------|
+| **Rust** (`rustup`) | ~9 GB | Reinstall faster than USB copy |
+| **bun** | ~4 GB | Reinstall faster than USB copy |
+| **fnm** | ~50 MB | Reinstall, then `fnm install --lts` |
+| **pnpm** | — | `corepack enable pnpm` |
+
+#### Projects (23+ repos, ~67 GB)
+
+Two options:
+- **Clone only what you need**: `git clone` individual repos from GitHub
+- **Full rsync over LAN**: after USB step, SSH keys work for network transfer:
+  ```bash
+  rsync -aP --progress user@192.168.1.X:~/Projects/ ~/Projects/
+  ```
 
 ### Phase 4: Manual App Config
 - **Raycast** — logs into cloud sync automatically
