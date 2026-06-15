@@ -134,9 +134,25 @@
   };
 
   programs.direnv = {
-    enable = false;
+    enable = true;
     enableZshIntegration = true;
-    nix-direnv.enable = true; # caches devShells, much faster than plain direnv
+    nix-direnv.enable = true;
+  };
+
+  programs.ssh = {
+    enable = true;
+    startAgent = true;
+    compression = true;
+    serverAliveInterval = 60;
+    forwardAgent = false;
+    extraConfig = ''
+      # macOS keychain integration
+      Host *
+        UseKeychain yes
+        AddKeysToAgent yes
+        IdentityFile ~/.ssh/id_rsa
+        IdentityFile ~/.ssh/id_ed25519
+    '';
   };
 
   programs.discord = {

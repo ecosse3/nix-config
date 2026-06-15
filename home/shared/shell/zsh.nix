@@ -76,11 +76,6 @@
           if [ -f "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]; then
             source "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
           fi
-
-          # SSH agent with keychain (macOS)
-          if [ -f "${config.home.homeDirectory}/.ssh/id_rsa" ]; then
-            ssh-add --apple-use-keychain "${config.home.homeDirectory}/.ssh/id_rsa" 2>/dev/null
-          fi
         '';
 
       in

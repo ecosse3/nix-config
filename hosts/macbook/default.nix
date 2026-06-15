@@ -116,13 +116,25 @@
     dock.autohide = true;
     dock.mru-spaces = false;
     dock.launchanim = true;
+    dock.tilesize = 48;
+    dock.minimize-to-application = true;
+    dock.show-recents = false;
     finder.AppleShowAllExtensions = true;
-    finder.FXPreferredViewStyle = "Nlsv"; # list view
+    finder.FXPreferredViewStyle = "Nlsv";
+    finder.ShowPathbar = true;
+    finder.ShowStatusBar = true;
+    finder._FXShowPosixPathInTitle = true;
+    trackpad.TrackpadRightClick = true;
+    trackpad.TrackpadThreeFingerDrag = true;
+    screencapture.location = "~/Desktop/screenshots";
+    screencapture.disable-shadow = true;
+    loginwindow.GuestEnabled = false;
     NSGlobalDomain.AppleKeyboardUIMode = 3;
     NSGlobalDomain.InitialKeyRepeat = 15;
-    NSGlobalDomain.KeyRepeat = 2;
+    NSGlobalDomain.KeyRepeat = 1;
     NSGlobalDomain.NSAutomaticSpellingCorrectionEnabled = false;
     NSGlobalDomain.NSAutomaticWindowAnimationsEnabled = false;
+    NSGlobalDomain.ApplePressAndHoldEnabled = false;
     NSGlobalDomain."com.apple.sound.beep.volume" = 0.0;
     NSGlobalDomain."com.apple.sound.beep.feedback" = 0;
   };
