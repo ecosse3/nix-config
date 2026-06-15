@@ -218,14 +218,14 @@ cp -a /Volumes/USB/nvim ~/.config/
 cp -a /Volumes/USB/kiro-cli/ ~/Library/Application\ Support/kiro-cli/
 ```
 
-#### Curl-installed tools (reinstall, not copy)
+#### Curl-installed tools (only if you need nightly Rust)
+
+These are all managed by nix (`packages/languages/*.nix`) — `darwin-rebuild` handles them.
+Only `rustup` gives you nightly toolchains if needed.
 
 | Tool | Size | Reason |
 |------|------|--------|
-| **Rust** (`rustup`) | ~9 GB | Reinstall faster than USB copy |
-| **bun** | ~4 GB | Reinstall faster than USB copy |
-| **fnm** | ~50 MB | Reinstall, then `fnm install --lts` |
-| **pnpm** | — | `corepack enable pnpm` |
+| **Rust** (`rustup`) | ~9 GB | Only if you need nightly |
 
 #### Projects (23+ repos, ~67 GB)
 

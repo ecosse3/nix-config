@@ -55,8 +55,7 @@
     sessionVariables = {
       # Oh My Zsh path
       ZSH = "${pkgs.oh-my-zsh}/share/oh-my-zsh";
-      # Source cargo env for Rust toolchain
-      NIX_CARGO_LD_LIBRARY_PATH = "${config.home.homeDirectory}/.rustup/toolchains/*/lib";
+      # Rust toolchain is managed via nix (packages/languages/rust.nix)
       # Android SDK
       ANDROID_HOME = "${config.home.homeDirectory}/Library/Android/sdk";
       ANDROID_SDK_ROOT = "${config.home.homeDirectory}/Library/Android/sdk";
@@ -80,32 +79,13 @@
 
       in
       ''
-        # Source cargo env if it exists (Rust toolchain on macOS without nix)
-        if [ -f "${config.home.homeDirectory}/.cargo/env" ]; then
-          source "${config.home.homeDirectory}/.cargo/env"
-        fi
-
         eval "$(fnm env)"
         eval "$(rbenv init - zsh)"
         eval "$(devenv hook zsh)"
 
-        # Google Cloud SDK (installed via nixpkgs)
-        # Completions are handled automatically by home-manager
-
-        # Cargo completions
-        fpath+=("${config.home.homeDirectory}/.cargo/completions/zsh")
-
         # pnpm
         export PNPM_HOME="${config.home.homeDirectory}/Library/pnpm"
         export PATH="$PNPM_HOME:$PATH"
-
-        # bun completions
-        if [ -s "${config.home.homeDirectory}/.bun/_bun" ]; then
-          source "${config.home.homeDirectory}/.bun/_bun"
-        fi
-
-        # bun path
-        export PATH="${config.home.homeDirectory}/.bun/bin:$PATH"
 
         # GPG TTY
         export GPG_TTY=$(tty)
