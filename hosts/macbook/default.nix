@@ -19,6 +19,7 @@
   # Manage zsh at system level (nix-darwin writes /etc/zshrc)
   programs.zsh.enable = true;
 
+
   # Touch ID for sudo (renamed option)
   security.pam.services.sudo_local.touchIdAuth = true;
 

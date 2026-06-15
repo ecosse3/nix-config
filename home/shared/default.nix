@@ -141,18 +141,15 @@
 
   programs.ssh = {
     enable = true;
-    startAgent = true;
-    compression = true;
-    serverAliveInterval = 60;
-    forwardAgent = false;
-    extraConfig = ''
-      # macOS keychain integration
-      Host *
-        UseKeychain yes
-        AddKeysToAgent yes
-        IdentityFile ~/.ssh/id_rsa
-        IdentityFile ~/.ssh/id_ed25519
-    '';
+    enableDefaultConfig = false;
+    settings."*" = {
+      Compression = "yes";
+      ServerAliveInterval = 60;
+      ForwardAgent = "no";
+    } // lib.optionalAttrs pkgs.stdenv.isDarwin {
+      UseKeychain = "yes";
+      AddKeysToAgent = "yes";
+    };
   };
 
   programs.discord = {
