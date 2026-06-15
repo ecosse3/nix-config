@@ -106,7 +106,7 @@
       cava
       firefox
       matugen
-      wasistlos
+      karere
       wdisplays
       wl-clipboard
     ]
