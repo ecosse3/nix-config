@@ -183,16 +183,63 @@ darwin-rebuild switch --flake .#macbook --impure
 `/etc/nix/nix.conf`: `access-tokens = github.com=<PAT>`
 
 ### Phase 3: Post-Rebuild State Restore
-Run `just bootstrap-config` for detailed steps. In order:
 
-1. **SSH keys** — `rsync ~/.ssh/` from old machine, set perms
-2. **GPG keys** — `rsync ~/.gnupg/` from old machine, set perms
-3. **Password store** — `git clone` or `git pull`
-4. **EcoVim** — `git clone` to `~/.config/nvim`
-5. **Rust** — `rustup` (not managed by nix)
-6. **fnm** — install via curl (not in nixpkgs — mismatched version)
-7. **bun** — install via curl (not in nixpkgs)
-8. **pnpm** — `corepack enable pnpm` (requires node from fnm)
+Run `just bootstrap-config` for detailed steps.
+
+**Order matters** — SSH keys must come first (all git remotes use `git@github.com`).
+
+Two approaches:
+- **Network mode** (after SSH keys are set up): `git clone` repos, `curl` tool installers.
+- **Direct copy** (both machines on same LAN): `rsync` over SSH for bulk data.
+
+#### Must copy manually (not in nix, no installer)
+
+| What | Why | Size | Method |
+|------|-----|------|--------|
+| `~/.ssh/` | All git remotes use SSH | ~10 KB | `rsync -a` |
+| `~/.gnupg/` | GPG keys for pass, signing | ~100 KB | `rsync -a` |
+
+These are tiny — always direct copy from old machine.
+
+#### Git clone (repos with remote)
+
+| What | Where | Repo |
+|------|-------|------|
+| Password store | `~/.password-store` | `git@github.com:ecosse3/pass.git` |
+| EcoVim (neovim config) | `~/.config/nvim` | `github.com/ecosse3/ecovim.git` |
+
+Copying the `.git` directory is equivalent — either `git clone` or `rsync` the whole folder.
+
+#### Reinstall via curl (not in nixpkgs)
+
+| Tool | Install | Post-install | Disk |
+|------|---------|-------------|------|
+| **fnm** | `curl -fsSL https://fnm.vercel.app/install \| bash` | `fnm install --lts` | ~50 MB |
+| **bun** | `curl -fsSL https://bun.sh/install \| bash` | — | ~4 GB (cache) |
+| **Rust** | `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \| sh` | `rustup default stable` | ~9 GB |
+| **pnpm** | `corepack enable pnpm` | — | — |
+
+These are large (especially Rust + bun cache). **Reinstall is faster than rsync** on a good connection.
+
+#### Bulk data (rsync over LAN)
+
+| What | Size | Command |
+|------|------|---------|
+| `~/Projects/` | ~67 GB | `rsync -aP --progress user@old-mac:~/Projects/ ~/Projects/` |
+| `~/Library/Application Support/kiro-cli/` | ~60 MB | `rsync -aP user@old-mac:"~/Library/Application Support/kiro-cli/" "~/Library/Application Support/kiro-cli/"` |
+
+For Projects, you can also just `git clone` individual repos you need — no need to copy 67 GB upfront.
+
+#### 💡 One-shot migration command
+After SSH keys are in place, copy everything at once:
+
+```bash
+# From new machine, with SSH access to old machine:
+rsync -aP --progress \
+  user@old-mac:~/Projects/ ~/Projects/ \
+  user@old-mac:~/Library/Application\ Support/kiro-cli/ \
+  ~/Library/Application\ Support/kiro-cli/
+```
 
 ### Phase 4: Manual App Config
 - **Raycast** — logs into cloud sync automatically
