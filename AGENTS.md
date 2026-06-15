@@ -161,20 +161,45 @@ Optional scope: `nix`, `home`, `core`, `packages`, `shell`, `ci`.
 
 ## Fresh MacBook Bootstrap
 
+### Phase 0: Initial macOS Setup
+- Sign into iCloud / Apple ID
+- Enable FileVault
+- (Optional) Install Xcode.app from App Store
+
+### Phase 1: Install Prerequisites
 ```bash
-# 1. Install Xcode CLI tools + Nix
 xcode-select --install
 curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
-
-# 2. Restart terminal, then clone and build
-git clone https://github.com/ecosse3/nix-config.git ~/nix-config
-darwin-rebuild switch --flake ~/nix-config#macbook
-
-# 3. Restore state from old machine
-#    - ~/.ssh/
-#    - ~/.gnupg/
-#    - cd ~/.password-store && git pull
 ```
+
+### Phase 2: Clone & Build
+```bash
+git clone https://github.com/ecosse3/nix-config.git ~/nix-config
+cd ~/nix-config
+darwin-rebuild switch --flake .#macbook --impure
+```
+**Troubleshooting**: If the build fails with GitHub rate limiting, create a
+[GitHub PAT](https://github.com/settings/tokens) and add to
+`/etc/nix/nix.conf`: `access-tokens = github.com=<PAT>`
+
+### Phase 3: Post-Rebuild State Restore
+Run `just bootstrap-config` for detailed steps. In order:
+
+1. **SSH keys** — `rsync ~/.ssh/` from old machine, set perms
+2. **GPG keys** — `rsync ~/.gnupg/` from old machine, set perms
+3. **Password store** — `git clone` or `git pull`
+4. **EcoVim** — `git clone` to `~/.config/nvim`
+5. **Rust** — `rustup` (not managed by nix)
+6. **fnm** — install via curl (not in nixpkgs — mismatched version)
+7. **bun** — install via curl (not in nixpkgs)
+8. **pnpm** — `corepack enable pnpm` (requires node from fnm)
+
+### Phase 4: Manual App Config
+- **Raycast** — logs into cloud sync automatically
+- **Karabiner-Elements** — grant Input Monitoring in Privacy & Security
+- **SketchyBar** — grant Accessibility permissions
+- **Aerospace** — grant Accessibility permissions
+- Some `system.defaults` changes need logout/restart to apply
 
 ---
 
