@@ -40,8 +40,8 @@
     # Use the `brew untrust` command to remove a trust entry.
     trust = {
       formulae = [
-        "felixkratz/formulae"
-        "mongodb-community"
+        "felixkratz/formulae/sketchybar"
+        "mongodb/brew/mongodb-community"
       ];
       casks = [ ];
       commands = [ ];
