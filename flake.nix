@@ -80,7 +80,7 @@
       darwinConfigurations = {
         macbook = mkDarwinHost {
           hostname = "macbook";
-          username = "lukasz.kurpiewski";
+          username = "ecosse";
           system = "aarch64-darwin";
           systemModules = [ ./hosts/macbook ];
           homeModules = [
