@@ -107,7 +107,7 @@
       "vlc"
 
       # System customization
-      "aerospace"
+      "nikitabobko/tap/aerospace"
       "betterdisplay"
       "blackhole-64ch"
       "droppy"
