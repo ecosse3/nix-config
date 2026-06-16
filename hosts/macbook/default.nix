@@ -77,7 +77,7 @@
       # which often causes TLS verification failures on Darwin.
       "curl"
       "sheets"
-      "elio-fm/elio/elio"
+      "elio"
 
       # Services (managed via brew for now)
       # "mongodb-community"
