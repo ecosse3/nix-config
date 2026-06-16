@@ -77,7 +77,7 @@
       "elio-fm/elio/elio"
 
       # Services (managed via brew for now)
-      "mongodb-community"
+      # "mongodb-community"
 
       # Not in nixpkgs (stay in brew)
       "borders"
