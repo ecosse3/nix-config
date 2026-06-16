@@ -45,7 +45,9 @@
       ];
       casks = [ ];
       commands = [ ];
-      taps = [ ];
+      taps = [
+        "adibhanna/tsm"
+      ];
     };
   };
 
@@ -83,7 +85,7 @@
       "borders"
       "ical-buddy"
       "pinentry-mac"
-      "tsm"
+      "adibhanna/tsm/tsm"
     ];
 
     casks = [
