@@ -19,7 +19,6 @@
   # Manage zsh at system level (nix-darwin writes /etc/zshrc)
   programs.zsh.enable = true;
 
-
   # Touch ID for sudo (renamed option)
   security.pam.services.sudo_local.touchIdAuth = true;
 
@@ -34,6 +33,20 @@
     enableRosetta = true; # for x86_64 brews on Apple Silicon
     user = username;
     autoMigrate = true; # safely migrate existing Homebrew install
+
+    # Optional: Declarative Homebrew tap trust entries.
+    #
+    # Note: The trust entries are _not_ removed if you remove them from those lists!
+    # Use the `brew untrust` command to remove a trust entry.
+    trust = {
+      formulae = [
+        "felixkratz/formulae"
+        "mongodb-community"
+      ];
+      casks = [ ];
+      commands = [ ];
+      taps = [ ];
+    };
   };
 
   # Homebrew package management
