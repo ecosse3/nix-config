@@ -102,7 +102,6 @@
       "docker-desktop" # Docker Desktop app (cask)
       "leader-key"
       "android-platform-tools"
-      "devhub"
       "pgadmin4"
       "meld"
       "vlc"
