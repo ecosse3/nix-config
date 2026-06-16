@@ -8,12 +8,20 @@ let
     hash = "sha256-FVVUU9c3VQBvfjwBBilbBS8ygU4U97L2DwdT4s55OW0=";
   };
 
-  yazi-flavors = pkgs.fetchFromGitHub {
+  yazi-flavors-src = pkgs.fetchFromGitHub {
     owner = "kalidyasin";
     repo = "yazi-flavors";
     rev = "70fe6b4a245a59b546166aae6c45ee2b471869c2";
     hash = "sha256-9I6NWIlNi4y0mNuqX8AbjfIK9vrC3+fzP0dJdh6QAic=";
   };
+
+  yazi-flavors = pkgs.runCommand "yazi-flavors-patched" { } ''
+    cp -a ${yazi-flavors-src} $out
+    chmod -R +w $out
+    substituteInPlace $out/tokyonight-night.yazi/flavor.toml \
+      --replace-fail 'name = "*/"' 'url = "*/"' \
+      --replace-fail 'name = "*"' 'url = "*"'
+  '';
 in
 {
   programs.yazi = {
@@ -25,13 +33,15 @@ in
       plugin.prepend_fetchers = [
         {
           id = "git";
-          name = "*";
+          url = "*";
           run = "git";
+          group = "git";
         }
         {
           id = "git";
-          name = "*/";
+          url = "*/";
           run = "git";
+          group = "git";
         }
       ];
     };
