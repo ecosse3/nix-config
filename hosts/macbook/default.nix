@@ -47,6 +47,7 @@
       commands = [ ];
       taps = [
         "adibhanna/tsm"
+        "barutsrb/tap"
       ];
     };
   };
