@@ -69,7 +69,7 @@
       fastfetch
       hyperfine # benchmarking
       just # task runner (see Justfile)
-      packer
+      # packer # fails for some reason on the new machine
       ripgrep
       sqlite
       stow
