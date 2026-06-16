@@ -110,7 +110,6 @@
       "nikitabobko/tap/aerospace"
       "betterdisplay"
       "blackhole-64ch"
-      "droppy"
       "hammerspoon"
       "jordanbaird-ice"
       "karabiner-elements"
