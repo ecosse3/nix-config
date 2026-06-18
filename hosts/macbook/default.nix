@@ -76,8 +76,8 @@
       # nixpkgs curl relies on NIX_SSL_CERT_FILE or falls back to /etc/ssl/cert.pem,
       # which often causes TLS verification failures on Darwin.
       "curl"
-      "sheets"
       "elio"
+      "sheets"
 
       # Services (managed via brew for now)
       "mongodb-community@7.0"
@@ -103,11 +103,12 @@
       "dbngin"
 
       # Developer tools
-      "docker-desktop" # Docker Desktop app (cask)
-      "leader-key"
       "android-platform-tools"
-      "pgadmin4"
+      "docker-desktop" # Docker Desktop app (cask)
+      "kiro-cli"
+      "leader-key"
       "meld"
+      "pgadmin4"
       "vlc"
 
       # System customization
