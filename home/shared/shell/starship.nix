@@ -2,8 +2,8 @@
 
 {
   programs.starship = {
-    enable = lib.mkDefault true;
-    enableZshIntegration = true;
+    enable = false;
+    enableZshIntegration = false;
 
     presets = [ "tokyo-night" "nerd-font-symbols" ];
 
