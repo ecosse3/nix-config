@@ -72,18 +72,32 @@ in
       LANG = "en_US.UTF-8";
       LANGUAGE = "en_US.UTF-8";
     };
+    # Kiro CLI zprofile integration
+    profileExtra = lib.mkIf pkgs.stdenv.isDarwin ''
+      # Kiro CLI pre init
+      if [ -f "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zprofile.pre.zsh" ]; then
+        source "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zprofile.pre.zsh"
+      fi
+      # Kiro CLI post init
+      if [ -f "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zprofile.post.zsh" ]; then
+        source "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zprofile.post.zsh"
+      fi
+    '';
+
     initContent =
       let
         # CMD keybindings only work on macOS
         darwin = lib.optionalString pkgs.stdenv.isDarwin ''
-          # Kiro CLI post init
-          if [ -f "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]; then
-            source "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
+          # Kiro CLI pre init
+          if [ -f "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]; then
+            source "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
           fi
         '';
 
       in
       ''
+        ${darwin}
+
         # Prevent zsh-autosuggestions + history-substring-search widget recursion
         export FUNCNEST=500
 
@@ -98,7 +112,10 @@ in
         # GPG TTY
         export GPG_TTY=$(tty)
 
-        ${darwin}
+        # Kiro CLI post init
+        if [ -f "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]; then
+          source "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
+        fi
 
         # Open file(s) in running Neovide instance, or launch a new one
         function v() {
