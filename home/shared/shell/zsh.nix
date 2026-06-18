@@ -30,7 +30,7 @@ in
       enable = true;
     };
     historySubstringSearch = {
-      enable = true;
+      enable = false;
     };
     history = {
       size = 100000;
