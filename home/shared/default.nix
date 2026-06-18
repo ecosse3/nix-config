@@ -57,9 +57,6 @@
       pandoc # document converter
       qpdf # PDF manipulation
 
-      # macOS tools
-      mas # Mac App Store CLI
-
       # DB tools
       mongosh # MongoDB shell
 
@@ -101,7 +98,6 @@
       rclone # cloud storage sync
       sops # secrets ops
       speedtest-cli
-      skhd # macOS hotkey daemon
       timewarrior # time tracking
       whisper-cpp # local speech-to-text
     ]
@@ -115,6 +111,8 @@
       wl-clipboard
     ]
     ++ lib.optionals pkgs.stdenv.isDarwin [
+      mas # Mac App Store CLI
+      skhd # macOS hotkey daemon
       pkgs.google-cloud-sdk # Google Cloud CLI
       nowplaying-cli # macOS Now Playing info
       switchaudio-osx # macOS audio source switcher
