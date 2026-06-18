@@ -134,7 +134,7 @@
     dock.autohide = false;
     dock.mru-spaces = false;
     dock.launchanim = true;
-    dock.tilesize = 48;
+    dock.tilesize = 64;
     dock.minimize-to-application = true;
     dock.show-recents = false;
     finder.AppleShowAllExtensions = true;
