@@ -247,6 +247,8 @@
         --  │ Config options                                           │
         --  ╰──────────────────────────────────────────────────────────╯
 
+        -- Don't swallow the first click when focusing an inactive window
+        config.swallow_mouse_click_on_window_focus = false
         config.enable_kitty_keyboard = true
         config.front_end = "WebGpu"
         config.max_fps = 144
