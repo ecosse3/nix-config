@@ -41,13 +41,13 @@
     trust = {
       formulae = [
         "felixkratz/formulae/sketchybar"
-        "mongodb/brew/mongodb-community"
       ];
       casks = [ ];
       commands = [ ];
       taps = [
         "adibhanna/tsm"
         "barutsrb/tap"
+        "mongodb/brew"
       ];
     };
   };
@@ -80,7 +80,7 @@
       "elio"
 
       # Services (managed via brew for now)
-      # "mongodb-community"
+      "mongodb-community@7.0"
 
       # Not in nixpkgs (stay in brew)
       "borders"
@@ -98,6 +98,9 @@
 
       # Productivity / Launcher
       "raycast"
+
+      # Database
+      "dbngin"
 
       # Developer tools
       "docker-desktop" # Docker Desktop app (cask)
@@ -128,7 +131,7 @@
 
   # macOS system defaults
   system.defaults = {
-    dock.autohide = true;
+    dock.autohide = false;
     dock.mru-spaces = false;
     dock.launchanim = true;
     dock.tilesize = 48;

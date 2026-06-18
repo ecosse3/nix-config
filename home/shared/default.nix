@@ -13,6 +13,7 @@
     ./neovide.nix
     ./neovim.nix
     ./shell/zsh.nix
+    ./shell/starship.nix
     ./wezterm.nix
     ./yazi.nix
     # ./zen-browser.nix # FIXME: broken on darwin (structuredAttrs + stdenv-darwin wrapper issue)
@@ -81,6 +82,9 @@
 
       # Database tools
       tableplus
+
+      # WireGuard tools
+      wireguard-tools
 
       # TUI
       gpg-tui # GPG TUI

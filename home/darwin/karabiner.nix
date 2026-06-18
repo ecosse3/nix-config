@@ -12,7 +12,7 @@ let
           selected = true;
           complex_modifications = {
             parameters = {
-              basic.to_if_alone_timeout_milliseconds = 200;
+              basic.to_if_alone_timeout_milliseconds = 120;
             };
             rules = [
               {

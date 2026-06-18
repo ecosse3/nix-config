@@ -6,6 +6,11 @@
   ...
 }:
 
+let
+  # Toggle prompt: set programs.starship.enable = false to use p10k + oh-my-zsh
+  useOhMyZsh = !(config.programs.starship.enable or false);
+in
+
 {
   home.packages = with pkgs; [
     zsh-completions
@@ -36,7 +41,7 @@
       ignoreSpace = true;
       expireDuplicatesFirst = true;
     };
-    oh-my-zsh = {
+    oh-my-zsh = lib.mkIf useOhMyZsh {
       enable = true;
       plugins = [
         "git"
@@ -53,8 +58,8 @@
       ];
     };
     sessionVariables = {
-      # Oh My Zsh path
-      ZSH = "${pkgs.oh-my-zsh}/share/oh-my-zsh";
+      # Oh My Zsh path (only needed with oh-my-zsh)
+      ZSH = lib.mkIf useOhMyZsh "${pkgs.oh-my-zsh}/share/oh-my-zsh";
       # Rust toolchain is managed via nix (packages/languages/rust.nix)
       # Android SDK
       ANDROID_HOME = "${config.home.homeDirectory}/Library/Android/sdk";
@@ -79,6 +84,9 @@
 
       in
       ''
+        # Prevent zsh-autosuggestions + history-substring-search widget recursion
+        export FUNCNEST=500
+
         eval "$(fnm env)"
         eval "$(rbenv init - zsh)"
         eval "$(devenv hook zsh)"
@@ -149,42 +157,47 @@
       ":q" = "exit";
       ":wq" = "exit";
     };
-    plugins = [
-      {
-        name = "powerlevel10k";
-        src = pkgs.zsh-powerlevel10k;
-        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-      }
-      {
-        name = "powerlevel10k-config";
-        src = pkgs.writeTextDir "p10k.zsh" (builtins.readFile ./p10k.zsh);
-        file = "p10k.zsh";
-      }
-      {
-        name = "you-should-use";
-        src = pkgs.zsh-you-should-use;
-        file = "share/zsh/plugins/you-should-use/you-should-use.plugin.zsh";
-      }
-      {
-        name = "zsh-fzf-history-search";
-        src = pkgs.zsh-fzf-history-search;
-        file = "share/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh";
-      }
-      {
-        name = "fzf-tab";
-        src = pkgs.zsh-fzf-tab;
-        file = "share/fzf-tab/fzf-tab.plugin.zsh";
-      }
-      {
-        name = "kimi-cli";
-        src = pkgs.fetchFromGitHub {
-          owner = "MoonshotAI";
-          repo = "zsh-kimi-cli";
-          rev = "50d72a9182f3b8db6667a8c68ee1904482b59020";
-          sha256 = "02fsbm410s1zyxsizpi9zx7caj3xfd3p3zh17hy1k4d5300ns4hl";
-        };
-        file = "kimi-cli.plugin.zsh";
-      }
-    ];
+    plugins =
+      # Non-prompt plugins (always loaded)
+      [
+        {
+          name = "you-should-use";
+          src = pkgs.zsh-you-should-use;
+          file = "share/zsh/plugins/you-should-use/you-should-use.plugin.zsh";
+        }
+        {
+          name = "zsh-fzf-history-search";
+          src = pkgs.zsh-fzf-history-search;
+          file = "share/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh";
+        }
+        {
+          name = "fzf-tab";
+          src = pkgs.zsh-fzf-tab;
+          file = "share/fzf-tab/fzf-tab.plugin.zsh";
+        }
+        {
+          name = "kimi-cli";
+          src = pkgs.fetchFromGitHub {
+            owner = "MoonshotAI";
+            repo = "zsh-kimi-cli";
+            rev = "50d72a9182f3b8db6667a8c68ee1904482b59020";
+            sha256 = "02fsbm410s1zyxsizpi9zx7caj3xfd3p3zh17hy1k4d5300ns4hl";
+          };
+          file = "kimi-cli.plugin.zsh";
+        }
+      ]
+      # P10k prompt plugins (only when oh-my-zsh is active)
+      ++ lib.optionals useOhMyZsh [
+        {
+          name = "powerlevel10k";
+          src = pkgs.zsh-powerlevel10k;
+          file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+        }
+        {
+          name = "powerlevel10k-config";
+          src = pkgs.writeTextDir "p10k.zsh" (builtins.readFile ./p10k.zsh);
+          file = "p10k.zsh";
+        }
+      ];
   };
 }

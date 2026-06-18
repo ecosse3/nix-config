@@ -41,6 +41,10 @@
   networking.hostName = hostname;
   networking.networkmanager.enable = true;
 
+  # WireGuard kernel module
+  boot.extraModulePackages = [ config.boot.kernelPackages.wireguard ];
+  environment.systemPackages = with pkgs; [ wireguard-tools ];
+
   # Timezone & Locale
   time.timeZone = "Europe/Warsaw";
   i18n.defaultLocale = "en_US.UTF-8";
