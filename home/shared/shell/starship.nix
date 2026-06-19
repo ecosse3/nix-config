@@ -1,11 +1,19 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   programs.starship = {
     enable = false;
     enableZshIntegration = false;
 
-    presets = [ "tokyo-night" "nerd-font-symbols" ];
+    presets = [
+      "tokyo-night"
+      "nerd-font-symbols"
+    ];
 
     settings = {
       add_newline = true;

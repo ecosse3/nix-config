@@ -148,7 +148,8 @@
       Compression = "yes";
       ServerAliveInterval = 60;
       ForwardAgent = "no";
-    } // lib.optionalAttrs pkgs.stdenv.isDarwin {
+    }
+    // lib.optionalAttrs pkgs.stdenv.isDarwin {
       UseKeychain = "yes";
       AddKeysToAgent = "yes";
     };
@@ -246,6 +247,13 @@
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true; # provides z command (replaces oh-my-zsh z plugin)
+  };
+
+  # ╭──────────────────────────────────────────────────────────╮
+  # │ Session Variables                                         │
+  # ╰──────────────────────────────────────────────────────────╯
+  home.sessionVariables = {
+    PATH = "$HOME/.bun/bin:$PATH";
   };
 
   # ╭──────────────────────────────────────────────────────────╮
