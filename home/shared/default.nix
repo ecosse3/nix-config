@@ -9,6 +9,7 @@
 
 {
   imports = [
+    ./ghostty.nix
     ./lazygit.nix
     ./neovide.nix
     ./neovim.nix
