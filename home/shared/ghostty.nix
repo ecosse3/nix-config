@@ -35,6 +35,9 @@
         "super+d=goto_split:right"
         "super+shift+k=goto_split:up"
         "super+shift+j=goto_split:down"
+        # Tab navigation (mirrors WezTerm)
+        "super+j=goto_tab:previous"
+        "super+k=goto_tab:next"
         # Close / zoom
         "super+e=close_surface"
         "super+f=toggle_split_zoom"
