@@ -260,8 +260,13 @@
   # ╭──────────────────────────────────────────────────────────╮
   # │ Services                                                 │
   # ╰──────────────────────────────────────────────────────────╯
-  services.gpg-agent.enable = pkgs.stdenv.isLinux;
-  services.gpg-agent.pinentry.package = lib.mkIf pkgs.stdenv.isLinux pkgs.pinentry-gnome3;
+  services.gpg-agent = {
+    enable = true;
+    pinentry.package = if pkgs.stdenv.isDarwin then pkgs.pinentry_mac else pkgs.pinentry-gnome3;
+    defaultCacheTtl = 86400;
+    maxCacheTtl = 86400;
+    enableZshIntegration = true;
+  };
 
   home.stateVersion = "25.11";
 }

@@ -162,6 +162,7 @@ in
       iosdevices = "xcrun xctrace list devices";
 
       # Utils
+      oc = "opencode";
       sozsh = "source ~/.zshrc";
       bu = "brew update && brew upgrade";
       icat = "kitty +kitten icat";
