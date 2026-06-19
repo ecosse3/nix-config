@@ -11,7 +11,10 @@
   determinateNix.enable = true;
 
   # Enable nix-command and flakes
-  nix.settings.experimental-features = "nix-command flakes";
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Manage zsh at system level (nix-darwin writes /etc/zshrc)
   programs.zsh.enable = true;
