@@ -15,7 +15,6 @@
       "nix-command"
       "flakes"
     ];
-    auto-optimise-store = true; # deduplicate on every build
     trusted-users = [
       "root"
       "@wheel"
@@ -32,6 +31,12 @@
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 7d";
+  };
+
+  # Deduplicate store via systemd timer (not after every nix command)
+  nix.optimise = {
+    automatic = true;
+    dates = "weekly";
   };
 
   # Disable legacy channels (flakes replace them)
