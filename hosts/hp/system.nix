@@ -19,7 +19,7 @@
       "root"
       "@wheel"
     ];
-    warn-dirty = false; # suppress "Git tree is dirty" warnings
+    warnDirty = false; # suppress "Git tree is dirty" warnings
 
     # nix-community binary cache (neovim-nightly, etc.)
     substituters = [ "https://nix-community.cachix.org" ];
