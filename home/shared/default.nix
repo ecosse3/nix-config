@@ -37,6 +37,7 @@
       cmake
       gnumake
       # GNU replacements for macOS BSD tools
+      claude-code
       coreutils
       findutils
       gnused
