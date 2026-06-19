@@ -104,6 +104,7 @@
 
       # Developer tools
       "android-platform-tools"
+      "ghostty"
       "docker-desktop" # Docker Desktop app (cask)
       "kiro-cli"
       "leader-key"
