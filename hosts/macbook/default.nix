@@ -7,9 +7,6 @@
 }:
 
 {
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   # Enable Determinate Nix module
   determinateNix.enable = true;
 
