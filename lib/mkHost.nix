@@ -43,7 +43,6 @@ inputs.nixpkgs.lib.nixosSystem {
   ]
   ++ systemModules
   ++ [
-
     inputs.home-manager.nixosModules.home-manager
     {
       home-manager.useGlobalPkgs = true;

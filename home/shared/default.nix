@@ -263,10 +263,15 @@
   # ╰──────────────────────────────────────────────────────────╯
   services.gpg-agent = {
     enable = true;
-    pinentry.package = if pkgs.stdenv.isDarwin then pkgs.pinentry_mac else pkgs.pinentry-gnome3;
+
     defaultCacheTtl = 86400;
     maxCacheTtl = 86400;
     enableZshIntegration = true;
+
+    pinentry.package = if pkgs.stdenv.isDarwin then null else pkgs.pinentry-gnome3;
+    extraConfig = lib.optionalString pkgs.stdenv.isDarwin ''
+      pinentry-program /opt/homebrew/bin/pinentry-mac
+    '';
   };
 
   home.stateVersion = "25.11";
