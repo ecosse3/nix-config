@@ -163,6 +163,7 @@ in
 
       # Utils
       oc = "opencode";
+      pgfix = "rm ~/Library/Application\\ Support/com.tinyapp.DBngin/Engines/postgresql/*/postmaster.pid";
       sozsh = "source ~/.zshrc";
       bu = "brew update && brew upgrade";
       icat = "kitty +kitten icat";
