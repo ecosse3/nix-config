@@ -31,25 +31,28 @@
   home.packages =
     with pkgs;
     [
+      # AI
+      ollama
+
       # System utils
       age
       awscli2
+      claude-code
       cmake
       gnumake
-      # GNU replacements for macOS BSD tools
-      claude-code
       coreutils
+      exiftool # metadata
+      ffmpeg # audio/video processing
       findutils
-      gnused
-      gnugrep
       glow # markdown viewer
+      gnugrep
+      gnused
       htop
       imagemagick # image manipulation
-      ffmpeg # audio/video processing
       ffmpegthumbnailer # video thumbnails (yazi)
-      exiftool # metadata
       mmv # mass move/rename
       ncdu # disk usage analyzer
+      poppler
       slack
       spotify
       unzip
