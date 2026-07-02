@@ -6,8 +6,13 @@
     ./neovim.nix
   ];
 
-  # Allow unfree packages
+  # Allow unfree packages and known-insecure-but-necessary packages
   nixpkgs.config.allowUnfree = true;
+
+  # pnpm has known CVEs but is required for EcoVim LSP setup (mason.nvim)
+  nixpkgs.config.permittedInsecurePackages = [
+    "pnpm-10.34.0"
+  ];
 
   # Fonts (NixOS only -- on Darwin, fonts are managed differently)
   fonts.packages = lib.mkIf pkgs.stdenv.isLinux (
