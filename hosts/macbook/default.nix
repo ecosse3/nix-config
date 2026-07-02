@@ -162,6 +162,14 @@
     NSGlobalDomain."com.apple.sound.beep.feedback" = 0;
   };
 
+  # Pre-activation: unload old LaunchAgents before nix-darwin bootstraps new ones.
+  # Prevents "Failed to start agent with I/O error (code 5)" when agent plists change.
+  system.activationScripts.preActivation.text = ''
+    for agent in org.nix-community.home.gpg-agent org.nix-community.home.dconf-service; do
+      launchctl bootout "gui/501/$agent" 2>/dev/null || true
+    done
+  '';
+
   # Required for Apple Silicon
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-darwin";
 
