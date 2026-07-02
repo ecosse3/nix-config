@@ -90,6 +90,9 @@
     ];
 
     casks = [
+      # Photo Editing
+      "affinity"
+
       # Browsers
       "arc"
 
