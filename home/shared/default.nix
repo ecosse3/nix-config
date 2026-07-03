@@ -43,24 +43,24 @@
       coreutils
       exiftool # metadata
       ffmpeg # audio/video processing
+      ffmpegthumbnailer # video thumbnails (yazi)
       findutils
       glow # markdown viewer
       gnugrep
       gnused
       htop
       imagemagick # image manipulation
-      ffmpegthumbnailer # video thumbnails (yazi)
       mmv # mass move/rename
       ncdu # disk usage analyzer
+      pandoc # document converter
       poppler
+      qpdf # PDF manipulation
       slack
       spotify
       unzip
       vim
       wget
       yt-dlp # video downloader
-      pandoc # document converter
-      qpdf # PDF manipulation
 
       # DB tools
       mongosh # MongoDB shell
