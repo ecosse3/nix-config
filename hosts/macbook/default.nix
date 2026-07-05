@@ -142,6 +142,8 @@
     dock.tilesize = 64;
     dock.minimize-to-application = true;
     dock.show-recents = false;
+    # Auto-hide the native macOS menu bar (sketchybar replaces it)
+    NSGlobalDomain._HIHideMenuBar = true;
     finder.AppleShowAllExtensions = true;
     finder.FXPreferredViewStyle = "Nlsv";
     finder.ShowPathbar = true;
