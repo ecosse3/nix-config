@@ -1,7 +1,18 @@
 { pkgs, lib, ... }:
 
 let
-  sketchybar-config = lib.cleanSource ./sketchybar;
+  # SbarLua (below) is compiled against Lua 5.5, but the system `lua` is 5.2.4.
+  # sketchybarrc has a `#!/usr/bin/env lua` shebang, so it would run under 5.2.4
+  # and segfault the moment it `require`s the 5.5-built module — sketchybar loads
+  # no items. Pin the interpreter to the matching 5.5 by rewriting the shebang.
+  lua = pkgs.lua5_5;
+
+  sketchybar-config = pkgs.runCommand "sketchybar-config" { } ''
+    cp -R ${lib.cleanSource ./sketchybar} $out
+    chmod -R u+w $out
+    substituteInPlace $out/sketchybarrc \
+      --replace-fail '#!/usr/bin/env lua' '#!${lua}/bin/lua'
+  '';
 
   sbarLua = pkgs.stdenv.mkDerivation {
     name = "sbar-lua";
