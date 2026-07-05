@@ -1,5 +1,5 @@
 require("items.apple")
-require("items.spaces_aero_dev") -- aerospace
+-- require("items.spaces_aero_dev") -- aerospace (disabled: migrated to omniwm)
 require("items.front_app")
 require("items.media")
 
