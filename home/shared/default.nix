@@ -104,7 +104,6 @@
       sops # secrets ops
       speedtest-cli
       timewarrior # time tracking
-      whisper-cpp # local speech-to-text
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       pinentry-gnome3
