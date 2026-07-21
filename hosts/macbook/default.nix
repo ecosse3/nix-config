@@ -172,6 +172,26 @@
     done
   '';
 
+  # Overlay: fetch neovide nightly binary until next release fixes API compat
+  nixpkgs.overlays = [
+    (final: prev: {
+      neovide = prev.stdenvNoCC.mkDerivation {
+        pname = "neovide";
+        version = "nightly-2026-07-20";
+        src = final.fetchurl {
+          url = "https://github.com/neovide/neovide/releases/download/nightly/neovide-macos-aarch64.tar.gz";
+          hash = "sha256-XRyAHY3ryc5j7QDU7CZuLR5MW3tCCvXNzzn87F+5FTc=";
+        };
+        sourceRoot = ".";
+        installPhase = ''
+          mkdir -p $out/bin
+          cp neovide $out/bin/
+        '';
+        meta.mainProgram = "neovide";
+      };
+    })
+  ];
+
   # Required for Apple Silicon
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-darwin";
 
