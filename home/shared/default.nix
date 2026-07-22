@@ -69,6 +69,7 @@
       act # GitHub Actions locally
       ast-grep # code search
       cloc # count lines of code
+      croc # file transfer
       fastfetch
       hyperfine # benchmarking
       just # task runner (see Justfile)
@@ -98,9 +99,9 @@
       # Utilities
       catimg # display images in terminal
       qmk # keyboard firmware
-      scrcpy # Android screen mirroring
       qrencode # for pass QR codes
       rclone # cloud storage sync
+      scrcpy # Android screen mirroring
       sops # secrets ops
       speedtest-cli
       timewarrior # time tracking
