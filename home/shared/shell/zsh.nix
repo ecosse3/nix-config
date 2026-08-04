@@ -98,6 +98,9 @@ in
       ''
         ${darwin}
 
+        # Raise file descriptor limit (macOS default 256 breaks nix fetchTree/direnv)
+        ulimit -n 10240
+
         # Prevent zsh-autosuggestions + history-substring-search widget recursion
         export FUNCNEST=500
 
