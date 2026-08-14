@@ -12,6 +12,7 @@
     installVimSyntax = true;
 
     settings = {
+      language = "pl";
       theme = "TokyoNight";
       font-family = "FiraCode Nerd Font Mono";
       font-size = 18;
