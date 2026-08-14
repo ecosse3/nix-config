@@ -50,6 +50,12 @@
       url = "github:AvengeMedia/danksearch";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # OmniWM: signature-preserving package + Home Manager module
+    nix-dotfiles = {
+      url = "github:DavSanchez/nix-dotfiles";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
+    };
   };
 
   outputs =

@@ -46,7 +46,6 @@
       commands = [ ];
       taps = [
         "adibhanna/tsm"
-        "barutsrb/tap"
         "mongodb/brew"
       ];
     };
@@ -63,7 +62,6 @@
     global.autoUpdate = false;
 
     taps = [
-      "BarutSRB/tap"
       "felixkratz/formulae"
     ];
 
@@ -124,7 +122,6 @@
       "karabiner-elements"
       "keycastr"
       "macfuse"
-      "omniwm"
       "qmk-toolbox"
       "rar"
       "sf-symbols"
@@ -174,6 +171,8 @@
 
   # Overlay: fetch neovide nightly binary until next release fixes API compat
   nixpkgs.overlays = [
+    inputs.nix-dotfiles.overlays.additions
+
     (final: prev: {
       neovide = prev.stdenvNoCC.mkDerivation {
         pname = "neovide";
