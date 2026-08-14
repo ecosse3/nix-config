@@ -86,6 +86,20 @@ in
 
     initContent =
       let
+        # Kiro CLI requires its pre/post blocks at the absolute top/bottom of
+        # .zshrc — before/after all other generated content. Priorities in the
+        # HM zsh template: 500 = early init (before 510 typeset), 1000 = default,
+        # 1200 = syntax highlighting, 1500 = last to run.
+        kiroPreBlock = ''
+          # Kiro CLI pre block. Keep at the top of this file.
+          [[ -f "''${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "''${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
+        '';
+
+        kiroPostBlock = ''
+          # Kiro CLI post block. Keep at the bottom of this file.
+          [[ -f "''${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "''${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
+        '';
+
         # CMD keybindings only work on macOS
         darwin = lib.optionalString pkgs.stdenv.isDarwin ''
           # Kiro CLI pre init
@@ -94,59 +108,65 @@ in
           fi
         '';
 
-      in
-      ''
-        ${darwin}
+        main = ''
+            # Raise file descriptor limit (macOS default 256 breaks nix fetchTree/direnv)
+          ulimit -n 10240
 
-        # Raise file descriptor limit (macOS default 256 breaks nix fetchTree/direnv)
-        ulimit -n 10240
+          # Prevent zsh-autosuggestions + history-substring-search widget recursion
+          export FUNCNEST=500
 
-        # Prevent zsh-autosuggestions + history-substring-search widget recursion
-        export FUNCNEST=500
+          eval "$(fnm env)"
+          eval "$(rbenv init - zsh)"
+          eval "$(devenv hook zsh)"
 
-        eval "$(fnm env)"
-        eval "$(rbenv init - zsh)"
-        eval "$(devenv hook zsh)"
+          # pnpm
+          export PNPM_HOME="${config.home.homeDirectory}/Library/pnpm"
+          export PATH="$PNPM_HOME:$PATH"
 
-        # pnpm
-        export PNPM_HOME="${config.home.homeDirectory}/Library/pnpm"
-        export PATH="$PNPM_HOME:$PATH"
+          # GPG TTY
+          export GPG_TTY=$(tty)
 
-        # GPG TTY
-        export GPG_TTY=$(tty)
-
-        # Kiro CLI post init
-        if [ -f "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]; then
-          source "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
-        fi
-
-        # Open file(s) in running Neovide instance, or launch a new one
-        function v() {
-          local socket="/tmp/neovide.pipe"
-          if nvr --servername "$socket" --nostart --remote-expr 'v:true' &>/dev/null; then
-            # Existing Neovide is running — send files to it
-            if [ $# -eq 0 ]; then
-              nvr --servername "$socket" --nostart
-            else
-              nvr --servername "$socket" --nostart "$@"
-            fi
-          else
-            # No running Neovide — clean stale socket and launch new one
-            rm -f "$socket"
-            neovide --frame ${if pkgs.stdenv.isDarwin then "buttonless" else "none"} "$@" &
-            disown
+          # Kiro CLI post init
+          if [ -f "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]; then
+            source "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
           fi
-        }
 
-        function enativ-watermark () {
-          local image_path="''${1:-bfp-propozycja-enativ-lukasz-kurpiewski_org_sekcja_jak_uzyskac_odszkodowanie.jpeg}"
-          local watermark_text="''${2:-ENATIV Łukasz Kurpiewski}"
-          local text_scale="''${3:-0.01}"
-          local color="''${4:-128, 128, 128, 30}"
+          # Open file(s) in running Neovide instance, or launch a new one
+          function v() {
+            local socket="/tmp/neovide.pipe"
+            if nvr --servername "$socket" --nostart --remote-expr 'v:true' &>/dev/null; then
+              # Existing Neovide is running — send files to it
+              if [ $# -eq 0 ]; then
+                nvr --servername "$socket" --nostart
+              else
+                nvr --servername "$socket" --nostart "$@"
+              fi
+            else
+              # No running Neovide — clean stale socket and launch new one
+              rm -f "$socket"
+              neovide --frame ${if pkgs.stdenv.isDarwin then "buttonless" else "none"} "$@" &
+              disown
+            fi
+          }
 
-          watermark-cli "$image_path" "$watermark_text" -t "$text_scale" -c "$color" 100
-        }
-      '';
+          function enativ-watermark () {
+            local image_path="''${1:-bfp-propozycja-enativ-lukasz-kurpiewski_org_sekcja_jak_uzyskac_odszkodowanie.jpeg}"
+            local watermark_text="''${2:-ENATIV Łukasz Kurpiewski}"
+            local text_scale="''${3:-0.01}"
+            local color="''${4:-128, 128, 128, 30}"
+
+            watermark-cli "$image_path" "$watermark_text" -t "$text_scale" -c "$color" 100
+          }
+        '';
+      in
+      lib.mkMerge [
+        # Absolute top of .zshrc (before HM's own 510/520 init)
+        (lib.mkIf pkgs.stdenv.isDarwin (lib.mkOrder 500 kiroPreBlock))
+        # General configuration (replaces initExtra)
+        (lib.mkOrder 1000 (darwin + main))
+        # Absolute bottom of .zshrc (after syntax highlighting at 1200)
+        (lib.mkIf pkgs.stdenv.isDarwin (lib.mkOrder 1500 kiroPostBlock))
+      ];
     shellAliases = {
       # Navigation
       l = "eza -lA --icons=auto --git";
