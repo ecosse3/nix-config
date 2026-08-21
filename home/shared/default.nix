@@ -60,7 +60,7 @@
       unzip
       vim
       wget
-      yt-dlp # video downloader
+      # yt-dlp # video downloader
 
       # DB tools
       mongosh # MongoDB shell
@@ -71,6 +71,7 @@
       cloc # count lines of code
       croc # file transfer
       fastfetch
+      herdr
       hyperfine # benchmarking
       just # task runner (see Justfile)
       # packer # fails for some reason on the new machine
