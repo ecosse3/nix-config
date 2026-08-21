@@ -99,6 +99,7 @@
 
       # Productivity / Launcher
       "raycast"
+      "openlogi"
 
       # Database
       "dbngin"
