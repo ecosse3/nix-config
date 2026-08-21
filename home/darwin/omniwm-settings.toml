@@ -8,14 +8,14 @@ monitorOrientationOverrides = []
 mode = "dark"
 
 [borders]
-enabled = false
-width = 1.5
+enabled = true
+width = 1.0
 
 [borders.color]
-alpha = 1.0
-blue = 0.307327400259467
-green = 1.0
-red = 0.07296255659782092
+alpha = 0.5
+blue = 0.92
+green = 0.92
+red = 0.92
 
 [clipboard]
 historyEnabled = false
@@ -53,9 +53,9 @@ animationsEnabled = true
 defaultLayoutType = "niri"
 hotkeysEnabled = true
 hyperKeyHoldThresholdMilliseconds = 150
-hyperKeyModifiers = "Control+Option+Shift+Command"
+hyperKeyModifiers = "Control+Option+Command"
 hyperTrigger = "Left Option"
-ipcEnabled = false
+ipcEnabled = true
 preventSleepEnabled = false
 spacesTrackingEnabled = true
 systemHyperTrigger = "None"
@@ -71,7 +71,7 @@ scrollModifierKey = "optionShift"
 scrollSensitivity = 5.0
 trackpadScrollStyle = "snap"
 workspaceSwipeAxis = "vertical"
-workspaceSwipeEnabled = false
+workspaceSwipeEnabled = true
 workspaceSwipeFingerCount = 3
 
 [hiddenBar]
@@ -257,59 +257,59 @@ bundleId = ""
 id = "E9DD170F-9A08-4786-819A-8AAE515CEEAF"
 
 [[hotkeys]]
-binding = "Control+Option+Command+Q"
+binding = "Hyper+Q"
 id = "switchWorkspace.0"
 
 [[hotkeys]]
-binding = "Control+Option+Command+1"
+binding = "Hyper+Shift+Q"
 id = "moveToWorkspace.0"
 
 [[hotkeys]]
-binding = "Control+Option+Command+W"
+binding = "Hyper+W"
 id = "switchWorkspace.1"
 
 [[hotkeys]]
-binding = "Hyper+W"
+binding = "Hyper+Shift+W"
 id = "moveToWorkspace.1"
 
 [[hotkeys]]
-binding = "Control+Option+Command+E"
+binding = "Hyper+E"
 id = "switchWorkspace.2"
 
 [[hotkeys]]
-binding = "Hyper+E"
+binding = "Hyper+Shift+E"
 id = "moveToWorkspace.2"
 
 [[hotkeys]]
-binding = "Control+Option+Command+R"
+binding = "Hyper+R"
 id = "switchWorkspace.3"
 
 [[hotkeys]]
-binding = "Hyper+R"
+binding = "Hyper+Shift+R"
 id = "moveToWorkspace.3"
 
 [[hotkeys]]
-binding = "Control+Option+Command+T"
+binding = "Hyper+T"
 id = "switchWorkspace.4"
 
 [[hotkeys]]
-binding = "Hyper+T"
+binding = "Hyper+Shift+T"
 id = "moveToWorkspace.4"
 
 [[hotkeys]]
-binding = "Control+Option+Command+Y"
+binding = "Hyper+Y"
 id = "switchWorkspace.5"
 
 [[hotkeys]]
-binding = "Hyper+Y"
+binding = "Hyper+Shift+Y"
 id = "moveToWorkspace.5"
 
 [[hotkeys]]
-binding = "Control+Option+Command+U"
+binding = "Hyper+U"
 id = "switchWorkspace.6"
 
 [[hotkeys]]
-binding = "Hyper+U"
+binding = "Hyper+Shift+U"
 id = "moveToWorkspace.6"
 
 [[hotkeys]]
@@ -329,7 +329,11 @@ binding = "Unassigned"
 id = "moveToWorkspace.8"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Hyper+S"
+id = "toggleScratchpadWindow"
+
+[[hotkeys]]
+binding = "Hyper+Tab"
 id = "workspaceBackAndForth"
 
 [[hotkeys]]
@@ -341,19 +345,19 @@ binding = "Unassigned"
 id = "switchWorkspace.previous"
 
 [[hotkeys]]
-binding = "Control+Option+Command+A"
+binding = "Hyper+A"
 id = "focus.left"
 
 [[hotkeys]]
-binding = "Hyper+J"
+binding = "Unassigned"
 id = "focus.down"
 
 [[hotkeys]]
-binding = "Hyper+K"
+binding = "Hyper+P"
 id = "focus.up"
 
 [[hotkeys]]
-binding = "Control+Option+Command+D"
+binding = "Hyper+D"
 id = "focus.right"
 
 [[hotkeys]]
@@ -453,19 +457,19 @@ binding = "Unassigned"
 id = "moveColumnToWorkspace.8"
 
 [[hotkeys]]
-binding = "Control+Option+Command+H"
+binding = "Hyper+H"
 id = "move.left"
 
 [[hotkeys]]
-binding = "Control+Option+Command+K"
+binding = "Hyper+J"
 id = "move.down"
 
 [[hotkeys]]
-binding = "Control+Option+Command+J"
+binding = "Hyper+K"
 id = "move.up"
 
 [[hotkeys]]
-binding = "Control+Option+Command+L"
+binding = "Hyper+L"
 id = "move.right"
 
 [[hotkeys]]
@@ -485,11 +489,11 @@ binding = "Unassigned"
 id = "moveWindowUpOrToWorkspaceUp"
 
 [[hotkeys]]
-binding = "Hyper+B"
+binding = "Hyper+Shift+B"
 id = "consumeOrExpelWindowLeft"
 
 [[hotkeys]]
-binding = "Hyper+N"
+binding = "Hyper+Shift+N"
 id = "consumeOrExpelWindowRight"
 
 [[hotkeys]]
@@ -501,7 +505,7 @@ binding = "Unassigned"
 id = "expelWindowFromColumn"
 
 [[hotkeys]]
-binding = "Control+Option+Command+N"
+binding = "Hyper+N"
 id = "focusMonitorNext"
 
 [[hotkeys]]
@@ -529,11 +533,11 @@ binding = "Unassigned"
 id = "moveWorkspaceToMonitor.down"
 
 [[hotkeys]]
-binding = "Control+Option+Command+C"
+binding = "Hyper+C"
 id = "moveWindowToMonitor.left"
 
 [[hotkeys]]
-binding = "Control+Option+Command+V"
+binding = "Hyper+V"
 id = "moveWindowToMonitor.right"
 
 [[hotkeys]]
@@ -545,11 +549,11 @@ binding = "Unassigned"
 id = "moveWindowToMonitor.down"
 
 [[hotkeys]]
-binding = "Control+Option+Command+F"
+binding = "Hyper+F"
 id = "toggleFullscreen"
 
 [[hotkeys]]
-binding = "Hyper+F"
+binding = "Hyper+Shift+F"
 id = "toggleNativeFullscreen"
 
 [[hotkeys]]
@@ -577,7 +581,7 @@ binding = "Hyper+End"
 id = "moveColumnToLast"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Hyper+Shift+Tab"
 id = "toggleColumnTabbed"
 
 [[hotkeys]]
@@ -705,7 +709,7 @@ binding = "Hyper+Comma"
 id = "cycleSizeBackward"
 
 [[hotkeys]]
-binding = "Control+Option+Command+G"
+binding = "Hyper+G"
 id = "cycleWindowPrimarySpanForward"
 
 [[hotkeys]]
@@ -749,15 +753,15 @@ binding = "Unassigned"
 id = "setWindowPrimarySpan.increase10Percent"
 
 [[hotkeys]]
-binding = "Hyper+Minus"
+binding = "Hyper+Shift+Minus"
 id = "setWindowSecondarySpan.decrease10Percent"
 
 [[hotkeys]]
-binding = "Hyper+Equal"
+binding = "Hyper+Shift+Equal"
 id = "setWindowSecondarySpan.increase10Percent"
 
 [[hotkeys]]
-binding = "Control+Option+Command+B"
+binding = "Hyper+B"
 id = "balanceSizes"
 
 [[hotkeys]]
@@ -789,11 +793,11 @@ binding = "Unassigned"
 id = "resizeShrink.vertical"
 
 [[hotkeys]]
-binding = "Control+Option+Command+O"
+binding = "Hyper+O"
 id = "resizeFocusedWindow.grow"
 
 [[hotkeys]]
-binding = "Control+Option+Command+I"
+binding = "Hyper+I"
 id = "resizeFocusedWindow.shrink"
 
 [[hotkeys]]
@@ -821,7 +825,7 @@ binding = "Hyper+Space"
 id = "openCommandPalette"
 
 [[hotkeys]]
-binding = "Control+Option+Command+S"
+binding = "Hyper+Shift+X"
 id = "raiseAllFloatingWindows"
 
 [[hotkeys]]
@@ -829,16 +833,12 @@ binding = "Unassigned"
 id = "rescueOffscreenWindows"
 
 [[hotkeys]]
-binding = "Hyper+V"
+binding = "Hyper+Shift+V"
 id = "toggleFocusedWindowFloating"
 
 [[hotkeys]]
-binding = "Hyper+A"
+binding = "Hyper+Shift+S"
 id = "assignFocusedWindowToScratchpad"
-
-[[hotkeys]]
-binding = "Hyper+S"
-id = "toggleScratchpadWindow"
 
 [[hotkeys]]
 binding = "Hyper+M"
