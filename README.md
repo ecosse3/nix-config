@@ -7,7 +7,7 @@
 [![nix-darwin](https://img.shields.io/badge/nix--darwin-unstable-blue?logo=apple)](https://github.com/nix-darwin/nix-darwin)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-A fully declarative, reproducible system configuration managed as a single Nix flake. One repository drives both a NixOS laptop (Niri with GNOME fallback) and a macOS workstation (SketchyBar + Karabiner + Raycast), sharing Home Manager modules where possible while keeping platform-specific concerns isolated.
+A fully declarative, reproducible system configuration managed as a single Nix flake. One repository drives both a NixOS laptop (Niri with GNOME fallback) and a macOS workstation (OmniWM + SketchyBar + Karabiner + Raycast), sharing Home Manager modules where possible while keeping platform-specific concerns isolated.
 
 ---
 
@@ -110,7 +110,7 @@ Both builders pass `username` and `inputs` through `specialArgs`/`extraSpecialAr
 | Property | Value |
 |----------|-------|
 | System | `aarch64-darwin` (Apple Silicon) |
-| Window Management | SketchyBar + Karabiner + custom keybindings |
+| Window Management | OmniWM (niri layout) + SketchyBar + Karabiner (Caps Lock = Hyper) |
 | Launcher | Raycast |
 | Shell | zsh (managed by nix-darwin at system level) |
 | Package Manager | Nix + Homebrew (via `nix-homebrew`) |
@@ -118,8 +118,10 @@ Both builders pass `username` and `inputs` through `specialArgs`/`extraSpecialAr
 
 **Key modules:**
 - `hosts/macbook/default.nix` — macOS system defaults, Homebrew taps/brews/casks, fonts, Determinate Nix
+- `home/darwin/omniwm.nix` — OmniWM window manager (managed as a Nix package with signature-preserving config)
+- `home/darwin/omniwm-settings.toml` — OmniWM config & hotkeys (keybindings: [docs/omniwm-shortcuts.md](docs/omniwm-shortcuts.md))
 - `home/darwin/sketchybar.nix` — SketchyBar configuration
-- `home/darwin/karabiner.nix` — Karabiner-Elements key remapping
+- `home/darwin/karabiner.nix` — Karabiner-Elements key remapping (Caps Lock → Hyper)
 - `home/darwin/raycast.nix` — Raycast settings
 
 ---
@@ -201,9 +203,13 @@ nix-config/
 │   │   ├── danksearch.nix
 │   │   └── niri/
 │   └── darwin/                  # macOS-only Home Manager modules
+│       ├── omniwm.nix           # OmniWM window manager (Nix package + settings)
+│       ├── omniwm-settings.toml # OmniWM config & hotkeys
 │       ├── sketchybar.nix
 │       ├── karabiner.nix
 │       └── raycast.nix
+├── docs/
+│   └── omniwm-shortcuts.md      # OmniWM keyboard shortcuts reference
 ├── p10k-config/
 │   └── p10k.zsh                 # Powerlevel10k configuration
 ├── Justfile                     # Task runner (switch, build, update, gc, etc.)
@@ -261,6 +267,7 @@ sudo darwin-rebuild check --flake .#macbook
 
 ## Notable Features
 
+- **OmniWM as window manager** — niri-layout tiling on macOS with a Caps Lock hyper key (see [shortcuts](docs/omniwm-shortcuts.md)).
 - **Niri as primary compositor** — scrollable-tiling Wayland with GNOME available as a traditional desktop fallback.
 - **Custom greetd greeter** — [DankMaterialShell](https://github.com/AvengeMedia/DankMaterialShell) provides a stylized login/lock screen.
 - **Declarative Homebrew** — macOS casks and brews are managed through nix, with safe migration (`autoMigrate = true`).
