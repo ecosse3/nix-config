@@ -120,17 +120,6 @@ let
                 description = "CAPS_LOCK to Cmd+Alt (Hyper) or ESCAPE (If Alone) - Built-in Keyboard Only";
                 manipulators = [
                   {
-                    conditions = [
-                      {
-                        identifiers = [
-                          {
-                            product_id = 835;
-                            vendor_id = 1452;
-                          }
-                        ];
-                        type = "device_if";
-                      }
-                    ];
                     from = {
                       key_code = "caps_lock";
                       modifiers = { };
@@ -138,7 +127,10 @@ let
                     to = [
                       {
                         key_code = "left_command";
-                        modifiers = [ "left_option" ];
+                        modifiers = [
+                          "left_option"
+                          "left_control"
+                        ];
                       }
                     ];
                     to_if_alone = [ { key_code = "escape"; } ];
@@ -331,8 +323,6 @@ let
             {
               identifiers = {
                 is_keyboard = true;
-                product_id = 835;
-                vendor_id = 1452;
               };
               simple_modifications = [
                 {
@@ -343,55 +333,11 @@ let
                 }
                 {
                   from = {
-                    key_code = "left_command";
-                  };
-                  to = [ { key_code = "left_command"; } ];
-                }
-                {
-                  from = {
                     key_code = "left_control";
                   };
                   to = [ { apple_vendor_top_case_key_code = "keyboard_fn"; } ];
                 }
-                {
-                  from = {
-                    key_code = "left_option";
-                  };
-                  to = [ { key_code = "left_option"; } ];
-                }
-                {
-                  from = {
-                    key_code = "non_us_backslash";
-                  };
-                  to = [ { key_code = "grave_accent_and_tilde"; } ];
-                }
               ];
-            }
-            {
-              disable_built_in_keyboard_if_exists = true;
-              identifiers = {
-                is_keyboard = true;
-                product_id = 647;
-                vendor_id = 64562;
-              };
-              manipulate_caps_lock_led = false;
-            }
-            {
-              identifiers = {
-                is_keyboard = true;
-                product_id = 4294972067;
-                vendor_id = 57624;
-              };
-              ignore = true;
-              manipulate_caps_lock_led = false;
-            }
-            {
-              disable_built_in_keyboard_if_exists = true;
-              identifiers = {
-                is_keyboard = true;
-                product_id = 1;
-                vendor_id = 57624;
-              };
             }
           ];
           parameters = {
