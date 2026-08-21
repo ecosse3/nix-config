@@ -110,7 +110,6 @@
       "docker-desktop" # Docker Desktop app (cask)
       "kiro-cli"
       "leader-key"
-      "meld"
       "pgadmin4"
       "vlc"
 
@@ -189,6 +188,24 @@
         '';
         meta.mainProgram = "neovide";
       };
+    })
+
+    # obsidian 1.13.x wraps Obsidian.app inside a "Obsidian <ver>-universal/"
+    # folder in the DMG; nixpkgs `sourceRoot = "Obsidian.app"` no longer
+    # matches. Backport of nixpkgs commit c594c220 (merged on master,
+    # not yet on nixpkgs-unstable). Remove once the fix hits unstable.
+    (final: prev: {
+      obsidian = prev.obsidian.overrideAttrs (old: {
+        sourceRoot = null;
+        installPhase = ''
+          runHook preInstall
+          mkdir -p $out/{Applications,bin}
+          cp -R Obsidian.app $out/Applications
+          makeWrapper $out/Applications/Obsidian.app/Contents/MacOS/Obsidian $out/bin/obsidian
+          makeWrapper $out/Applications/Obsidian.app/Contents/MacOS/obsidian-cli $out/bin/obsidian-cli
+          runHook postInstall
+        '';
+      });
     })
   ];
 
