@@ -78,3 +78,4 @@
 | `Hyper` + `M` | Menu anywhere |
 | `Hyper` + `` ` `` | Quake terminal |
 | `Cmd` + `O` | Toggle overview |
+| `Hyper` + `Shift` + `P` | Toggle workspace bar |
