@@ -12,4 +12,5 @@ sbar.bar({
   blur_radius = 20,
   padding_right = 5,
   padding_left = 5,
+  hide_on_fullscreen = true,
 })
