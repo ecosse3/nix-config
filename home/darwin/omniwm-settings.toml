@@ -54,12 +54,9 @@ top = 50.0
 animationsEnabled = true
 defaultLayoutType = "niri"
 hotkeysEnabled = true
-hyperKeyHoldThresholdMilliseconds = 150
 hyperKeyModifiers = "Control+Option+Command"
-hyperTrigger = "Left Option"
 ipcEnabled = true
 preventSleepEnabled = false
-spacesTrackingEnabled = true
 systemHyperTrigger = "None"
 updateChecksEnabled = true
 
@@ -150,9 +147,7 @@ enabled = true
 excludedBundleIDs = []
 height = 28.0
 hideEmptyWorkspaces = false
-labelFontSize = 12.0
 notchActiveZoneWidth = 180.0
-notchAware = true
 notchMode = "moveBelowMenuBar"
 position = "overlappingMenuBar"
 reserveLayoutSpace = false
@@ -253,10 +248,11 @@ bundleId = "com.tinyspeck.slackmacgap"
 id = "606A510D-84F7-4551-9390-5BFF52CFE024"
 
 [[appRules]]
-appNameSubstring = "neovide"
 assignToWorkspace = "3"
-bundleId = ""
+bundleId = "com.neovide.neovide"
 id = "E9DD170F-9A08-4786-819A-8AAE515CEEAF"
+minHeight = 240.0
+minWidth = 360.0
 
 [[hotkeys]]
 binding = "Hyper+Q"
@@ -489,14 +485,6 @@ id = "moveWindowDownOrToWorkspaceDown"
 [[hotkeys]]
 binding = "Unassigned"
 id = "moveWindowUpOrToWorkspaceUp"
-
-[[hotkeys]]
-binding = "Hyper+Shift+B"
-id = "consumeOrExpelWindowLeft"
-
-[[hotkeys]]
-binding = "Hyper+Shift+N"
-id = "consumeOrExpelWindowRight"
 
 [[hotkeys]]
 binding = "Unassigned"
@@ -847,7 +835,7 @@ binding = "Hyper+M"
 id = "openMenuAnywhere"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Hyper+Shift+P"
 id = "toggleWorkspaceBarVisibility"
 
 [[hotkeys]]
