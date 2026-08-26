@@ -5,10 +5,18 @@
   ...
 }:
 
+let
+  # Set to false to use latest stable Neovim from nixpkgs instead of nightly.
+  useNightly = false;
+in
 {
   programs.neovim = {
     enable = true;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    package =
+      if useNightly then
+        inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default
+      else
+        pkgs.neovim-unwrapped;
     extraPackages = with pkgs; [
       neovim-remote
     ];
