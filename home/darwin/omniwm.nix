@@ -1,7 +1,10 @@
-{ inputs, ... }:
+{ ... }:
 
 {
-  imports = [ inputs.nix-dotfiles.homeModules.omniwm ];
+  # OmniWM's home-manager module was upstreamed from nix-dotfiles into
+  # home-manager itself (nix-community/home-manager#... "chore(omniwm): use
+  # upstreamed module"), so programs.omniwm is now provided directly by the
+  # home-manager input; no extra import needed.
 
   programs.omniwm = {
     enable = true;
