@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -29,6 +34,9 @@
         };
       });
     })
+    # Official pre-built Claude Code binaries, updated hourly upstream.
+    # Provides pkgs.claude-code, used by programs.claude-code below.
+    inputs.nix-claude-code.overlays.default
   ];
 
   # pnpm has known CVEs but is required for EcoVim LSP setup (mason.nvim)

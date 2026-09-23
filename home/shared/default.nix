@@ -10,6 +10,7 @@
 {
   imports = [
     ./ghostty.nix
+    ./herdr.nix
     ./lazygit.nix
     ./neovide.nix
     ./neovim.nix
@@ -37,7 +38,6 @@
       # System utils
       age
       awscli2
-      claude-code
       cmake
       gnumake
       coreutils
@@ -69,6 +69,7 @@
       act # GitHub Actions locally
       ast-grep # code search
       cloc # count lines of code
+      cloudflared
       croc # file transfer
       fastfetch
       herdr
@@ -219,6 +220,11 @@
       ".DS_Store"
       ".claude"
     ];
+  };
+
+  programs.claude-code = {
+    enable = true;
+    package = pkgs.claude-code;
   };
 
   programs.jq.enable = true;
