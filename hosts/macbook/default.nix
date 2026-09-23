@@ -46,6 +46,7 @@
       commands = [ ];
       taps = [
         "adibhanna/tsm"
+        "maddada/tap"
         "mongodb/brew"
       ];
     };
@@ -110,6 +111,7 @@
       "docker-desktop" # Docker Desktop app (cask)
       "kiro-cli"
       "leader-key"
+      "maddada/tap/ghostex"
       "pgadmin4"
       "vlc"
 
