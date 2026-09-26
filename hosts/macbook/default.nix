@@ -77,6 +77,7 @@
       "curl"
       "elio"
       "sheets"
+      "gcloud-cli"
 
       # Services (managed via brew for now)
       "mongodb-community@7.0"
@@ -91,6 +92,7 @@
     casks = [
       # Photo Editing
       "affinity"
+      "gcloud-cli"
 
       # Browsers
       "arc"

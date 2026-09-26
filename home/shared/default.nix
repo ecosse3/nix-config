@@ -120,7 +120,6 @@
     ++ lib.optionals pkgs.stdenv.isDarwin [
       mas # Mac App Store CLI
       skhd # macOS hotkey daemon
-      pkgs.google-cloud-sdk # Google Cloud CLI
       nowplaying-cli # macOS Now Playing info
       switchaudio-osx # macOS audio source switcher
     ];
