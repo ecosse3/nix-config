@@ -46,6 +46,7 @@
       commands = [ ];
       taps = [
         "adibhanna/tsm"
+        "elevenlabs/tap"
         "maddada/tap"
         "mongodb/brew"
       ];
@@ -63,6 +64,7 @@
     global.autoUpdate = false;
 
     taps = [
+      "elevenlabs/tap"
       "felixkratz/formulae"
     ];
 
@@ -75,9 +77,9 @@
       # nixpkgs curl relies on NIX_SSL_CERT_FILE or falls back to /etc/ssl/cert.pem,
       # which often causes TLS verification failures on Darwin.
       "curl"
+      "elevenlabs/tap/elevenlabs"
       "elio"
       "sheets"
-      "gcloud-cli"
 
       # Services (managed via brew for now)
       "mongodb-community@7.0"
