@@ -16,6 +16,9 @@ in
     zsh-completions
   ];
 
+  # Binaries installed via `cargo install` (rustup itself comes from nix)
+  home.sessionPath = [ "${config.home.homeDirectory}/.cargo/bin" ];
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -60,7 +63,7 @@ in
     sessionVariables = {
       # Oh My Zsh path (only needed with oh-my-zsh)
       ZSH = lib.mkIf useOhMyZsh "${pkgs.oh-my-zsh}/share/oh-my-zsh";
-      # Rust toolchain is managed via nix (packages/languages/rust.nix)
+      # Rust: rustup from nix (packages/languages/rust.nix), toolchains in ~/.rustup
       # Android SDK
       ANDROID_HOME = "${config.home.homeDirectory}/Library/Android/sdk";
       ANDROID_SDK_ROOT = "${config.home.homeDirectory}/Library/Android/sdk";
