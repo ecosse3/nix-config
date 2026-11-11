@@ -32,7 +32,7 @@ nix-config/
       lua.nix                       # lua, luarocks, luajit
       nodejs.nix                    # nodejs_24, pnpm, corepack_24
       python.nix                    # python3, pip (venvs via uv)
-      rust.nix                      # rustc, cargo
+      rust.nix                      # rustup (toolchains in ~/.rustup)
 
   home/                             # Home Manager modules
     shared/                         # Platform-agnostic core
@@ -200,7 +200,6 @@ Copy these from old Mac to USB, then USB to new Mac:
 | `~/.gnupg/` | ~100 KB | GPG keys for pass, signing, no installer |
 | `~/.password-store/` | ~1 MB | Or `git clone` after SSH keys |
 | `~/.config/nvim/` (EcoVim) | ~1 MB | Or `git clone` after SSH keys |
-| `~/Library/Application Support/kiro-cli/` | ~60 MB | Local AI state, no installer |
 
 ```bash
 # Old Mac → USB
@@ -208,24 +207,22 @@ cp -a ~/.ssh /Volumes/USB/
 cp -a ~/.gnupg /Volumes/USB/
 cp -a ~/.password-store /Volumes/USB/
 cp -a ~/.config/nvim /Volumes/USB/
-cp -a ~/Library/Application\ Support/kiro-cli/ /Volumes/USB/
 
 # USB → New Mac
 cp -a /Volumes/USB/.ssh ~/ && chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_*
 cp -a /Volumes/USB/.gnupg ~/ && chmod 700 ~/.gnupg && chmod 600 ~/.gnupg/*
 cp -a /Volumes/USB/.password-store ~/
 cp -a /Volumes/USB/nvim ~/.config/
-cp -a /Volumes/USB/kiro-cli/ ~/Library/Application\ Support/kiro-cli/
 ```
 
-#### Curl-installed tools (only if you need nightly Rust)
+#### Rust toolchain
 
-These are all managed by nix (`packages/languages/*.nix`) — `darwin-rebuild` handles them.
-Only `rustup` gives you nightly toolchains if needed.
+`rustup` is installed by nix (`packages/languages/rust.nix`) — no curl installer.
+Toolchains live in `~/.rustup` and must be fetched once per machine:
 
-| Tool | Size | Reason |
-|------|------|--------|
-| **Rust** (`rustup`) | ~9 GB | Only if you need nightly |
+```bash
+rustup default stable        # or: rustup toolchain install nightly
+```
 
 #### Projects (23+ repos, ~67 GB)
 
