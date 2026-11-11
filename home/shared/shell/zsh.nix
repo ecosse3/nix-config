@@ -129,6 +129,11 @@ in
           # GPG TTY
           export GPG_TTY=$(tty)
 
+          # Figxit
+          if [ -x "/Applications/Figxit.app/Contents/MacOS/figxit-engine" ]; then
+            eval "$('/Applications/Figxit.app/Contents/MacOS/figxit-engine' init zsh)"
+          fi
+
           # Kiro CLI post init
           if [ -f "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]; then
             source "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
