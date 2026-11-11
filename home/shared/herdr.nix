@@ -4,9 +4,11 @@
   # Keybindings mirror the Ghostty/WezTerm scheme (h/v splits, a/d/k/j pane focus,
   # e=close, f=zoom) under herdr's own prefix key, so nothing collides with
   # Ghostty's cmd-based shortcuts (herdr never sees a bare key outside prefix mode).
+  # prefix is f15, sent by a blank layer-2 key on the split keyboard (via Vial) —
+  # keeps ctrl+b's awkward reach out of the picture and matches TUIOS's leader_key.
   xdg.configFile."herdr/config.toml".text = ''
     [keys]
-    prefix = "ctrl+b"
+    prefix = "f15"
 
     # Splits
     split_vertical = "prefix+h"    # side-by-side split (mirrors Ghostty super+shift+h)
