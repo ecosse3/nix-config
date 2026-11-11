@@ -18,8 +18,8 @@
       font-size = 18;
       background-opacity = 0.95;
       background-blur = 20;
-      window-padding-x = 4;
-      window-padding-y = 4;
+      window-padding-x = 0;
+      window-padding-y = 0;
       macos-titlebar-style = "tabs";
       macos-option-as-alt = true;
       mouse-hide-while-typing = true;
