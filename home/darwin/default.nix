@@ -6,5 +6,6 @@
     ./karabiner.nix
     ./sketchybar.nix
     ./omniwm.nix
+    ./tuios.nix
   ];
 }

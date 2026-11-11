@@ -93,9 +93,11 @@
 
       # TUI
       gpg-tui # GPG TUI
+      inputs.superfile.packages.${system}.default
       jiratui # Jira TUI
       lazydocker
       ngrok
+      tuios # terminal-based window manager
       zellij
 
       # Utilities
@@ -259,6 +261,17 @@
     enable = true;
     enableZshIntegration = true; # provides z command (replaces oh-my-zsh z plugin)
   };
+
+  # ╭──────────────────────────────────────────────────────────╮
+  # │ Activation                                                │
+  # ╰──────────────────────────────────────────────────────────╯
+  # home.activation.skillsUpdate = {
+  #   after = [ "writeBoundary" ];
+  #   before = [ ];
+  #   data = ''
+  #     run ${pkgs.bun}/bin/bunx skills update --global
+  #   '';
+  # };
 
   # ╭──────────────────────────────────────────────────────────╮
   # │ Session Variables                                         │
