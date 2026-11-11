@@ -20,7 +20,6 @@
     emmet-ls
     graphql-language-service-cli
     lua-language-server
-    marksman # markdown
     nil # nix (alternative to nixd)
     nixd # nix
     typescript-language-server # ts_ls fallback
