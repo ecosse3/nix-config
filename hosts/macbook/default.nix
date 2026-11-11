@@ -47,8 +47,10 @@
       taps = [
         "adibhanna/tsm"
         "elevenlabs/tap"
+        "heroku/brew"
         "maddada/tap"
         "mongodb/brew"
+        "shopify/shopify"
       ];
     };
   };
@@ -66,6 +68,8 @@
     taps = [
       "elevenlabs/tap"
       "felixkratz/formulae"
+      "heroku/brew"
+      "shopify/shopify"
     ];
 
     brews = [
@@ -79,7 +83,9 @@
       "curl"
       "elevenlabs/tap/elevenlabs"
       "elio"
+      "heroku/brew/heroku"
       "sheets"
+      "shopify/shopify/shopify-cli"
 
       # Services (managed via brew for now)
       "mongodb-community@7.0"
@@ -110,10 +116,9 @@
       "dbngin"
 
       # Developer tools
-      "android-platform-tools"
+      # "android-platform-tools"
       "ghostty"
       "docker-desktop" # Docker Desktop app (cask)
-      "kiro-cli"
       "leader-key"
       "maddada/tap/ghostex"
       "pgadmin4"
