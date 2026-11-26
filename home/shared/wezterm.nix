@@ -14,7 +14,7 @@
     extraConfig =
       let
         # CMD keybindings only work on macOS
-        darwinKeys = lib.optionalString pkgs.stdenv.isDarwin ''
+        darwinKeys = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
           -- Tab management (macOS CMD keys)
           { mods = "CMD",       key = "j", action = act.ActivateTabRelative(-1) },
           { mods = "CMD",       key = "k", action = act.ActivateTabRelative(1) },
@@ -144,11 +144,11 @@
           },
         '';
 
-        darwinConfig = lib.optionalString pkgs.stdenv.isDarwin ''
+        darwinConfig = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
           config.macos_window_background_blur = 20
         '';
 
-        linuxKeys = lib.optionalString pkgs.stdenv.isLinux ''
+        linuxKeys = lib.optionalString pkgs.stdenv.hostPlatform.isLinux ''
           -- Window management
           { mods = "CTRL",       key = ".", action = act.MoveTabRelative(1) },
           { mods = "CTRL",       key = ",", action = act.MoveTabRelative(-1) },
@@ -221,7 +221,7 @@
           },
         '';
 
-        fontSize = if pkgs.stdenv.isLinux then "14.0" else "17.0";
+        fontSize = if pkgs.stdenv.hostPlatform.isLinux then "14.0" else "17.0";
       in
       # language=lua
       ''

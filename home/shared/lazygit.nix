@@ -6,7 +6,7 @@
 
 let
   # `open` is macOS-only; Linux uses xdg-open
-  openCmd = if pkgs.stdenv.isDarwin then "open" else "xdg-open";
+  openCmd = if pkgs.stdenv.hostPlatform.isDarwin then "open" else "xdg-open";
 in
 {
   programs.lazygit = {

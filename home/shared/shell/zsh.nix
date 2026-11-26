@@ -113,7 +113,7 @@ in
             else
               # No running Neovide — clean stale socket and launch new one
               rm -f "$socket"
-              neovide --frame ${if pkgs.stdenv.isDarwin then "buttonless" else "none"} "$@" &
+              neovide --frame ${if pkgs.stdenv.hostPlatform.isDarwin then "buttonless" else "none"} "$@" &
               disown
             fi
           }

@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 
 let
-  karabinerJson = lib.optionalString pkgs.stdenv.isDarwin (
+  karabinerJson = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin (
     builtins.toJSON {
       global = {
         show_in_menu_bar = false;
@@ -353,7 +353,7 @@ let
   );
 in
 {
-  home.file = lib.mkIf pkgs.stdenv.isDarwin {
+  home.file = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
     ".config/karabiner/karabiner.json".text = karabinerJson;
   };
 }

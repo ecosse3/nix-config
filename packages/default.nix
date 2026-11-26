@@ -45,7 +45,7 @@
   ];
 
   # Fonts (NixOS only -- on Darwin, fonts are managed differently)
-  fonts.packages = lib.mkIf pkgs.stdenv.isLinux (
+  fonts.packages = lib.mkIf pkgs.stdenv.hostPlatform.isLinux (
     with pkgs;
     [
       noto-fonts
@@ -66,7 +66,7 @@
       nixfmt
       smartmontools
     ]
-    ++ lib.optionals pkgs.stdenv.isLinux [
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
       # curl is installed from Homebrew on Darwin because nixpkgs curl has
       # TLS certificate issues on macOS (missing CA bundle fallback).
       curl

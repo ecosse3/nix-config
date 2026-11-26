@@ -21,10 +21,11 @@
     # ./zen-browser.nix # FIXME: broken on darwin (structuredAttrs + stdenv-darwin wrapper issue)
   ];
 
-  fonts.fontconfig.enable = pkgs.stdenv.isLinux;
+  fonts.fontconfig.enable = pkgs.stdenv.hostPlatform.isLinux;
 
   home.username = username;
-  home.homeDirectory = if pkgs.stdenv.isLinux then "/home/${username}" else "/Users/${username}";
+  home.homeDirectory =
+    if pkgs.stdenv.hostPlatform.isLinux then "/home/${username}" else "/Users/${username}";
 
   # ╭──────────────────────────────────────────────────────────╮
   # │ Packages                                                 │
@@ -110,7 +111,7 @@
       speedtest-cli
       timewarrior # time tracking
     ]
-    ++ lib.optionals pkgs.stdenv.isLinux [
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
       pinentry-gnome3
       cava
       firefox
@@ -119,7 +120,7 @@
       wdisplays
       wl-clipboard
     ]
-    ++ lib.optionals pkgs.stdenv.isDarwin [
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
       mas # Mac App Store CLI
       skhd # macOS hotkey daemon
       nowplaying-cli # macOS Now Playing info
@@ -157,7 +158,7 @@
       ServerAliveInterval = 60;
       ForwardAgent = "no";
     }
-    // lib.optionalAttrs pkgs.stdenv.isDarwin {
+    // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
       UseKeychain = "yes";
       AddKeysToAgent = "yes";
     };
@@ -290,8 +291,8 @@
     maxCacheTtl = 86400;
     enableZshIntegration = true;
 
-    pinentry.package = if pkgs.stdenv.isDarwin then null else pkgs.pinentry-gnome3;
-    extraConfig = lib.optionalString pkgs.stdenv.isDarwin ''
+    pinentry.package = if pkgs.stdenv.hostPlatform.isDarwin then null else pkgs.pinentry-gnome3;
+    extraConfig = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
       pinentry-program /opt/homebrew/bin/pinentry-mac
     '';
   };
