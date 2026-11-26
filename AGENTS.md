@@ -118,7 +118,41 @@ Rules:
   use devenv
   ```
 
-  then `direnv allow .`
+  then `direnv allow .` (make sure `.gitignore` patterns like `.env*` don't
+  swallow it — add `!.envrc`).
+
+#### Auto-install dependencies on shell entry
+
+Since devenv's own `npm.install`/`bun.install` need its runtimes, use a task
+that calls the PATH tool instead. It re-runs only when the watched files change:
+
+```nix
+tasks."deps:install" = {
+  exec = "bun install || echo 'bun install failed, run it manually' >&2";
+  execIfModified = [ "bun.lock" "package.json" ]; # pnpm-lock.yaml, yarn.lock, ...
+  wantedBy = [ "devenv:enterShell" ];
+  before = [ "devenv:enterShell" ]; # wantedBy alone doesn't order it
+};
+```
+
+`wantedBy` needs a recent devenv module input. If evaluation says the option
+doesn't exist, run `devenv update devenv` (bumps only the devenv modules, not
+nixpkgs — keeps service versions like Postgres stable).
+
+#### Opting a project into its own bun version (future)
+
+Only when a project really needs a bun different from the global one:
+
+```nix
+languages.javascript.bun = {
+  enable = true;          # does not require nodejs.enable
+  install.enable = false; # keep using the deps:install task above
+};
+# optional exact version: languages.javascript.bun.package = pkgs.bun;
+```
+
+The version then comes from that project's `devenv.lock` nixpkgs (move it with
+`devenv update nixpkgs`), and it shadows the global bun only inside that project.
 
 ### Dotfiles strategy
 
