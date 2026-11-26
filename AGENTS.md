@@ -93,6 +93,33 @@ nix-config/
 - **nix-homebrew**: macOS-only GUI apps and tools not in nixpkgs are declared in `hosts/macbook/default.nix` under `homebrew.brews`/`homebrew.casks`. This ensures they auto-install on a fresh machine while keeping brew as the package runtime.
 - **brew migration**: Most packages have been migrated from Homebrew to Nix. Remaining brew items are either macOS GUI apps, kernel extensions, or services better suited to brew.
 
+### Dev environments (devenv + fnm + bun)
+
+Runtime ownership — don't let these overlap:
+
+| Tool | Owner | Where |
+|------|-------|-------|
+| Node | **fnm** | `fnm env --use-on-cd` in `home/shared/shell/zsh.nix` |
+| bun | **nixpkgs** | `packages/languages/nodejs.nix` (both hosts) |
+| pnpm/yarn | corepack shims | same file, re-exec'd on PATH `node` |
+| devenv | services, rare languages, `node_modules/.bin` | per-project `devenv.nix` |
+
+Rules:
+
+- Never enable `languages.javascript.nodejs` in a `devenv.nix` — it shadows fnm.
+- Never enable `languages.javascript.bun` in a `devenv.nix` — it shadows Nix bun.
+- With both disabled, `lsp.enable` must be `false` too (it requires nodejs).
+- devenv is activated by **direnv**, not `devenv hook`. Every project needs an
+  `.envrc`:
+
+  ```sh
+  export DIRENV_WARN_TIMEOUT=20s
+  eval "$(devenv direnvrc)"
+  use devenv
+  ```
+
+  then `direnv allow .`
+
 ### Dotfiles strategy
 
 - **Home Manager owns**: zsh/oh-my-zsh/p10k, git (+delta, lfs), gpg, fzf,

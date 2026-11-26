@@ -84,9 +84,9 @@ in
           # Prevent zsh-autosuggestions + history-substring-search widget recursion
           export FUNCNEST=500
 
-          eval "$(fnm env)"
+          # fnm owns Node: switch per project on cd (.nvmrc / .node-version)
+          eval "$(fnm env --use-on-cd --shell zsh)"
           eval "$(rbenv init - zsh)"
-          eval "$(devenv hook zsh)"
 
           # pnpm
           export PNPM_HOME="${config.home.homeDirectory}/Library/pnpm"

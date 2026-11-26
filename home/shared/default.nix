@@ -277,8 +277,10 @@
   # ╭──────────────────────────────────────────────────────────╮
   # │ Session Variables                                         │
   # ╰──────────────────────────────────────────────────────────╯
+  # Bun itself comes from nixpkgs (packages/languages/nodejs.nix); this dir
+  # only holds `bun add -g` binaries, so keep it last to never shadow Nix.
   home.sessionVariables = {
-    PATH = "$HOME/.bun/bin:$PATH";
+    PATH = "$PATH:$HOME/.bun/bin";
   };
 
   # ╭──────────────────────────────────────────────────────────╮

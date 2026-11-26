@@ -23,6 +23,14 @@
 #   packageManager field in package.json.
 
 #
+# Runtime ownership:
+#   node       -> fnm in interactive shells (per-project .nvmrc/.node-version).
+#                 nodejs_24 here is only the fallback for GUI apps, scripts and
+#                 non-interactive shells.
+#   bun        -> this package, globally on both hosts. Do not enable
+#                 languages.javascript.bun in a devenv.nix: it shadows this.
+#   pnpm/yarn  -> corepack shims below, re-exec'd on whatever `node` is on PATH.
+#
 # fnm interop:
 #   nixpkgs' corepack shims (pnpm, yarn, ...) have a shebang hardcoded to
 #   the Nix Node store path, so they ignore `fnm use` and report the wrong
