@@ -124,7 +124,7 @@ in
             local text_scale="''${3:-0.01}"
             local color="''${4:-128, 128, 128, 30}"
 
-            watermark-cli "$image_path" "$watermark_text" -t "$text_scale" -c "$color" 100
+            watermark-cli "$image_path" "$watermark_text" -t "$text_scale" -c "$color" -q 100
           }
         '';
       in
