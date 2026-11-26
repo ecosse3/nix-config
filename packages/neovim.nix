@@ -10,43 +10,44 @@
 { pkgs, lib, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
-    # ── LSPs ──────────────────────────────────────────────────────────
-    bash-language-server
-    biome
-    clang-tools # provides clangd
-    deno
-    dockerfile-language-server
-    emmet-ls
-    graphql-language-service-cli
-    lua-language-server
-    nil # nix (alternative to nixd)
-    nixd # nix
-    typescript-language-server # ts_ls fallback
-    oxlint
-    prisma-language-server
-    pyright # python
-    sqls # SQL
-    tailwindcss-language-server
-    terraform-ls
-    tflint
-    vscode-langservers-extracted # html, css, json, eslint LSPs
-    vue-language-server
-    yaml-language-server
+  environment.systemPackages =
+    (with pkgs; [
+      # ── LSPs ──────────────────────────────────────────────────────────
+      bash-language-server
+      biome
+      clang-tools # provides clangd
+      deno
+      dockerfile-language-server
+      emmet-ls
+      graphql-language-service-cli
+      lua-language-server
+      nil # nix (alternative to nixd)
+      nixd # nix
+      typescript-language-server # ts_ls fallback
+      oxlint
+      prisma-language-server
+      pyright # python
+      sqls # SQL
+      tailwindcss-language-server
+      terraform-ls
+      tflint
+      vscode-langservers-extracted # html, css, json, eslint LSPs
+      vue-language-server
+      yaml-language-server
 
-    # ── Formatters ────────────────────────────────────────────────────
-    prettierd
-    stylua
+      # ── Formatters ────────────────────────────────────────────────────
+      prettierd
+      stylua
 
-    # ── Tree-sitter ───────────────────────────────────────────────────
-    tree-sitter
+      # ── Tree-sitter ───────────────────────────────────────────────────
+      tree-sitter
 
-    # ── DAP ───────────────────────────────────────────────────────────
-    vscode-js-debug
-  ]
-  # ── Build tools (treesitter parser compilation) ───────────────────
-  # Linux only: on Darwin, Apple clang (/usr/bin/cc) compiles parsers, and a
-  # nix gcc on PATH shadows it as `cc`, breaking linking against the macOS SDK
-  # (e.g. Rust builds fail with "library not found for -liconv").
-  ++ lib.optionals pkgs.stdenv.isLinux [ gcc ];
+      # ── DAP ───────────────────────────────────────────────────────────
+      vscode-js-debug
+    ])
+    # ── Build tools (treesitter parser compilation) ───────────────────
+    # Linux only: on Darwin, Apple clang (/usr/bin/cc) compiles parsers, and a
+    # nix gcc on PATH shadows it as `cc`, breaking linking against the macOS SDK
+    # (e.g. Rust builds fail with "library not found for -liconv").
+    ++ lib.optionals pkgs.stdenv.isLinux [ gcc ];
 }
