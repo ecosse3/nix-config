@@ -7,7 +7,7 @@
 # To add a new LSP: add the nixpkgs package here, then add the server
 # name to ensure_installed in your neovim config.
 
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -43,8 +43,10 @@
 
     # ── DAP ───────────────────────────────────────────────────────────
     vscode-js-debug
-
-    # ── Build tools (treesitter parser compilation) ───────────────────
-    gcc
-  ];
+  ]
+  # ── Build tools (treesitter parser compilation) ───────────────────
+  # Linux only: on Darwin, Apple clang (/usr/bin/cc) compiles parsers, and a
+  # nix gcc on PATH shadows it as `cc`, breaking linking against the macOS SDK
+  # (e.g. Rust builds fail with "library not found for -liconv").
+  ++ lib.optionals pkgs.stdenv.isLinux [ gcc ];
 }
