@@ -49,5 +49,5 @@
     # Linux only: on Darwin, Apple clang (/usr/bin/cc) compiles parsers, and a
     # nix gcc on PATH shadows it as `cc`, breaking linking against the macOS SDK
     # (e.g. Rust builds fail with "library not found for -liconv").
-    ++ lib.optionals pkgs.stdenv.isLinux [ gcc ];
+    ++ lib.optionals pkgs.stdenv.isLinux [ pkgs.gcc ];
 }
