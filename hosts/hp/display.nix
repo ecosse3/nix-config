@@ -40,7 +40,7 @@
   };
 
   # DMS Greeter (DankMaterialShell login/lock screen via greetd)
-  programs.dank-material-shell.greeter = {
+  programs.dms-greeter = {
     enable = true;
     compositor.name = "niri";
     configHome = "/home/ecosse";

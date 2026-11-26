@@ -39,7 +39,7 @@ inputs.nixpkgs.lib.nixosSystem {
   modules = [
     ../packages
 
-    inputs.dank-material-shell.nixosModules.greeter
+    inputs.dank-greeter.nixosModules.default
   ]
   ++ systemModules
   ++ [

@@ -48,6 +48,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Greeter moved out of DankMaterialShell (programs.dms-greeter)
+    dank-greeter = {
+      url = "github:duxlabs-dev/dux-greeter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     dms-plugin-registry = {
       url = "github:AvengeMedia/dms-plugin-registry";
       inputs.nixpkgs.follows = "nixpkgs";
