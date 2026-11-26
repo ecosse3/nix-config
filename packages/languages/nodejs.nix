@@ -22,15 +22,45 @@
 #   corepack ships with nodejs. Enable it if your projects use the
 #   packageManager field in package.json.
 
-{ pkgs, ... }:
+#
+# fnm interop:
+#   nixpkgs' corepack shims (pnpm, yarn, ...) have a shebang hardcoded to
+#   the Nix Node store path, so they ignore `fnm use` and report the wrong
+#   Node to engines checks (e.g. "current: v24.x" while fnm is on 26).
+#   `corepackShims` re-launches corepack's JS entrypoints with whatever
+#   `node` is first on PATH: fnm's in interactive shells, Nix's elsewhere.
+#   Node >= 25 no longer bundles corepack, so `corepack enable` per fnm
+#   version isn't an option.
 
+{ lib, pkgs, ... }:
+
+let
+  # Each entry is a node script; Node resolves the symlink to the real
+  # corepack dist, so relative requires keep working.
+  corepackEntrypoints = {
+    corepack = "${pkgs.nodejs_24}/bin/corepack";
+    pnpm = "${pkgs.corepack_24}/bin/pnpm";
+    pnpx = "${pkgs.corepack_24}/bin/pnpx";
+    yarn = "${pkgs.corepack_24}/bin/yarn";
+    yarnpkg = "${pkgs.corepack_24}/bin/yarnpkg";
+  };
+  corepackShims = pkgs.symlinkJoin {
+    name = "corepack-path-node";
+    paths = lib.mapAttrsToList (
+      bin: script:
+      pkgs.writeShellScriptBin bin ''
+        exec node ${script} "$@"
+      ''
+    ) corepackEntrypoints;
+  };
+in
 {
   environment.systemPackages = with pkgs; [
     bun
-    corepack_24 # enables yarn/pnpm auto-install from package.json
+    (lib.hiPrio corepackShims) # yarn/pnpm via packageManager, on PATH node
     deno
     fnm # Node version manager
-    nodejs_24 # current (24.x) -- default `node` on PATH
+    nodejs_24 # fallback `node` when fnm isn't initialised (GUI apps, scripts)
     pnpm # popular in Next.js ecosystem
   ];
 }
