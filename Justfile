@@ -71,7 +71,6 @@ bootstrap-config:
     @echo "  Also copy these if space on USB:"
     @echo "    Password store:    cp -a ~/.password-store /Volumes/USB/"
     @echo "    EcoVim:            cp -a ~/.config/nvim /Volumes/USB/"
-    @echo "    Kiro CLI (~60MB):  cp -a '~/Library/Application Support/kiro-cli/' /Volumes/USB/"
     @echo ""
     @echo "─── 2. Git clone (or copy from USB instead) ───"
     @echo "    git clone git@github.com:ecosse3/pass.git ~/.password-store"
@@ -85,8 +84,6 @@ bootstrap-config:
     @echo "─── 4. Bulk Projects via rsync/LAN (skip if cloned individually) ───"
     @echo "    After USB step, SSH keys work, so you can rsync over network:"
     @echo "    rsync -aP --progress user@old-mac:~/Projects/ ~/Projects/"
-    @echo '    rsync -aP "user@old-mac:~/Library/Application Support/kiro-cli/" \\'
-    @echo '      "~/Library/Application Support/kiro-cli/"'
     @echo ""
     @echo "─── Alternative: one-shot rsync (no USB) ───"
     @echo "  Enable Remote Login on old Mac (Settings > Sharing), then:"

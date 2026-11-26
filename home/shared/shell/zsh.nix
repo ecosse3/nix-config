@@ -75,42 +75,8 @@ in
       LANG = "en_US.UTF-8";
       LANGUAGE = "en_US.UTF-8";
     };
-    # Kiro CLI zprofile integration
-    profileExtra = lib.mkIf pkgs.stdenv.isDarwin ''
-      # Kiro CLI pre init
-      if [ -f "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zprofile.pre.zsh" ]; then
-        source "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zprofile.pre.zsh"
-      fi
-      # Kiro CLI post init
-      if [ -f "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zprofile.post.zsh" ]; then
-        source "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zprofile.post.zsh"
-      fi
-    '';
-
     initContent =
       let
-        # Kiro CLI requires its pre/post blocks at the absolute top/bottom of
-        # .zshrc — before/after all other generated content. Priorities in the
-        # HM zsh template: 500 = early init (before 510 typeset), 1000 = default,
-        # 1200 = syntax highlighting, 1500 = last to run.
-        kiroPreBlock = ''
-          # Kiro CLI pre block. Keep at the top of this file.
-          [[ -f "''${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "''${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
-        '';
-
-        kiroPostBlock = ''
-          # Kiro CLI post block. Keep at the bottom of this file.
-          [[ -f "''${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "''${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
-        '';
-
-        # CMD keybindings only work on macOS
-        darwin = lib.optionalString pkgs.stdenv.isDarwin ''
-          # Kiro CLI pre init
-          if [ -f "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]; then
-            source "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
-          fi
-        '';
-
         main = ''
             # Raise file descriptor limit (macOS default 256 breaks nix fetchTree/direnv)
           ulimit -n 10240
@@ -132,11 +98,6 @@ in
           # Figxit
           if [ -x "/Applications/Figxit.app/Contents/MacOS/figxit-engine" ]; then
             eval "$('/Applications/Figxit.app/Contents/MacOS/figxit-engine' init zsh)"
-          fi
-
-          # Kiro CLI post init
-          if [ -f "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]; then
-            source "${config.home.homeDirectory}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
           fi
 
           # Open file(s) in running Neovide instance, or launch a new one
@@ -167,14 +128,7 @@ in
           }
         '';
       in
-      lib.mkMerge [
-        # Absolute top of .zshrc (before HM's own 510/520 init)
-        (lib.mkIf pkgs.stdenv.isDarwin (lib.mkOrder 500 kiroPreBlock))
-        # General configuration (replaces initExtra)
-        (lib.mkOrder 1000 (darwin + main))
-        # Absolute bottom of .zshrc (after syntax highlighting at 1200)
-        (lib.mkIf pkgs.stdenv.isDarwin (lib.mkOrder 1500 kiroPostBlock))
-      ];
+      main;
     shellAliases = {
       # Navigation
       l = "eza -lA --icons=auto --git";
