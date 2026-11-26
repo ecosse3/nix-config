@@ -155,6 +155,25 @@ info:
 outputs:
     nix flake show
 
+# ─── Nix Daemon ───────────────────────────────────────────────────────
+
+# Upgrade Determinate Nix daemon (macOS only)
+upgrade-nix:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [[ "$(uname -s)" != "Darwin" ]]; then
+        echo "error: 'just upgrade-nix' is macOS-only (Determinate Nix daemon)." >&2
+        echo "       On NixOS, Nix comes from the flake: 'just update && just switch'." >&2
+        exit 1
+    fi
+    if ! command -v determinate-nixd >/dev/null 2>&1; then
+        echo "error: determinate-nixd not found — is Determinate Nix installed?" >&2
+        exit 1
+    fi
+    echo "Before: $(nix --version)"
+    sudo determinate-nixd upgrade
+    echo "After:  $(nix --version)"
+
 # ─── Maintenance ──────────────────────────────────────────────────────
 
 # Garbage collect old generations

@@ -116,6 +116,7 @@ just fmt         # Format all nix files with nixfmt
 just gc          # Garbage collect old generations
 just store-size  # Disk usage of /nix/store
 just optimise    # Deduplicate nix store
+just upgrade-nix # Upgrade Determinate Nix daemon (macOS)
 just bootstrap   # Print new MacBook bootstrap instructions
 just bootstrap-config  # Post-clone setup reminders
 ```
