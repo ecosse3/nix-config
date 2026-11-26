@@ -205,8 +205,8 @@
     # folder in the DMG; nixpkgs `sourceRoot = "Obsidian.app"` no longer
     # matches. Backport of nixpkgs commit c594c220 (merged on master,
     # not yet on nixpkgs-unstable). Remove once the fix hits unstable.
-    (final: prev: {
-      obsidian = prev.obsidian.overrideAttrs (old: {
+    (_final: prev: {
+      obsidian = prev.obsidian.overrideAttrs (_: {
         sourceRoot = null;
         installPhase = ''
           runHook preInstall

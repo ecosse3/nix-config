@@ -72,13 +72,7 @@
   };
 
   outputs =
-    inputs@{
-      self,
-      nixpkgs,
-      home-manager,
-      nix-darwin,
-      ...
-    }:
+    inputs:
     let
       mkHost = import ./lib/mkHost.nix { inherit inputs; };
       mkDarwinHost = import ./lib/mkDarwinHost.nix { inherit inputs; };

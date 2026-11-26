@@ -20,7 +20,7 @@
   # Bump omniwm ahead of nix-dotfiles/nixpkgs (which still pin 0.6.4) to the
   # latest upstream release. Remove this overlay once nix-dotfiles catches up.
   nixpkgs.overlays = [
-    (final: prev: {
+    (_final: prev: {
       # To bump: check the latest tag at
       # https://github.com/BarutSRB/OmniWM/releases, then recompute the hash:
       #   curl -sL -o /tmp/omniwm.zip \

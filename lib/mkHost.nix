@@ -26,9 +26,6 @@
   homeModules ? [ ],
 }:
 
-let
-  pkgs = inputs.nixpkgs.legacyPackages.${system};
-in
 inputs.nixpkgs.lib.nixosSystem {
   inherit system;
 
